@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="lab1-Part1-Team13.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    <title>Lab 1: Part 1</title>
+</head>
+
+<body>
+    <h1 class="title">Electronics-Center</h1>
+
+    <div class="dropdowns">
+        <div class="typeDropdown">
+            <label for="type">Type:</label>
+
+            <select name="type" id="type">
+                <option value="0">Laptop</option>
+                <option value="1">Notebook</option>
+                <option value="2">Tablet</option>
+                <option value="3">Cell Phone</option>
+            </select>
+        </div>
+        <div class="actionDropdown">
+            <label for="action">Action:</label>
+
+            <select name="action" id="type">
+                <option value="0">Archive</option>
+                <option value="1">Edit</option>
+                <option value="2">Delete</option>
+                <option value="3">Collection</option>
+            </select>
+        </div>
+    </div>
+
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Show Image</th>
+            <th>Image</th>
+            <th>Show Details</th>
+            <th>Name</th>
+            <th>Company</th>
+            <th>Year</th>
+            <th>Type</th>
+            <th>Actions</th>
+        </tr>
+        <tr>
+            <td>
+                <div class="form-check">
+                    <input class="form-check-input imageRadio show" type="radio" name="show1" id="show-img1" checked>
+                    <label class="form-check-label" for="show1">
+                        Show
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input imageRadio hide" type="radio" name="show1" id="hide-img1">
+                    <label class="form-check-label" for="hide1">
+                        Hide
+                    </label>
+                </div>
+            </td>
+            <td><img src="macbook.jpg" id="img1" alt="Macbook Pro"></td>
+            <td>
+                <div class="form-check">
+                    <input class="form-check-input detailsRadio show" type="radio" name="show-row1Details" id="show-row1Details" checked>
+                    <label class="form-check-label" for="show1">
+                        Show
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input detailsRadio hide" type="radio" name="show-row1Details" id="hide-row1Details">
+                    <label class="form-check-label" for="hide1">
+                        Hide
+                    </label>
+                </div>
+            </td>
+            <td><span class="row1Details">Macbook Pro</span></td>
+            <td><span class="row1Details">Apple</span></td>
+            <td><span class="row1Details">2020</span></td>
+            <td><span class="row1Details">Laptop</span></td>
+            <td>
+                <button type="button" class="btn btn-outline-primary">Archive</button>
+                <button type="button" class="btn btn-outline-primary">Edit</button>
+                <button type="button" class="btn btn-outline-primary">Collection</button>
+                <button type="button" class="btn btn-outline-danger">Delete</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="form-check">
+                    <input class="form-check-input imageRadio show" type="radio" name="show2" id="show-img2" checked>
+                    <label class="form-check-label" for="show2">
+                        Show
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input imageRadio hide" type="radio" name="show2" id="hide-img2">
+                    <label class="form-check-label" for="hide2">
+                        Hide
+                    </label>
+                </div>
+            </td>
+            <td><img src="ipad-air.jpg" id="img2" alt="iPad Air 4"></td>
+            <td>
+                <div class="form-check">
+                    <input class="form-check-input detailsRadio show" type="radio" name="show-row2Details" id="show-row2Details" checked>
+                    <label class="form-check-label" for="show1">
+                        Show
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input detailsRadio hide" type="radio" name="show-row2Details" id="hide-row2Details">
+                    <label class="form-check-label" for="hide1">
+                        Hide
+                    </label>
+                </div>
+            </td>
+            <td><span class="row2Details">iPad Air 4</span></td>
+            <td><span class="row2Details">Apple</span></td>
+            <td><span class="row2Details">2020</span></td>
+            <td><span class="row2Details">Tablet</span></td>
+            <td>
+                <button type="button" class="btn btn-outline-primary">Archive</button>
+                <button type="button" class="btn btn-outline-primary">Edit</button>
+                <button type="button" class="btn btn-outline-primary">Collection</button>
+                <button type="button" class="btn btn-outline-danger">Delete</button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="form-check">
+                    <input class="form-check-input imageRadio show" type="radio" name="show3" id="show-img3" checked>
+                    <label class="form-check-label" for="show3">
+                        Show
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input imageRadio hide" type="radio" name="show3" id="hide-img3">
+                    <label class="form-check-label" for="hide3">
+                        Hide
+                    </label>
+                </div>
+            </td>
+            <td><img src="iphone12.jpeg"  id="img3" alt="iPhone 12"></td>
+            <td>
+                <div class="form-check">
+                    <input class="form-check-input detailsRadio show" type="radio" name="show-row3Details" id="show-row3Details" checked>
+                    <label class="form-check-label" for="show1">
+                        Show
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input detailsRadio hide" type="radio" name="show-row3Details" id="hide-row3Details">
+                    <label class="form-check-label" for="hide1">
+                        Hide
+                    </label>
+                </div>
+            </td>
+            <td><span class="row3Details">iPhone 12</span></td>
+            <td><span class="row3Details">Apple</span></td>
+            <td><span class="row3Details">2020</span></td>
+            <td><span class="row3Details">Cellphone</span></td>
+            <td>
+                <button type="button" class="btn btn-outline-primary">Archive</button>
+                <button type="button" class="btn btn-outline-primary">Edit</button>
+                <button type="button" class="btn btn-outline-primary">Collection</button>
+                <button type="button" class="btn btn-outline-danger">Delete</button>
+            </td>
+        </tr>
+
+    </table>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+
+    <script>
+        $(function () {
+            let showButtons = document.querySelectorAll('.imageRadio');
+            let showButtonsDetails = document.querySelectorAll('.detailsRadio');
+
+            for (var i = 0; i < showButtons.length; i++) {
+                showButtons[i].addEventListener("change", function(event) {
+                    console.log(event.target.id);
+                    let id = event.target.id.split("-");
+                    $(`#${id[1]}`).fadeToggle();
+                })
+            }
+
+            for (var i = 0; i < showButtonsDetails.length; i++) {
+                showButtonsDetails[i].addEventListener("change", function(event) {
+                    console.log(event.target.id);
+                    let id = event.target.id.split("-");
+                    $(`.${id[1]}`).fadeToggle();
+                })
+            }
+            console.log(showButtons);
+            console.log(hideButtons);
+        })
+    </script>
+</body>
+
+</html>

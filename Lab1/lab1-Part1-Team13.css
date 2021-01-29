@@ -1,0 +1,60 @@
+html * {
+  font-family: "Nanum Gothic", sans-serif !important;
+}
+
+.dropdowns {
+    display: flex;
+    flex-direction: row;
+}
+
+.dropdowns .actionDropdown {
+    flex: 1;
+    text-align: center;
+}
+
+.dropdowns .typeDropdown {
+   flex: 1;
+   text-align: center;
+  }
+
+h1.title {
+  text-align: center;
+  margin: 30px 0;
+  font-weight: bold;
+}
+
+td {
+  max-width: 250px;
+}
+
+td img {
+  width: 100%;
+}
+
+.table {
+    width: 70%!important;
+}
+
+.btn {
+    width: 40%!important;
+    margin: 5px;
+    font-size: 12px!important;
+}
+
+table {
+  border: 1px solid black;
+  margin: 50px auto;
+}
+
+table th {
+    padding: 20px;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  text-align: center;
+}
+
