@@ -2,6 +2,23 @@ html * {
   font-family: "Nanum Gothic", sans-serif !important;
 }
 
+div.myInfo {
+  padding: 20px;
+  position: absolute;
+  font-size: 0.8rem;
+  top: 10px;
+  left: 10px;
+  width: 240px;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: -4px 4px 20px 1px rgba(0,0,0,0.4);
+  background-color: #f0ece3;
+}
+
+div.myInfo .title {
+  text-align: center;
+}
+
 .dropdowns {
     display: flex;
     flex-direction: row;
