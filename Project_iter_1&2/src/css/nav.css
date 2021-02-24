@@ -1,0 +1,49 @@
+*:not(i) {
+  font-family: "Open Sans Condensed", sans-serif!important;
+}
+
+li {
+  white-space: nowrap;
+}
+
+a {
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+a:hover {
+  color: white;
+}
+
+#logo {
+  width: 120px;
+  height: 60px;
+}
+
+.badge {
+  padding-left: 9px;
+  padding-right: 9px;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px;
+}
+
+.label-warning[href],
+.badge-warning[href] {
+  background-color: #c67605;
+}
+
+#lblCartCount {
+  font-size: 12px;
+  background: #ff0000;
+  color: #fff;
+  padding: 0 5px;
+  vertical-align: top;
+  margin-left: -10px;
+}
+
+@media only screen and (max-width: 1000px) {
+  a {
+    text-align: center !important;
+  }
+}
