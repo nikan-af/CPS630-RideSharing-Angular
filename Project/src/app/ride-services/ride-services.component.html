@@ -1,0 +1,56 @@
+<h6>Car Models</h6>
+<div class="cars">
+    <div *ngFor="let car of cars; let i = index">
+        <!-- Limits each row to 3 products only using mod -->
+        <div class="row" *ngIf="i % 3 === 0">
+            <div class="col-md-4" *ngIf="i < cars.length" (click)="this.openProductDialog(cars[i])">
+                <mat-card appMaterialElevation class="example-card">
+                    <div class="card-image"><img raisedElevation="16" mat-card-image src={{cars[i].imageURL}}
+                            alt={{cars[i].productName}}></div>
+                    <mat-card-content class="mat-content">
+                        <p>
+                            <p>
+                                Car Model: {{cars[i].CarModel}}
+                            </p>
+                            <p class="price">
+                                Price: CAD {{cars[i].CarPrice}}
+                            </p>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div class="col-md-4" *ngIf="i + 1 < cars.length" (click)="this.openProductDialog(cars[i+1])">
+                <mat-card appMaterialElevation class="example-card">
+                    <div class="card-image"><img raisedElevation="16" mat-card-image src={{cars[i+1].imageURL}}
+                            alt={{cars[i+1].productName}}></div>
+                    <mat-card-content class="mat-content">
+                        <p>
+                            Car Model: {{cars[i+1].CarModel}}
+                        </p>
+                        <p class="price">
+                            Price: CAD {{cars[i+1].CarPrice}}
+                        </p>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+            <div class="col-md-4" *ngIf="i + 2 < cars.length" (click)="this.openProductDialog(cars[i+2])">
+                <mat-card appMaterialElevation class="example-card">
+                    <div class="card-image"><img raisedElevation="16" mat-card-image src={{cars[i+2].imageURL}}
+                            alt={{cars[i+2].productName}} ></div>
+                    <mat-card-content class="mat-content">
+                        <p>
+                            Car Model: {{cars[i+2].CarModel}}
+                        </p>
+                        <p class="price">
+                            Price: CAD {{cars[i+2].CarPrice}}
+                        </p>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="backdrop" *ngIf="this.loading">
+    <div class="spinner"></div>
+    <div class="logo">loading...</div>
+</div>

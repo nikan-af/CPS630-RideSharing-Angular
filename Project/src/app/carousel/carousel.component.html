@@ -1,0 +1,12 @@
+<ngb-carousel interval="8000">
+  <ng-template ngbSlide>
+    <!-- When clicking on the image it redirects to the ride services component -->
+    <a [routerLink]="['ride-services']" routerLinkActive="active"><img src="../../assets/images/slideshow1.jpg"
+        alt="carousel1"></a>
+  </ng-template>
+  <ng-template ngbSlide>
+    <!-- When clicking on the image it redirects to the delivery services component -->
+    <a [routerLink]="['delivery-services']" routerLinkActive="active"><img src="../../assets/images/slideshow2.jpg"
+        alt="carousel2"></a>
+  </ng-template>
+</ngb-carousel>

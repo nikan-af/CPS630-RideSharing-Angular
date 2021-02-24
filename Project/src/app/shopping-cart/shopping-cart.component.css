@@ -1,0 +1,189 @@
+.container-fluid {
+  width: 400px;
+  padding: 30px;
+}
+
+.shopping-cart-item {
+  margin: 20px 0;
+  cursor: pointer;
+}
+
+.mat-card {
+  padding: 0px !important;
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 1.2rem;
+}
+
+.mat-card-image:first-child {
+  margin-top: 0px !important;
+}
+
+.mat-card-image {
+  margin: 0px !important;
+}
+
+.shopping-cart-item img {
+  width: 100%;
+  height: 150px;
+}
+
+.card-image {
+  height: 100%;
+}
+
+.card-image img {
+  height: 100%;
+}
+
+.size-and-quantity {
+  width: 100%;
+  /* margin-left: 2px; */
+}
+
+/* .size-and-quantity .col-md-6 {
+  padding: 0px !important;
+} */
+
+.size-and-quantity .col-md-6 select {
+  width: 100%;
+  padding: 0;
+  height: auto;
+}
+
+.action-buttons {
+  text-align: center;
+}
+
+.action-buttons button {
+  margin: 0 5px;
+}
+
+.delete-icon {
+  position: absolute;
+  z-index: 9;
+  color: #404041;
+  left: 1.5px;
+  top: 1.5px;
+  font-family: "Material Icons";
+  font-size: 1.3rem;
+}
+
+.delete-icon:hover {
+  color: #f05454;
+}
+
+.no-items {
+  text-align: center;
+}
+
+.no-items h3 {
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 2.5rem;
+  padding-top: 40vh;
+  color: #686870d0;
+}
+
+.total-price {
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 1.2rem;
+  padding: 15px;
+}
+
+.total-price .price {
+  float: right;
+}
+
+.total-price .title {
+  width: 260px;
+  float: left;
+}
+
+.total-price .sub-title {
+  font-size: 1rem;
+}
+
+@media only screen and (max-width: 1000px) and (min-width: 600px) {
+  /* .container-fluid {
+    width: 180px;
+    padding: 30px;
+  }
+
+  .shopping-cart-item img {
+    width: 100%;
+    height: 150px;
+  }
+  
+  .col-md-7 {
+    padding: 20px;
+  } */
+}
+
+@media only screen and (max-width: 770px) {
+  .container-fluid {
+    width: 250px;
+    padding: 30px;
+  }
+
+  .action-buttons {
+    width: 200px;
+  }
+
+  .action-buttons .cancel {
+    width: 50px !important;
+    font-size: 0.6rem !important;
+  }
+
+  .action-buttons .checkout {
+    width: 80px !important;
+    font-size: 0.6rem !important;
+  }
+
+  .shopping-cart-item img {
+    width: 100%;
+    height: 230px;
+  }
+
+  .size-and-quantity .col-md-6 {
+    padding: 0 20px !important;
+  }
+
+  .col-md-7 {
+    padding: 20px;
+  }
+
+  .sub-title {
+    font-size: 0.8rem !important;
+  }
+
+  .total-price {
+    padding: 20px;
+  }
+
+  .total-price .title {
+    width: 80px !important;
+  }
+
+  .title {
+    font-size: 1rem !important;
+  }
+
+  .price {
+    font-size: 1rem !important;
+  }
+
+  .price.sub-title {
+    font-size: 0.8rem !important;
+  }
+
+  .title.sub-title {
+    font-size: 0.8rem !important;
+  }
+
+  .no-items h3 {
+    font-family: "Open Sans Condensed", sans-serif;
+    font-size: 2rem;
+    line-height: 2rem;
+    padding-top: 40vh;
+    color: #686870d0;
+  }
+}

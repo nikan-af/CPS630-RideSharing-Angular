@@ -1,0 +1,178 @@
+<span class="material-icons go-back" *ngIf="!this.purchaseComplete" (click)="this.goBack.emit()">arrow_back_ios</span>
+<div class="payment_information" *ngIf="!this.purchaseComplete">
+    <p class="title">PAYMENT INFORMATION:</p>
+
+    <form [formGroup]="this.checkout_validations" class="contact-form" (ngSubmit)="this.submit()">
+        <mat-form-field appearance="outline" class="field">
+            <mat-label>Credit Card Number</mat-label>
+            <input matInput placeholder="Ex. 4542 9931 9292 2293" formControlName="credit_card_number">
+            <!-- Shows the error messages if the value entered is not valid -->
+            <mat-error *ngFor="let validation of errorMessages.credit_card_number">
+                <p
+                    *ngIf="this.checkout_validations.get('credit_card_number').hasError(validation.type) && (this.checkout_validations.get('credit_card_number').dirty || this.checkout_validations.get('credit_card_number').touced)">
+                    {{validation.message}}</p>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="field">
+            <mat-label>Card Holder</mat-label>
+            <input matInput placeholder="Ex. Tom Smith" formControlName="credit_card_holder">
+            <!-- Shows the error messages if the value entered is not valid -->
+            <mat-error *ngFor="let validation of errorMessages.credit_card_holder">
+                <p
+                    *ngIf="this.checkout_validations.get('credit_card_holder').hasError(validation.type) && (this.checkout_validations.get('credit_card_holder').dirty || this.checkout_validations.get('credit_card_holder').touced)">
+                    {{validation.message}}</p>
+            </mat-error>
+        </mat-form-field>
+        <p class="expiry">Expiry Date</p>
+        <mat-form-field appearance="outline" class="field expiry_month">
+            <mat-select formControlName="expiry_month" [(ngModel)]="this.expiry_month" [value]='1'>
+                <mat-option *ngFor="let month of this.months" [value]="month">{{month < 10 ? '0' + month : month}}
+                </mat-option>
+            </mat-select>
+            <!-- Shows the error messages if the value entered is not valid -->
+            <mat-error *ngFor="let validation of errorMessages.expiry_month">
+                <p
+                    *ngIf="this.checkout_validations.get('expiry_month').hasError(validation.type) && (this.checkout_validations.get('expiry_month').dirty || this.checkout_validations.get('expiry_month').touced)">
+                    {{validation.message}}</p>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="field expiry_year">
+            <mat-select formControlName="expiry_year" [(ngModel)]="this.expiry_year" [value]='20'>
+                <mat-option *ngFor="let year of this.years" [value]="year">{{year < 10 ? '0' + year : year}}
+                </mat-option>
+            </mat-select>
+            <!-- Shows the error messages if the value entered is not valid -->
+            <mat-error *ngFor="let validation of errorMessages.expiry_year">
+                <p
+                    *ngIf="this.checkout_validations.get('expiry_year').hasError(validation.type) && (this.checkout_validations.get('expiry_year').dirty || this.checkout_validations.get('expiry_year').touced)">
+                    {{validation.message}}</p>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="field cvv">
+            <mat-label>CVV</mat-label>
+            <input matInput placeholder="Ex. 888" formControlName="credit_card_cvv">
+            <!-- Shows the error messages if the value entered is not valid -->
+            <mat-error *ngFor="let validation of errorMessages.credit_card_cvv">
+                <p
+                    *ngIf="this.checkout_validations.get('credit_card_cvv').hasError(validation.type) && (this.checkout_validations.get('credit_card_cvv').dirty || this.checkout_validations.get('credit_card_cvv').touced)">
+                    {{validation.message}}</p>
+            </mat-error>
+        </mat-form-field>
+        <hr>
+        <p class="title">SHIPPING INFORMATION:</p>
+        <mat-form-field appearance="outline" class="field half">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="credit_card_first_name">
+            <!-- Shows the error messages if the value entered is not valid -->
+            <mat-error *ngFor="let validation of errorMessages.credit_card_first_name">
+                <p
+                    *ngIf="this.checkout_validations.get('credit_card_first_name').hasError(validation.type) && (this.checkout_validations.get('credit_card_first_name').dirty || this.checkout_validations.get('credit_card_first_name').touced)">
+                    {{validation.message}}</p>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="field half">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="credit_card_last_name">
+            <!-- Shows the error messages if the value entered is not valid -->
+            <mat-error *ngFor="let validation of errorMessages.credit_card_last_name">
+                <p
+                    *ngIf="this.checkout_validations.get('credit_card_last_name').hasError(validation.type) && (this.checkout_validations.get('credit_card_last_name').dirty || this.checkout_validations.get('credit_card_last_name').touced)">
+                    {{validation.message}}</p>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="field">
+            <mat-label class="input-headline">Address Line 1</mat-label>
+            <input matInput id="credit_card_address_line_1" formControlName="credit_card_address_line_1" type="text"
+                [matAutocomplete]="auto" formControlName="credit_card_address_line_1">
+            <!-- Shows the error messages if the value entered is not valid -->
+            <mat-error *ngFor="let validation of errorMessages.credit_card_address_line_1">
+                <p class="errorMessage"
+                    *ngIf="this.checkout_validations.get('credit_card_address_line_1').hasError(validation.type) && (this.checkout_validations.get('credit_card_address_line_1').dirty || this.checkout_validations.get('credit_card_address_line_1').touced)">
+                    {{validation.message}}</p>
+            </mat-error>
+        </mat-form-field>
+        <mat-autocomplete #auto="matAutocomplete">
+            <!-- Shows the error messages if the value entered is not valid -->
+            <mat-option *ngFor="let option of searchOptions | async" [value]="option.longAddress"
+                (onSelectionChange)="optionSelectionChange(option, $event)" [matTooltip]="option.longAddress"
+                matTooltipShowDelay>
+                {{option.longAddress}}
+            </mat-option>
+        </mat-autocomplete>
+        <mat-form-field appearance="outline" class="field">
+            <mat-label>Address Line 2</mat-label>
+            <input matInput placeholder="Ex. Unit 1001 (OPTIONAL)" formControlName="credit_card_address_line_2">
+            <!-- Shows the error messages if the value entered is not valid -->
+            <mat-error *ngFor="let validation of errorMessages.credit_card_address_line_2">
+                <p
+                    *ngIf="this.checkout_validations.get('credit_card_address_line_2').hasError(validation.type) && (this.checkout_validations.get('credit_card_address_line_2').dirty || this.checkout_validations.get('credit_card_address_line_2').touced)">
+                    {{validation.message}}</p>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="field half">
+            <mat-label>Postal Code</mat-label>
+            <input matInput formControlName="postal_code" name="postal_code" [(ngModel)]="this.postcode">
+            <!-- Shows the error messages if the value entered is not valid -->
+            <mat-error *ngFor="let validation of errorMessages.postal_code">
+                <p
+                    *ngIf="this.checkout_validations.get('postal_code').hasError(validation.type) && (this.checkout_validations.get('postal_code').dirty || this.checkout_validations.get('postal_code').touced)">
+                    {{validation.message}}</p>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="field half">
+            <mat-label>City</mat-label>
+            <input matInput formControlName="city" name="city" [(ngModel)]="this.city">
+            <!-- Shows the error messages if the value entered is not valid -->
+            <mat-error *ngFor="let validation of errorMessages.city">
+                <p
+                    *ngIf="this.checkout_validations.get('city').hasError(validation.type) && (this.checkout_validations.get('city').dirty || this.checkout_validations.get('city').touced)">
+                    {{validation.message}}</p>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="field half">
+            <mat-label>State/Province</mat-label>
+            <mat-select *ngIf="this.canada" formControlName="province" [(ngModel)]="this.state">
+                <mat-option *ngFor="let province of this.canadaProvinces" [value]="province">{{province}}
+                </mat-option>
+            </mat-select>
+            <mat-select *ngIf="!this.canada" formControlName="province" [(ngModel)]="this.state">
+                <mat-option *ngFor="let tmpState of this.usStates" [value]="tmpState">{{tmpState}}
+                </mat-option>
+            </mat-select>
+            <!-- Shows the error messages if the value entered is not valid -->
+            <mat-error *ngFor="let validation of errorMessages.province">
+                <p
+                    *ngIf="this.checkout_validations.get('province').hasError(validation.type) && (this.checkout_validations.get('province').dirty || this.checkout_validations.get('province').touced)">
+                    {{validation.message}}</p>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="field half">
+            <mat-label>Country</mat-label>
+            <mat-select formControlName="country" name="country" [(ngModel)]="this.country">
+                <mat-option *ngFor="let tmpCountry of this.countries" [value]="tmpCountry">{{tmpCountry.toUpperCase()}}
+                </mat-option>
+            </mat-select>
+            <!-- Shows the error messages if the value entered is not valid -->
+            <mat-error *ngFor="let validation of errorMessages.country">
+                <p
+                    *ngIf="this.checkout_validations.get('country').hasError(validation.type) && (this.checkout_validations.get('country').dirty || this.checkout_validations.get('country').touced)">
+                    {{validation.message}}</p>
+            </mat-error>
+        </mat-form-field>
+
+    </form>
+    <div class="action-buttons">
+        <button mat-raised-button *ngIf="!this.loggedIn" class="checkout" (click)="this.openLogin()">LOGIN</button>
+        <button mat-raised-button *ngIf="!this.loggedIn" color="primary" class="checkout" (click)="submit()">CONTINUE AS
+            GUEST</button>
+        <button mat-raised-button *ngIf="this.loggedIn" color="primary" class="checkout" (click)="submit()">COMPLETE
+            PURCHASE</button>
+    </div>
+</div>
+<div class="purchaseComplete" *ngIf="this.purchaseComplete && !this.messageShown">
+    <div class="container-fluid email-conformation-container">
+        <mat-icon class="email-conformation-icon">check_circle_outline</mat-icon>
+        <p>We have received your order!</p>
+        <p class="title">You'll shortly receive an email confirmation.</p>
+    </div>
+</div>

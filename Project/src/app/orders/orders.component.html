@@ -1,0 +1,30 @@
+<div class="container-fluid" *ngIf="!this.loading && !this.noOrderHistory">
+    <h1 class="title">ORDER HISTORY</h1>
+    <div class="order" *ngFor="let order of reverseList | keyvalue">
+        <h3>{{order.key}}</h3>
+        <div class="item" *ngFor="let item of order.value">
+            <div class="row-item">
+                <div class="image">
+                    <img [src]="item.imageURL" alt="item.productName">
+                </div>
+                <div class="description">
+                    <div class="details">
+                        <p>{{item.productName}}</p>
+                        <p>CAD {{item.price}}</p>
+                        <p>Qty {{item.qty}}</p>
+                        <p>Status DELIVERD</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="this.noOrderHistory" class="no-history">
+    <h1>NO ORDER HISTORY</h1>
+</div>
+
+<div class="backdrop" *ngIf="this.loading">
+    <div class="spinner"></div>
+    <div class="logo">loading...</div>
+</div>
