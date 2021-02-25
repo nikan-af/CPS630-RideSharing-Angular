@@ -1,0 +1,21 @@
+CREATE TABLE `cps630`.`User` (
+  `UserId` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(255) NULL,
+  `Tel` NVARCHAR(100) NULL,
+  `Email` NVARCHAR(255) NULL,
+  `Address` NVARCHAR(255) NULL,
+  `CityCode` NVARCHAR(10) NULL,
+  `Password` NVARCHAR(50) NULL,
+  `Balance` DECIMAL(6,2) DEFAULT 0 NULL,
+  PRIMARY KEY (`UserId`));
+
+CREATE TABLE `cps630`.`Car` (
+  `CarId` INT NOT NULL AUTO_INCREMENT,
+  `CarModel` VARCHAR(255) NULL,
+  `CarCode` NVARCHAR(100) NULL,
+  `AvailabilityCode` NVARCHAR(100) NULL,
+  `CarColour` VARCHAR(255) NULL,
+  `ImageURL` NVARCHAR(255) NULL,
+  `CarPrice` DECIMAL(6, 2) NULL,
+  PRIMARY KEY (`CarId`));
+

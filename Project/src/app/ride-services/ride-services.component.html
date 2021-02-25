@@ -5,7 +5,7 @@
         <div class="row" *ngIf="i % 3 === 0">
             <div class="col-md-4" *ngIf="i < cars.length" (click)="this.openProductDialog(cars[i])">
                 <mat-card appMaterialElevation class="example-card">
-                    <div class="card-image"><img raisedElevation="16" mat-card-image src={{cars[i].imageURL}}
+                    <div class="card-image"><img raisedElevation="16" mat-card-image src={{cars[i].ImageURL}}
                             alt={{cars[i].productName}}></div>
                     <mat-card-content class="mat-content">
                         <p>
@@ -20,7 +20,7 @@
             </div>
             <div class="col-md-4" *ngIf="i + 1 < cars.length" (click)="this.openProductDialog(cars[i+1])">
                 <mat-card appMaterialElevation class="example-card">
-                    <div class="card-image"><img raisedElevation="16" mat-card-image src={{cars[i+1].imageURL}}
+                    <div class="card-image"><img raisedElevation="16" mat-card-image src={{cars[i+1].ImageURL}}
                             alt={{cars[i+1].productName}}></div>
                     <mat-card-content class="mat-content">
                         <p>
@@ -34,7 +34,7 @@
             </div>
             <div class="col-md-4" *ngIf="i + 2 < cars.length" (click)="this.openProductDialog(cars[i+2])">
                 <mat-card appMaterialElevation class="example-card">
-                    <div class="card-image"><img raisedElevation="16" mat-card-image src={{cars[i+2].imageURL}}
+                    <div class="card-image"><img raisedElevation="16" mat-card-image src={{cars[i+2].ImageURL}}
                             alt={{cars[i+2].productName}} ></div>
                     <mat-card-content class="mat-content">
                         <p>
