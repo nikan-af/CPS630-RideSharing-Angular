@@ -19,8 +19,6 @@ After running XAMPP make sure you change the PHP port number to 8080.
 
 Then place the api directory located in the project directory inside the htdocs folder in XAMPP.
 
-To get MYSQL working you need to download MySQL Workbench and then connect to the database instance I created.
-
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
