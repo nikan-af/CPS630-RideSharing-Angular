@@ -1,4 +1,4 @@
-# Cps530Project
+# CPS630 Project
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
 
@@ -18,8 +18,6 @@ Here is a link to a tutorial: https://www.youtube.com/watch?v=3B-CnezwEeo
 After running XAMPP make sure you change the PHP port number to 8080.
 
 Then place the api directory located in the project directory inside the htdocs folder in XAMPP.
-
-To get MYSQL working you need to download MySQL Workbench and then connect to the database instance I created.
 
 ## Development server
 
