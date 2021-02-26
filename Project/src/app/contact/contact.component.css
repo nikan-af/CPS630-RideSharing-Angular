@@ -1,121 +1,100 @@
-.content {
-  min-height: 60%;
-  font-family: 'Asap Condensed', sans-serif;
-}
-
-.container-fluid {
-padding: 0px;
-margin: 0px;
-}
-
-.col-sm-7.form-wrapper {
-padding-top: 5vh;
+* {
+  font-family: "Asap Condensed", sans-serif;
 }
 
 .form-box {
-margin: 10vh auto;
-height: 80vh;
-width: 50%;
-border: 3px #26191b solid;
-padding: 2rem 0;
+  margin: 10vh auto;
+  height: 570px;
+  width: 50%;
+  border: 3px #26191b solid;
+  padding: 2rem 0;
+  overflow: auto;
 }
 
 .form-box h3 {
-text-align: center;
-color: #26191b;
-letter-spacing: 2px;
+  text-align: center;
+  color: #26191b;
+  letter-spacing: 2px;
 }
 
 .contact-form {
-padding: 5%;
-text-align: center;
-}
-
-.content-form .submitButton {
-width: 10em !important;
+  padding: 5%;
+  text-align: center;
 }
 
 .field {
-margin: 1.5vh 2.5%;
-width: 33%;
+  width: 90%;
 }
 
 .submitButton {
-margin: 1.5vh 0;
-width: 100px!important;
-background-color: #26191b;
-color: #ecf8f8;
+  margin: 1.5vh 0;
+  width: 150px !important;
+  background-color: #26191b;
+  color: #ecf8f8;
 }
 
 .submitButton:hover {
-background-color: #f9b384;
-color: #26191b;
+  background-color: #f9b384;
+  color: #26191b;
 }
 
 .text-area {
-width: 71%;
+  width: 95%;
 }
-
-/* .myCheckbox {
-margin-right: 30%;
-} */
-
-/* ::ng-deep .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
-  background-color: red!important;
-} */
 
 ::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
-  color: #26191b!important;
+  color: #26191b !important;
 }
 
-::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-  color: #f9b384!important;
+::ng-deep
+  .mat-form-field-appearance-outline.mat-focused
+  .mat-form-field-outline-thick {
+  color: #f9b384 !important;
 }
 
-::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick{
-  color: red!important;
-  opacity: 0.8!important;
+::ng-deep
+  .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid
+  .mat-form-field-outline-thick {
+  color: red !important;
+  opacity: 0.8 !important;
 }
 
 ::ng-deep .mat-input-element {
-  caret-color: red!important;
+  caret-color: red !important;
 }
 
-/* ::ng-deep .mat-form-field-invalid .mat-input-element, .mat-warn .mat-input-element {
-  caret-color: red!important;
-} */
-
 ::ng-deep .mat-form-field-label {
-  color: rgba(78, 78, 78, 0.6)!important;
+  color: rgba(78, 78, 78, 0.6) !important;
 }
 
 ::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
-  color: #f9b384!important;
+  color: #f9b384 !important;
 }
 
 ::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
-  color: red!important;
+  color: red !important;
 }
 
-::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
-opacity: 0.03 !important;
-background-color: #26191b!important;
+::ng-deep
+  .mat-checkbox-checked.mat-accent
+  .mat-checkbox-ripple
+  .mat-ripple-element {
+  opacity: 0.03 !important;
+  background-color: #26191b !important;
 }
 
-::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
-background-color: #26191b;
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #26191b;
 }
 
 @media (max-width: 570px) {
-.image-banner {
-  display: none;
-}
+  .image-banner {
+    display: none;
+  }
 
-.form-box {
-  margin-bottom: 2rem;
-}
-
-/* .myCheckbox {
-  margin-right: 0;
-} */
+  .form-box {
+    width: 80%;
+    margin-bottom: 2rem;
+  }
 }

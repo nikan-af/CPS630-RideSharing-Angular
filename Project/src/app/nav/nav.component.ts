@@ -63,6 +63,6 @@ export class NavComponent implements AfterViewInit {
      * Once the user opens the cart it will emit an event to open the cart component and the sidenav.
      */
     openCartHandler() {
-        this.openCart.emit()
+        this.openCart.emit();
     }
 }

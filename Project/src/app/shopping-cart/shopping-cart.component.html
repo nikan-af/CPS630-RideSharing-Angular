@@ -2,7 +2,7 @@
     <div *ngIf="cartItems.length > 0 && !this.checkout" class="products">
         <div *ngFor="let item of cartItems; let i = index">
             <div class="row">
-                <div class="col-md-12 shopping-cart-item" (click)="this.openProductDialog(item)">
+                <div class="col-md-12 shopping-cart-item">
                     <mat-card appMaterialElevation class="example-card">
                         <mat-card-content class="mat-content">
                             <div class="row">

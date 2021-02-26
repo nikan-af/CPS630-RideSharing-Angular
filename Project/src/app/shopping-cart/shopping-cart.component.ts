@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../shared/data.service';
-import { CarDialogComponent } from '../car-dialog/car-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -14,7 +12,7 @@ export class ShoppingCartComponent implements OnInit {
   checkout = false;
   subTotal = 0;
 
-  constructor(private dataService: DataService, private dialog: MatDialog) { }
+  constructor(private dataService: DataService) { }
 
   /**
    * Upon initializing sets event listener on cartItems.
@@ -23,19 +21,6 @@ export class ShoppingCartComponent implements OnInit {
     this.dataService.cartItemsBehaviourSubject.subscribe(data => {
       this.cartItems = data;
       this.resetTotal();
-    });
-  }
-
-  /**
-   * Opens the product dialog and passes in the product object as parameter.
-   * @param product 
-   */
-  openProductDialog(product) {
-    this.dialog.open(CarDialogComponent, {
-      panelClass: 'custom-dialog-container',
-      width: '60vw',
-      height: '67vh',
-      data: product
     });
   }
 

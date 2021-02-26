@@ -22,7 +22,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { AgmCoreModule } from '@agm/core';
 
 import { ContactComponent } from './contact/contact.component';
 import { AppComponent } from './app.component';
@@ -33,7 +32,6 @@ import { FooterComponent } from './footer/footer.component';
 import { RideServicesComponent } from './ride-services/ride-services.component';
 import { CarouselComponent } from './carousel/carousel.component';
 
-import { CarDialogComponent } from './car-dialog/car-dialog.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { OrdersComponent } from './orders/orders.component';
@@ -50,7 +48,6 @@ import { DirectionsMapDirective } from './shared/directives-map.directive';
     RideServicesComponent,
     MaterialElevationDirective,
     ContactComponent,
-    CarDialogComponent,
     ShoppingCartComponent,
     CheckoutComponent,
     OrdersComponent,
@@ -79,11 +76,7 @@ import { DirectionsMapDirective } from './shared/directives-map.directive';
     MatAutocompleteModule,
     MatTooltipModule,
     MatDatepickerModule,
-    MatNativeDateModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyA-che_dqd3fdl8Qoc1TkyfwtZar4iMgs8',
-      libraries: ["places"]
-    })
+    MatNativeDateModule
   ],
   providers: [
     CookieService,

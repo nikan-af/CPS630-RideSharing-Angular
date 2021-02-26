@@ -11,6 +11,6 @@ export class AppComponent {
 
   @ViewChild('sidenav') sidenav: MatSidenav;
   handleOpenCart() {
-    this.sidenav.open();
+    this.sidenav.toggle();
   }
 }

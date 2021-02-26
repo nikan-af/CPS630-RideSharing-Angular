@@ -1,5 +1,34 @@
-.cars {
+.content {
   padding: 50px;
+}
+
+.title {
+  font-size: 3rem;
+  margin: 50px 0;
+}
+
+.selected {
+  border: 2px solid black;
+}
+
+#map {
+  height: 400px;
+  width: 100%;
+}
+
+.selection {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.direction-section .col-md-4 {
+  text-align: center;
+}
+
+.direction-section .field {
+  width: 70%;
+  margin: 0 auto;
 }
 
 .cars .row {

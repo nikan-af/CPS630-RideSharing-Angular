@@ -25,6 +25,7 @@
     "@angular/router": "~9.1.9",
     "@geoapify/angular-geocoder-autocomplete": "^1.2.0",
     "@ng-bootstrap/ng-bootstrap": "^6.2.0",
+    "agm-direction": "^0.8.8",
     "bootstrap": "^4.5.3",
     "geojson": "^0.5.0",
     "jquery": "^3.5.1",

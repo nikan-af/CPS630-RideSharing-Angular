@@ -1,34 +1,66 @@
-import { Component, OnInit, Input, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectorRef, ChangeDetectionStrategy, ViewChild, ElementRef, NgZone, AfterViewInit } from '@angular/core';
 import { DataService } from '../shared/data.service';
-import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-import { CarDialogComponent } from '../car-dialog/car-dialog.component';
-import { ModalService } from '../shared/modal.service';
 import { CookieService } from 'ngx-cookie-service';
-import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
     selector: 'ride-services-component',
     templateUrl: './ride-services.component.html',
     styleUrls: ['./ride-services.component.css']
 })
-export class RideServicesComponent implements OnInit {
+export class RideServicesComponent implements OnInit, AfterViewInit {
+
+    lat: number = 43.6556101;
+    lng: number = -79.37587479999999;
 
     cars: any;
     cartItems = [];
     loading = true;
+    selected = 0;
     user;
 
-    constructor(private toastr: ToastrService, private dataService: DataService, private dialog: MatDialog, private modalService: ModalService, private cookieService: CookieService) {
-        this.cartItems = JSON.parse(this.cookieService.get("cartItems"));
+    @ViewChild('source') source: ElementRef;
+    @ViewChild('destination') end: ElementRef;
+
+    origin = {
+        lat: 24.799448,
+        lng: 120.979021
+    };
+
+    destination = {
+        lat: 24.799524,
+        lng: 120.975017
+    };
+
+    displayDirections = true;
+    displayPickRideError = false;
+
+    address = '';
+    name = '';
+    zip_code = '';
+    latitude = 0;
+    longitude = 0;
+    zoom = 0;
+
+    directionService = new google.maps.DirectionsService();
+    directionsRenderer = new google.maps.DirectionsRenderer();
+
+    map: google.maps.Map;
+    coordinates = new google.maps.LatLng(this.lat, this.lng);
+    mapOptions: google.maps.MapOptions = {
+        center: this.coordinates,
+        zoom: 8
+    };
+    @ViewChild('mapContainer', { static: false }) gmap: ElementRef;
+
+    constructor(private ngZone: NgZone, private toastr: ToastrService, private dataService: DataService, private cookieService: CookieService) {
+        // this.cartItems = JSON.parse(this.cookieService.get("cartItems"));
     }
 
     ngOnInit() {
         // Gets the cars from the back-end by making a get request.
         this.dataService.getCars().subscribe(
             success => {
-                console.log(success);
                 this.cars = success;
                 this.loading = false;
             }, fail => {
@@ -45,28 +77,70 @@ export class RideServicesComponent implements OnInit {
         );
     }
 
-    /**
-     * Opens the car-dialog.component and passes in the car item so that the details can be used on the dialog
-     * @param car 
-     */
-    openProductDialog(car) {
-        const dialogRef = this.dialog.open(CarDialogComponent, {
-            panelClass: 'custom-dialog-container',
-            width: '600px',
-            height: '800px',
-            data: car
+    mapInitializer() {
+        this.map = new google.maps.Map(this.gmap.nativeElement,
+            this.mapOptions);
+        this.directionsRenderer.setMap(this.map);
+    }
+
+    select(id) {
+        this.selected = id;
+    }
+
+    calculateAndDisplayRoute(origin, destination) {
+        this.directionService.route({ origin, destination, travelMode: google.maps.TravelMode.DRIVING },
+            (response, status) => {
+                if (status === "OK") {
+                    this.directionsRenderer.setDirections(response);
+                } else {
+                    window.alert("Directions request failed due to " + status);
+                }
+            }
+        );
+    }
+
+    ngAfterViewInit() {
+        this.mapInitializer();
+        this.findAdressSource();
+        this.findAdressDestination();
+    }
+
+    findAdressSource() {
+        let autocomplete = new google.maps.places.Autocomplete(this.source.nativeElement, {componentRestrictions: { country: "ca" }});
+        autocomplete.addListener("place_changed", () => {
+            let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+            this.address = place.formatted_address;
+            this.name = place.name;
+            this.zip_code = place.address_components[place.address_components.length - 1].long_name;
+            //set latitude, longitude and zoom
+            this.origin.lat = place.geometry.location.lat();
+            this.origin.lng = place.geometry.location.lng();
+
+            this.zoom = 12;
         });
     }
-}
 
-/* The interface used for the object that gets passed into the car dialog */
-export interface CarDialogData {
-    CarId: string;
-    CarModel: string;
-    CarCode: string;
-    AvailabilityCode: string;
-    CarColour: string;
-    imageURL: string;
-    CarPrice: number;
+    findAdressDestination() {
+        let autocomplete = new google.maps.places.Autocomplete(this.end.nativeElement, {componentRestrictions: { country: "ca" }});
+        autocomplete.addListener("place_changed", () => {
+            let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+            this.address = place.formatted_address;
+            this.name = place.name;
+            this.zip_code = place.address_components[place.address_components.length - 1].long_name;
+            //set latitude, longitude and zoom
+            this.destination.lat = place.geometry.location.lat();
+            this.destination.lng = place.geometry.location.lng();
+            this.zoom = 12;
+        });
+    }
+
+    onGetEstimate() {
+        if (this.selected) {
+            this.displayPickRideError = false;
+            this.calculateAndDisplayRoute(this.origin, this.destination);
+        } else {
+            this.displayPickRideError = true;
+        }
+    }
 }
 
