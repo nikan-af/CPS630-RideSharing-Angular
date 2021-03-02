@@ -15,9 +15,18 @@ export class RideServicesComponent implements OnInit, AfterViewInit {
 
     cars: any;
     cartItems = [];
-    loading = true;
-    selected = 0;
+    loading = false;
+    selected = -1;
     user;
+    getRoute = false;
+    showOrderReview = false;
+    pickUpDate;
+    pickUpTime;
+
+    pos = {
+        top: 0,
+        left: 0
+    }
 
     @ViewChild('source') source: ElementRef;
     @ViewChild('destination') end: ElementRef;
@@ -34,6 +43,7 @@ export class RideServicesComponent implements OnInit, AfterViewInit {
 
     displayDirections = true;
     displayPickRideError = false;
+    directionsReponse;
 
     address = '';
     name = '';
@@ -41,6 +51,20 @@ export class RideServicesComponent implements OnInit, AfterViewInit {
     latitude = 0;
     longitude = 0;
     zoom = 0;
+    distance = '';
+    duration = '';
+    distanceNumber = 0;
+
+    totalEstimateValue = 0;
+    totalEstimate = '0';
+    displayEstimate = false;
+    startFee = 5.00;
+    driverTipValue = 0;
+    driverTip = '0';
+    taxesValue = 0;
+    taxes = '0';
+    total = '0';
+    totalValue = 0;
 
     directionService = new google.maps.DirectionsService();
     directionsRenderer = new google.maps.DirectionsRenderer();
@@ -57,11 +81,21 @@ export class RideServicesComponent implements OnInit, AfterViewInit {
         // this.cartItems = JSON.parse(this.cookieService.get("cartItems"));
     }
 
+    onDragStart(data) {
+        this.moveDiv(data);
+    }
+
+    moveDiv(data) {
+        this.pos.top = data.y - 50;
+        this.pos.left = data.x - 45;
+    }
+
     ngOnInit() {
         // Gets the cars from the back-end by making a get request.
         this.dataService.getCars().subscribe(
             success => {
-                this.cars = success;
+                console.log(success);
+                this.cars = success['records'];
                 this.loading = false;
             }, fail => {
                 console.log(fail);
@@ -87,11 +121,31 @@ export class RideServicesComponent implements OnInit, AfterViewInit {
         this.selected = id;
     }
 
+    reviewOrder() {
+        this.showOrderReview = true;
+    }
+
     calculateAndDisplayRoute(origin, destination) {
+        this.getRoute = true;
         this.directionService.route({ origin, destination, travelMode: google.maps.TravelMode.DRIVING },
             (response, status) => {
                 if (status === "OK") {
+                    console.log(response.routes[0].legs[0]);
+                    this.distance = response.routes[0].legs[0].distance.text;
+                    this.duration = response.routes[0].legs[0].duration.text;
+                    this.distanceNumber = response.routes[0].legs[0].distance.value;
                     this.directionsRenderer.setDirections(response);
+
+                    this.directionsReponse = response;
+                    this.totalEstimateValue = (this.distanceNumber * parseFloat(this.cars[this.selected].CarPrice) / 1000) + this.startFee;
+                    this.totalEstimate = (this.totalEstimateValue).toFixed(2);
+                    this.driverTipValue = this.totalEstimateValue * 5 / 100;
+                    this.driverTip = this.driverTipValue.toFixed(2);
+                    this.taxesValue = this.totalEstimateValue * 15.33 / 100;
+                    this.taxes = this.taxesValue.toFixed(2);
+                    this.totalValue = this.taxesValue + this.driverTipValue + this.totalEstimateValue;
+                    this.total = this.totalEstimateValue.toFixed(2);
+                    this.loading = false;
                 } else {
                     window.alert("Directions request failed due to " + status);
                 }
@@ -115,7 +169,6 @@ export class RideServicesComponent implements OnInit, AfterViewInit {
             //set latitude, longitude and zoom
             this.origin.lat = place.geometry.location.lat();
             this.origin.lng = place.geometry.location.lng();
-
             this.zoom = 12;
         });
     }
@@ -135,8 +188,10 @@ export class RideServicesComponent implements OnInit, AfterViewInit {
     }
 
     onGetEstimate() {
-        if (this.selected) {
+        if (this.selected !== -1) {
             this.displayPickRideError = false;
+            this.displayEstimate = true;
+            this.loading = true;
             this.calculateAndDisplayRoute(this.origin, this.destination);
         } else {
             this.displayPickRideError = true;

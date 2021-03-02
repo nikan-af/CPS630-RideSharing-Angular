@@ -86,31 +86,31 @@ export class LoginComponent {
           console.log(response)
           this.dataService.userBehaviorSubject.next(
             {
-              id: response[0].UserId,
-              email: response[0].Email,
-              fullName: response[0].Name,
+              id: response['records'][0].UserId,
+              email: response['records'][0].Email,
+              fullName: response['records'][0].Name,
               pwd: '',
-              phoneNumber: response[0].Tel,
-              address: response[0].Address,
-              postal: response[0].CityCode,
-              balance: response[0].Balance
+              phoneNumber: response['records'][0].Tel,
+              address: response['records'][0].Address,
+              postal: response['records'][0].CityCode,
+              balance: response['records'][0].Balance
             }
           );
-          this.dataService.getPaymentInfo(response[0].userId).subscribe(
+          this.dataService.getPaymentInfo(response['records'][0].userId).subscribe(
             success => {
               this.dataService.paymentInfoBehaviourService.next(success[0]);
             }, fail => {
               console.log(fail);
             }
           )
-          this.dataService.getOrders(response[0].userId).subscribe(
+          this.dataService.getOrders(response['records'][0].userId).subscribe(
             success => {
               this.dataService.ordersInfoBehaviourSubject.next(success);
             }, fail => {
               console.log(fail);
             }
           )
-          this.dataService.getFavoriteProducts(response[0].userId).subscribe(
+          this.dataService.getFavoriteProducts(response['records'][0].userId).subscribe(
             success => {
               this.dataService.userFavoritesBehaviourSubject.next(success);
             }, fail => {
@@ -121,7 +121,7 @@ export class LoginComponent {
           this.userIsLoggedIn = true;
           this.dataService.isLoggedInBehvaiourSubject.next(true);
           this.modalService.close(this.content);
-          this.toastr.success("Hello " + response[0].Name + ", you are logged in!");
+          this.toastr.success("Hello " + response['records'][0].Name + ", you are logged in!");
         },
         fail => {
           console.log(fail);

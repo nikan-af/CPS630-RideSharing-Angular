@@ -7,7 +7,7 @@ import { MatSidenav } from '@angular/material/sidenav';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'cps530-project';
+  title = 'cps630-project';
 
   @ViewChild('sidenav') sidenav: MatSidenav;
   handleOpenCart() {

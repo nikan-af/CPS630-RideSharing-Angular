@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Subscribable, Subscription, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { MatOptionSelectionChange } from '@angular/material/core';
-import { DataService } from '../shared/data.service';
+import { DataService, Order } from '../shared/data.service';
 import { ModalService } from '../shared/modal.service';
 import { User } from '../shared/models/user.model';
 
@@ -13,6 +13,8 @@ import { User } from '../shared/models/user.model';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
+
+  @Input() cartItems: Order[];
 
   usStates = ["AL", "AK", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "NE", "NH", "NJ", "NM", "NV", "NY", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WI", "WV", "WY"];
   canadaProvinces = ["Alberta", "British Columbia", "Manitoba", "New Brunswick", "Newfoundland and Labrador", "Nova Scotia", "Northwest Territories", "Nunavut", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan", "Yukon"];
@@ -93,8 +95,6 @@ export class CheckoutComponent implements OnInit {
   }
 
   private valueChangesSub: Subscription;
-
-  @Input('cartItems') cartItems: [];
 
   // When the user clicks on the back icon it will emit an event and goes back to the shopping cart page.
   @Output() goBack = new EventEmitter();
@@ -246,7 +246,7 @@ export class CheckoutComponent implements OnInit {
   */
   submit() {  
     if (this.checkout_validations.valid) {
-      if (this.loggedIn) {
+      // if (this.loggedIn) {
         let formValues = { 'credit_card_number': '', 'credit_card_holder': '', 'expiry_month': '', 'expiry_year': '', 'credit_card_first_name': '', 'credit_card_last_name': '', 'credit_card_address_line_1': '', 'credit_card_address_line_2': '', 'country': '', 'province': '', 'city': '', 'postal_code': '' };
         for (const field in this.checkout_validations.controls) {
           formValues[field] = this.checkout_validations.controls[field].value;
@@ -257,7 +257,7 @@ export class CheckoutComponent implements OnInit {
         /*
           Once the request succeeds reset the form and show success message.
         */
-        this.dataService.recordPurchase(formValues).subscribe(
+        this.dataService.createOrder({'order': this.cartItems, 'payment': formValues}).subscribe(
           success => {
             this.purchaseComplete = true;
             this.resetCheckoutForm();
@@ -270,10 +270,11 @@ export class CheckoutComponent implements OnInit {
           this.checkout_validations.controls[name].setErrors(null);
         }
         this.purchaseComplete = true;
-      } else {
-        this.purchaseComplete = true;
-        this.resetCheckoutForm();
-      }
+
+      // } else {
+      //   this.purchaseComplete = true;
+      //   this.resetCheckoutForm();
+      // }
     }
   }
 

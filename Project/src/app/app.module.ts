@@ -37,6 +37,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { OrdersComponent } from './orders/orders.component';
 import { AboutComponent } from './about/about.component';
 import { DirectionsMapDirective } from './shared/directives-map.directive';
+import { OnDrag } from './ride-services/ride-services.directive';
+import { OnDrop } from './shopping-cart/shopping-cart.directive';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { DirectionsMapDirective } from './shared/directives-map.directive';
     OrdersComponent,
     CarouselComponent,
     AboutComponent,
-    DirectionsMapDirective
+    DirectionsMapDirective,
+    OnDrag,
+    OnDrop
   ],
   imports: [
     BrowserModule,

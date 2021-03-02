@@ -5,11 +5,35 @@ import { User } from './models/user.model';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject } from 'rxjs';
 
+export interface Order {
+    Car: Car;
+    UserId: number;
+    PickupTime: string;
+    PickupDate: string;
+    TotalFare: string;
+    Distance: string;
+    Duration: string;
+    StartAddress: string;
+    EndAddress: string;
+    StartLocationLat: number;
+    StartLocationLng: number;
+    EndLocationLat: number;
+    EndLocationLng: number;
+    Direction: google.maps.DirectionsResult;
+}
+
+export interface Car {
+    CarId: number;
+    ImageURL: string;
+    CarModel: string;
+    CarColour: string;
+}
+
 @Injectable({
     providedIn: 'root'
 })
 export class DataService {
-    cartItems = [];
+    cartItems: Order[] = [];
     cartItemsBehaviourSubject: BehaviorSubject<any>;
     isLoggedInBehvaiourSubject: BehaviorSubject<any>;
     userBehaviorSubject: BehaviorSubject<User>;
@@ -60,9 +84,12 @@ export class DataService {
     baseUrl: string = "http://localhost:8080/api";
     @Output() getLoggedInName: EventEmitter<any> = new EventEmitter();
     constructor(private httpClient: HttpClient, private cookieService: CookieService) { 
-        var tempCookie = this.cookieService.get("cartItems");
+        var tempCookie = localStorage.getItem("cartItems");
+        console.log(tempCookie);
+
+        console.log(tempCookie);
         if (!tempCookie) {
-            this.cookieService.set("cartItems", JSON.stringify(this.cartItems));
+            localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
         } else {
             this.cartItems = JSON.parse(tempCookie);
         }
@@ -139,7 +166,7 @@ export class DataService {
      * Returns the cars that we have for ride services.
      */
     getCars() {
-        return this.httpClient.get(this.baseUrl + '/getCars.php');
+        return this.httpClient.get(this.baseUrl + '/car/read.php');
     }
 
     /**
@@ -163,33 +190,37 @@ export class DataService {
      * Gets the cartItems cookie that contains the products that user has added to cart and parses the object as JSON.
      */
     getCartItems() {
-        return JSON.parse(this.cookieService.get("cartItems"));
+        return JSON.parse(localStorage.getItem("cartItems"));
+    }
+
+    updateCartListFromLocal() {
+        const localCartItems: Order[] = this.getCartItems();
+        this.cartItems = localCartItems;
     }
 
     /**
-     * Takes in the prodcut.
-     * Makes a call to getCartItems to get the product items already in the cart if the item is in the cart ignore if not add the product to 
+     * Takes in the order.
+     * Makes a call to getCartItems to get the order items already in the cart if the item is in the cart ignore if not add the order to 
             the cart.
      * After that it stringifies the object as JSON and saves that JSON as cookie.
-     * @param product 
+     * @param order 
      */
-    addProductToCart(product) {
-        var productExists = this.cartItems.map(tmpProduct => {
-            if (tmpProduct.productId == product.productId) {
-                return true;
-            }
+    addOrderToCart(order) {
+        this.updateCartListFromLocal();
+        console.log(order);
+        let tmpOrderObj: Order = {Car: {CarId: order.Car.CarId, CarColour: order.Car.CarColour, CarModel: order.Car.CarModel, ImageURL: order.Car.ImageURL}, UserId: 1, PickupDate: order.PickupDate, PickupTime: order.PickupTime, TotalFare: order.TotalFare, 
+            Distance: order.direction.routes[0].legs[0].distance.text, Duration: order.direction.routes[0].legs[0].duration.text, StartAddress: order.direction.routes[0].legs[0].start_address,
+            EndAddress: order.direction.routes[0].legs[0].end_address, StartLocationLat: order.direction.routes[0].legs[0].start_location.lat, StartLocationLng: order.direction.routes[0].legs[0].start_location.lng,
+            EndLocationLat: order.direction.routes[0].legs[0].end_location.lat, EndLocationLng: order.direction.routes[0].legs[0].end_location.lng, Direction: order.direction};
 
-            return false;
-        });
-        
-        var cartItems = this.getCartItems();
-        if (!productExists.includes(true)) {
-            cartItems.push(product);
-            this.cartItemsBehaviourSubject.next(cartItems);
-            this.cartItems = cartItems;
-            this.cookieService.set("cartItems", JSON.stringify(cartItems));
+        let isOrderPresent = this.cartItems.includes(tmpOrderObj);
+
+        if (!isOrderPresent) {
+            this.cartItems.push(tmpOrderObj);
+            this.cartItemsBehaviourSubject.next(this.cartItems);
+            localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
             return true;
-        } 
+        }
         
         return false;
     }
@@ -207,25 +238,20 @@ export class DataService {
     resetCart() {
         this.cartItems = [];
         this.cartItemsBehaviourSubject.next([]);
-        this.cookieService.set("cartItems", JSON.stringify([]));
+        localStorage.setItem("cartItems", JSON.stringify([]));
     }
 
     /**
-     * Takes in a product object as a parameter
+     * Takes in an order object as a parameter
      * Calls getCartItems to get the items in the cart
      * Checks whether the product is already in the cart
-     * @param product 
+     * @param order 
      */
-    removeItem(product) {
-        var tmpCartItems = this.getCartItems();
-        for (var i = 0; i < tmpCartItems.length; i++) {
-            if (tmpCartItems[i].productId == product.productId) {
-                tmpCartItems.splice(i, 1);
-            }
-        }
-        this.cartItems = tmpCartItems;
-        this.cartItemsBehaviourSubject.next(tmpCartItems);
-        this.cookieService.set("cartItems", JSON.stringify(tmpCartItems));
+    removeItem(order) {
+        this.updateCartItems();
+        this.cartItems.splice(this.cartItems.indexOf(order), 1);
+        this.cartItemsBehaviourSubject.next(this.cartItems);
+        localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
     }
 
     /**
@@ -234,22 +260,6 @@ export class DataService {
      */
     sendInquiryForm(formData) {
         return this.httpClient.post(this.baseUrl + '/sendInquiryForm.php', formData);
-    }
-
-    /**
-     * Takes in formData and makes a post request to 'recordPurchase.php' to insert the purchase data into the orders table.
-     * @param formData 
-     */
-    recordPurchase(formData) {
-        return this.httpClient.post(this.baseUrl + '/recordPurchase.php', {...formData});
-    }
-
-    /**
-     * Takes in formData and makes a post request to 'recordDiscountReq.php' to insert the discount request into the discount table.
-     * @param formsData 
-     */
-    recordDiscountReq(formsData) {
-        return this.httpClient.post(this.baseUrl + '/recordDiscountReq.php', formsData);
     }
 
     /**
@@ -266,6 +276,11 @@ export class DataService {
      */
     getOrders(userId) {
         return this.httpClient.post(this.baseUrl + '/getOrders.php', {"userId":userId});
+    }
+
+    createOrder(data) {
+        console.log({"PaymentId": 1, "CarId": data.order[0].Car.CarId, "TripId": "1", "TotalFare": data.order[0].TotalFare, "PickupDate": data.order[0].PickupDate, "PickupTime": data.order[0].PickupTime});
+        return this.httpClient.post(this.baseUrl + '/rideServicesOrder/create.php', {"PaymentId": 1, "CarId": data.order[0].Car.CarId, "TripId": "1", "TotalFare": data.order[0].TotalFare, "PickupDate": data.order[0].PickupDate, "PickupTime": data.order[0].PickupTime});
     }
 
     /**
@@ -300,6 +315,8 @@ export class DataService {
         return new BehaviorSubject<any>(this.loggedIn);
     }
 }
+
+
 
 
 
