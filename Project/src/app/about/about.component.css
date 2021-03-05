@@ -1,19 +1,52 @@
 h1 {
-    text-align: center;
-    font-weight: bold !important;
+  text-align: center;
+  font-weight: bold !important;
 }
 
-.example-card {
-    max-width: 380px;
-    max-height: 250px;
-    display: inline-block;
-    margin: 30px;
-  }
+.mat-card {
+  height: 100%;
+}
 
-  p.info {
-    text-align: center;
-    font-weight: bold !important;
-    margin: 10px 20px;
-    text-shadow: 0 0 black;
-    font-size: large;
+.mat-card-image {
+  height: 300px;
+}
+
+p.info {
+  text-align: center;
+  font-weight: bold !important;
+  margin: 10px 20px;
+  text-shadow: 0 0 black;
+  font-size: large;
+}
+
+.header {
+  margin-top: 50px;
+}
+
+.header h1 {
+  font-size: 2rem;
+}
+
+.row {
+  padding: 50px 350px;
+}
+
+hr {
+  width: 70%;
+}
+
+.desc {
+  padding: 25px 350px;
+}
+
+.desc .title {
+  font-size: 1.7rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.desc .text {
+  padding: 10px;
+  font-size: 1rem;
 }
