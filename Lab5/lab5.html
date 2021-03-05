@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab5 JavaScript</title>
+
+    <style>
+        .title {
+            /* font-weight: bold; */
+        }
+    </style>
+</head>
+<body>
+    <h1> Display Cross Browsers Compatibility Issues line1</h1>
+    <p> Display Cross Browsers Compatibility Issues line2</p>
+
+    <p class="title"><b>App Code Name:</b> <span id="appCodeName"></span></p>
+    <p class="title"><b>App Version: </b><span id="appVersion"></span></p>
+    <p class="title"><b>User Agent: </b><span id="userAgent"></span></p>
+    <p class="title"><b>Browser:</b> <span id="browserName"></span></p>
+    <script>
+        (function() {
+            console.log(window.navigator);
+            let browserField = document.getElementById('browserName');
+            let appCodeName = document.getElementById('appCodeName');
+            let appVersion = document.getElementById('appVersion');
+            let userAgent = document.getElementById('userAgent');
+
+            appCodeName.innerText = window.navigator.appCodeName;
+            appVersion.innerText = window.navigator.appVersion;
+            userAgent.innerText = window.navigator.userAgent;
+            
+            if (window.chrome && window.navigator.vendor === 'Google Inc.') {
+                browserField.innerText = 'Google Chrome';
+            } else if (window.navigator.vendor === 'Apple Computer, Inc.' && window.navigator.userAgent.toLowerCase().indexOf("safari") !== -1) {
+                browserField.innerText = 'Apple Safari';
+            } else if (window.navigator.userAgent.toLowerCase().indexOf('firefox') !== -1) {
+                browserField.innerText = 'Mozilla Firefox';
+            } else if (window.navigator.userAgent.toLowerCase().indexOf('edge') > -1 || window.navigator.userAgent.toLowerCase().indexOf('edg') > -1) {
+                browserField.innerText = 'Edge';
+            }
+        })();
+    </script>
+</body>
+</html>

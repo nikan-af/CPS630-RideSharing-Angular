@@ -96,27 +96,20 @@ export class LoginComponent {
               balance: response['records'][0].Balance
             }
           );
-          this.dataService.getPaymentInfo(response['records'][0].userId).subscribe(
-            success => {
-              this.dataService.paymentInfoBehaviourService.next(success[0]);
-            }, fail => {
-              console.log(fail);
-            }
-          )
-          this.dataService.getOrders(response['records'][0].userId).subscribe(
-            success => {
-              this.dataService.ordersInfoBehaviourSubject.next(success);
-            }, fail => {
-              console.log(fail);
-            }
-          )
-          this.dataService.getFavoriteProducts(response['records'][0].userId).subscribe(
-            success => {
-              this.dataService.userFavoritesBehaviourSubject.next(success);
-            }, fail => {
-              console.log(fail);
-            }
-          )
+          // this.dataService.getPaymentInfo(response['records'][0].userId).subscribe(
+          //   success => {
+          //     this.dataService.paymentInfoBehaviourService.next(success[0]);
+          //   }, fail => {
+          //     console.log(fail);
+          //   }
+          // )
+          // this.dataService.getOrders(response['records'][0].userId).subscribe(
+          //   success => {
+          //     this.dataService.ordersInfoBehaviourSubject.next(success);
+          //   }, fail => {
+          //     console.log(fail);
+          //   }
+          // )
           this.userStatus.emit('loggedIn');
           this.userIsLoggedIn = true;
           this.dataService.isLoggedInBehvaiourSubject.next(true);

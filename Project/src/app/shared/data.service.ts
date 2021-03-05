@@ -4,13 +4,16 @@ import { HttpClient } from '@angular/common/http';
 import { User } from './models/user.model';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject } from 'rxjs';
+import { ProductDialogData, Product } from '../delivery-services/delivery-services.component';
 
 export interface Order {
-    Car: Car;
     UserId: number;
+    Products?: Product[];
+    Car?: Car;
     PickupTime: string;
     PickupDate: string;
-    TotalFare: string;
+    OrderTotal: string;
+    DeliveryFee?: string;
     Distance: string;
     Duration: string;
     StartAddress: string;
@@ -19,7 +22,38 @@ export interface Order {
     StartLocationLng: number;
     EndLocationLat: number;
     EndLocationLng: number;
-    Direction: google.maps.DirectionsResult;
+    Direction: any;
+    OrderType: string;
+}
+
+export interface Trip {
+    TripId: number;
+    OrderId: number;
+    CarId?: number;
+    Distance: string;
+    Duration: string;
+    EndAddress: string;
+    StartAddress: string;
+    EndLocationLat: number;
+    EndLocationLng: number;
+    StartLocationLat: number;
+    StartLocationLng: number;
+}
+
+export interface Payment {
+    PaymentId: number;
+    CardHolder: string;
+    CardHolderFirstName: string;
+    CardHolderLastName: string;
+    CardNumber: string;
+    ExpiryYear: string;
+    ExpiryMonth: string;
+    PostalCode: string;
+    CardAddressLine1: string;
+    CardAddressLine2: string;
+    City: string;
+    Country: string;    
+    StateOrProvince: string;
 }
 
 export interface Car {
@@ -34,36 +68,16 @@ export interface Car {
 })
 export class DataService {
     cartItems: Order[] = [];
+
     cartItemsBehaviourSubject: BehaviorSubject<any>;
     isLoggedInBehvaiourSubject: BehaviorSubject<any>;
     userBehaviorSubject: BehaviorSubject<User>;
-    userFavoritesBehaviourSubject: BehaviorSubject<any>;
-    paymentInfoBehaviourService: BehaviorSubject<any>;
     ordersInfoBehaviourSubject: BehaviorSubject<any>;
 
     loginRef: ElementRef;
-    favoriteItems = [];
     loggedIn = false;
     orders = [];
-    paymentInfo:any = {
-        orderId: '',
-        userId: '',
-        productId: '',
-        qty: '',
-        orderTimestamp: '',
-        credit_card_number: '',
-        credit_card_holder: '',
-        expiry_month: '',
-        expiry_year: '', 
-        credit_card_first_name: '', 
-        credit_card_last_name: '', 
-        credit_card_address_line_1: '', 
-        credit_card_address_line_2: '', 
-        country: '', 
-        province: '', 
-        city: '', 
-        postal_code: ''
-    };
+
     tempUser: User = {
         id: 0,
         email: '',
@@ -78,16 +92,11 @@ export class DataService {
     genderOfProducts = '';
  
     redirectUrl: string;
-    /* PROD 
-    baseUrl: string = "http://3.138.36.207/";
-    */
     baseUrl: string = "http://localhost:8080/api";
     @Output() getLoggedInName: EventEmitter<any> = new EventEmitter();
     constructor(private httpClient: HttpClient, private cookieService: CookieService) { 
         var tempCookie = localStorage.getItem("cartItems");
-        console.log(tempCookie);
 
-        console.log(tempCookie);
         if (!tempCookie) {
             localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
         } else {
@@ -98,8 +107,6 @@ export class DataService {
         this.cartItemsBehaviourSubject = new BehaviorSubject<any>(this.cartItems);
         this.isLoggedInBehvaiourSubject = new BehaviorSubject<any>(this.loggedIn);
         this.userBehaviorSubject = new BehaviorSubject<any>(this.tempUser);
-        this.userFavoritesBehaviourSubject = new BehaviorSubject<any>(this.favoriteItems);
-        this.paymentInfoBehaviourService = new BehaviorSubject<any>(this.paymentInfo);
         this.ordersInfoBehaviourSubject = new BehaviorSubject<any>(this.orders);
 
         this.userBehaviorSubject.next(this.tempUser);
@@ -111,7 +118,7 @@ export class DataService {
      * @param password 
      */
     public userlogin(email, password) {
-        return this.httpClient.post(this.baseUrl + '/login.php', { 'email': email, 'password': password });
+        return this.httpClient.post(this.baseUrl + '/user/login.php', { 'email': email, 'password': password });
     }
 
     /**
@@ -119,7 +126,15 @@ export class DataService {
      * @param param0 
      */
     registerUser({fullName, email, password, phoneNumber, address, postal}) {
-        return this.httpClient.post(this.baseUrl + '/register.php', {'fullName': fullName, 'email': email, 'password': password, 'phoneNumber': phoneNumber, 'address': address, 'postal': postal});
+        return this.httpClient.post(this.baseUrl + '/user/register.php', {'fullName': fullName, 'email': email, 'password': password, 'phoneNumber': phoneNumber, 'address': address, 'postal': postal});
+    }
+
+    getCoffees() {
+        return this.httpClient.get(this.baseUrl + '/coffee/read.php');
+    }
+
+    getFlowers() {
+        return this.httpClient.get(this.baseUrl + '/flower/read.php');
     }
 
     /**
@@ -138,26 +153,6 @@ export class DataService {
                 balance: 0
             }
         );
-        this.paymentInfoBehaviourService.next(
-            {orderId: '',
-            userId: '',
-            productId: '',
-            qty: '',
-            orderTimestamp: '',
-            credit_card_number: '',
-            credit_card_holder: '',
-            expiry_month: '',
-            expiry_year: '', 
-            credit_card_first_name: '', 
-            credit_card_last_name: '', 
-            credit_card_address_line_1: '', 
-            credit_card_address_line_2: '', 
-            country: '', 
-            province: '', 
-            city: '', 
-            postal_code: ''}
-        );
-        this.userFavoritesBehaviourSubject.next([]);
         this.isLoggedInBehvaiourSubject.next(false);
 
     }
@@ -208,11 +203,7 @@ export class DataService {
     addOrderToCart(order) {
         this.updateCartListFromLocal();
         console.log(order);
-        let tmpOrderObj: Order = {Car: {CarId: order.Car.CarId, CarColour: order.Car.CarColour, CarModel: order.Car.CarModel, ImageURL: order.Car.ImageURL}, UserId: 1, PickupDate: order.PickupDate, PickupTime: order.PickupTime, TotalFare: order.TotalFare, 
-            Distance: order.direction.routes[0].legs[0].distance.text, Duration: order.direction.routes[0].legs[0].duration.text, StartAddress: order.direction.routes[0].legs[0].start_address,
-            EndAddress: order.direction.routes[0].legs[0].end_address, StartLocationLat: order.direction.routes[0].legs[0].start_location.lat, StartLocationLng: order.direction.routes[0].legs[0].start_location.lng,
-            EndLocationLat: order.direction.routes[0].legs[0].end_location.lat, EndLocationLng: order.direction.routes[0].legs[0].end_location.lng, Direction: order.direction};
-
+        let tmpOrderObj: Order = order;
         let isOrderPresent = this.cartItems.includes(tmpOrderObj);
 
         if (!isOrderPresent) {
@@ -270,42 +261,59 @@ export class DataService {
         return this.httpClient.post(this.baseUrl + '/getPaymentInfo.php', { "userId":userId });
     }
 
-    /**
-     * Takes in userId and makes a post request to 'getOrders.php' to get the past orders of the user.
-     * @param userId 
-     */
-    getOrders(userId) {
-        return this.httpClient.post(this.baseUrl + '/getOrders.php', {"userId":userId});
-    }
+    // /**
+    //  * Takes in userId and makes a post request to 'getOrders.php' to get the past orders of the user.
+    //  * @param userId 
+    //  */
+    // getOrders(userId) {
+    //     return this.httpClient.post(this.baseUrl + '/getOrders.php', {"userId":userId});
+    // }
 
     createOrder(data) {
-        console.log({"PaymentId": 1, "CarId": data.order[0].Car.CarId, "TripId": "1", "TotalFare": data.order[0].TotalFare, "PickupDate": data.order[0].PickupDate, "PickupTime": data.order[0].PickupTime});
-        return this.httpClient.post(this.baseUrl + '/rideServicesOrder/create.php', {"PaymentId": 1, "CarId": data.order[0].Car.CarId, "TripId": "1", "TotalFare": data.order[0].TotalFare, "PickupDate": data.order[0].PickupDate, "PickupTime": data.order[0].PickupTime});
-    }
+        console.log(data);
+        let orderTotal = 0;
 
-    /**
-     * Takes in userId and productId and makes a post request to 'addFavorite.php' to insert the record into favorites table.
-     * @param userId 
-     * @param productId 
-     */
-    addFavorite(userId, productId) {
-        return this.httpClient.post(this.baseUrl + '/addFavorite.php', {"userId":userId,"productId":productId});
-    }
+        let payment: Payment = {PaymentId: 0, CardHolder: data.payment.credit_card_holder, CardHolderFirstName: data.payment.credit_card_first_name
+            , CardHolderLastName: data.payment.credit_card_last_name, CardNumber: data.payment.credit_card_number, ExpiryYear: data.payment.expiry_year,
+            ExpiryMonth: data.payment.expiry_month, CardAddressLine1: data.payment.credit_card_address_line_1, CardAddressLine2: data.payment.credit_card_address_line_2,
+            City: data.payment.city, Country: data.payment.country, PostalCode: data.payment.postal_code, StateOrProvince: data.payment.province};
 
-    /**
-     * Takes in userId and makes a post request to 'getFavorites.php' to get the favorite products of the user.
-     * @param userId 
-     */
-    getFavorites(userId) {
-        return this.httpClient.post(this.baseUrl + '/getFavorites.php', {"userId":userId});
-    }
+        let trips: Trip[] = [];
 
-    /**
-     * Takes in userId and makes a post request to 'getFavoriteProducts.php' to get the favorite products of the user.
-     * @param userId 
-     */
-    getFavoriteProducts(userId) {
-        return this.httpClient.post(this.baseUrl + '/getFavoriteProducts.php', { "userId":userId });
+        let products: Product[] = [];
+        
+        data.order.forEach((order, index) => {
+            orderTotal += parseFloat(order.OrderTotal);
+            orderTotal += order.DeliveryFee ? parseFloat(order.DeliveryFee) : 0;
+            let trip: Trip = {
+                TripId: 0,
+                OrderId: 0,
+                Distance: order.Distance,
+                Duration: order.Duration,
+                StartAddress: order.StartAddress,
+                EndAddress: order.EndAddress,
+                StartLocationLat: order.StartLocationLat,
+                StartLocationLng: order.StartLocationLng,
+                EndLocationLat: order.EndLocationLat,
+                EndLocationLng: order.EndLocationLng,
+            }
+            
+
+            if (order.OrderType === 'delivery') {
+                products.push(...order.Products);
+            } else if (order.OrderType === 'ride') {
+                trip.CarId = order.Car.CarId;
+            }
+
+            trips.push(trip);
+        });
+
+        let order = {
+            UserId: 1,
+            Total: orderTotal
+        };
+
+        return this.httpClient.post(this.baseUrl + '/order/create.php', {Payment: payment, Trips: trips, Order: order, Products: products});
     }
 
     /**
@@ -315,6 +323,8 @@ export class DataService {
         return new BehaviorSubject<any>(this.loggedIn);
     }
 }
+
+
 
 
 

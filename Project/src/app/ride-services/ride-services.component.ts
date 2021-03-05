@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectorRef, ChangeDetectionStrategy, ViewChild, ElementRef, NgZone, AfterViewInit } from '@angular/core';
-import { DataService } from '../shared/data.service';
+import { DataService, Order } from '../shared/data.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -9,6 +9,23 @@ import { ToastrService } from 'ngx-toastr';
     styleUrls: ['./ride-services.component.css']
 })
 export class RideServicesComponent implements OnInit, AfterViewInit {
+    orderObj: Order = {
+        UserId: -1,
+        Car: null, 
+        OrderTotal: '', 
+        PickupTime: '', 
+        PickupDate: '', 
+        Direction: null, 
+        OrderType: 'ride',
+        Distance: '',
+        Duration: '',
+        StartAddress: '',
+        EndAddress: '',
+        StartLocationLat: 0,
+        StartLocationLng: 0,
+        EndLocationLng: 0,
+        EndLocationLat: 0
+    };
 
     lat: number = 43.6556101;
     lng: number = -79.37587479999999;
@@ -96,6 +113,7 @@ export class RideServicesComponent implements OnInit, AfterViewInit {
             success => {
                 console.log(success);
                 this.cars = success['records'];
+                console.log(this.cars);
                 this.loading = false;
             }, fail => {
                 console.log(fail);
@@ -122,6 +140,7 @@ export class RideServicesComponent implements OnInit, AfterViewInit {
     }
 
     reviewOrder() {
+        this.orderObj.Car = this.cars[this.selected];
         this.showOrderReview = true;
     }
 
@@ -146,6 +165,19 @@ export class RideServicesComponent implements OnInit, AfterViewInit {
                     this.totalValue = this.taxesValue + this.driverTipValue + this.totalEstimateValue;
                     this.total = this.totalEstimateValue.toFixed(2);
                     this.loading = false;
+
+                    this.orderObj.Duration = this.duration;
+                    this.orderObj.Distance = this.distance;
+                    this.orderObj.EndAddress = response.routes[0].legs[0].end_address;
+                    this.orderObj.StartAddress = response.routes[0].legs[0].start_address;
+                    this.orderObj.PickupDate = this.pickUpDate;
+                    this.orderObj.PickupTime = this.pickUpTime;
+                    this.orderObj.Direction = response;
+                    this.orderObj.OrderTotal = this.total;
+                    this.orderObj.StartLocationLat = response.routes[0].legs[0].start_location.lat();
+                    this.orderObj.StartLocationLng = response.routes[0].legs[0].start_location.lng();
+                    this.orderObj.EndLocationLat = response.routes[0].legs[0].start_location.lat();
+                    this.orderObj.EndLocationLng = response.routes[0].legs[0].start_location.lng();
                 } else {
                     window.alert("Directions request failed due to " + status);
                 }

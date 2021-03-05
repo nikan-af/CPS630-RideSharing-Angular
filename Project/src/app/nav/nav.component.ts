@@ -21,7 +21,7 @@ export class NavComponent implements AfterViewInit {
     @ViewChild('content') content: ElementRef;
 
     constructor(private modalService: ModalService, private router: Router, public dataService: DataService, private cookieService: CookieService) {
-        this.cartItems = JSON.parse(this.cookieService.get("cartItems"));
+        this.cartItems = JSON.parse(localStorage.getItem("cartItems"));
     }
 
     ngAfterViewInit() {

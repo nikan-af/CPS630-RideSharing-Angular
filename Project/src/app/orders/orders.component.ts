@@ -31,15 +31,15 @@ export class OrdersComponent implements OnInit {
       }
     )
 
-    // Creates an event listener on orders so that the data is received here when the data changes in dataService.
-    this.dataService.getOrders(this.user.id).subscribe(
-      success => {
-        this.processData(success);
-      },
-      fail => {
-        console.log(fail);
-      }
-    )
+    // // Creates an event listener on orders so that the data is received here when the data changes in dataService.
+    // this.dataService.getOrders(this.user.id).subscribe(
+    //   success => {
+    //     this.processData(success);
+    //   },
+    //   fail => {
+    //     console.log(fail);
+    //   }
+    // )
   }
 
   /**

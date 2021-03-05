@@ -1,0 +1,42 @@
+<div class="product-container">
+  <div class="productImage">
+    <img src="{{product.ImageURL}}" alt="{{product.Name}}">
+  </div>
+  <div class="content">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group field-size">
+          <label for="size">Size:</label>
+          <select class="form-control" id="size" name="size" [(ngModel)]="this.size">
+            <option value="s">Small</option>
+            <option value="m">Medium</option>
+            <option value="l">Large</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group field-qty">
+          <label for="qty">Qty:</label>
+          <select class="form-control" id="qty" name="qty" [(ngModel)]="this.qty">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row actionButtons">
+      <div class="col-md-12">
+        <button mat-raised-button class="saveButton" type="submit" (click)="addToOrder()">ADD TO ORDER</button>
+        <p class="error" *ngIf="itemAlreadyAdded">Item is already added to your cart.</p>
+      </div>
+    </div>
+  </div>
+</div>

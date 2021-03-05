@@ -1,13 +1,14 @@
 <div class="container-fluid" onDrop (onDropEvent)="onDrop($event)">
-    <div *ngIf="cartItems.length > 0 && !this.checkout" class="products">
+    <div *ngIf="(cartItems.length > 0 || cartItems2.length > 0) && !this.checkout" class="products">
         <div *ngFor="let item of cartItems; let i = index">
             <div class="row">
                 <div class="col-md-12 shopping-cart-item">
                     <mat-card appMaterialElevation class="example-card">
                         <mat-card-content class="mat-content">
                             <div #mapContainer id="map-{{i}}" class="map"></div>
-                            <div class="carImage"><img src="{{item.Car.ImageURL}}"></div>
-                            <div class="card-content">
+                            <div *ngIf="item.OrderType === 'ride'" class="carImage"><img src="{{item.Car.ImageURL}}"></div>
+                            <div *ngIf="item.OrderType === 'delivery'" class="carImage"><img src="{{item.Products[0].ImageURL}}"></div>
+                            <div class="card-content" *ngIf="item.OrderType === 'ride'">
                                 <div class="row">
                                     <span class="material-icons delete-icon"
                                         (click)="removeItem(item); $event.stopPropagation()">clear</span>
@@ -34,7 +35,38 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <span>Total Fare</span><br>
-                                        <span>CAD {{item.TotalFare}}</span>
+                                        <span>CAD {{item.OrderTotal}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-content" *ngIf="item.OrderType === 'delivery'">
+                                <div class="row">
+                                    <span class="material-icons delete-icon"
+                                        (click)="removeItem(item); $event.stopPropagation()">clear</span>
+                                    <!-- <div class="col-md-6">
+                                        <span class="sub-title">Car Model</span><br>
+                                        <span>{{item.Car.CarModel}}</span>
+                                    </div> -->
+                                    <!-- <div class="col-md-6">
+                                        <span class="sub-title">Car Colour</span><br>
+                                        <span>{{item.Car.CarColour}}</span>
+                                    </div> -->
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <span class="sub-title">Delivery Date</span><br>
+                                        <span>{{item.PickupDate | date:'mediumDate'}} </span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span class="sub-title">Delivery Time</span><br>
+                                        <span>{{item.PickupTime}}</span>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <span>Total</span><br>
+                                        <span>CAD {{item.OrderTotal}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -46,8 +78,8 @@
         <div class="row total-price">
             <p><span class="title sub-title">SUB-TOTAL: </span><span class="price sub-title">CAD
                     {{this.subTotalTxt}}</span></p>
-            <p><span class="title sub-title">DELIVERY: </span><span class="price sub-title">FREE</span></p>
-            <p><span class="title">TOTAL TO PAY: </span><span class="price">CAD {{this.subTotalTxt}}</span></p>
+            <p><span class="title sub-title">DELIVERY: </span><span class="price sub-title">CAD {{deliveryTxt}}</span></p>
+            <p><span class="title">TOTAL TO PAY: </span><span class="price">CAD {{this.subTotalTxt }}</span></p>
         </div>
         <div class="action-buttons">
             <button mat-raised-button class="cancel">CANCEL</button>

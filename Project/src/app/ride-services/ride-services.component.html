@@ -156,7 +156,7 @@
                     </div>
                 </div>
                 <div class="col-md-8" *ngIf="showOrderReview">
-                    <div class="content-box order-review" onDrag [order]="{Car: cars[selected], TotalFare: totalEstimate, PickupTime: pickUpTime, PickupDate: pickUpDate | date:'mediumDate', direction: directionsReponse}" draggable="true">
+                    <div class="content-box order-review" onDrag [order]="orderObj" draggable="true">
                         <p class="review-title">Order Review</p>
                         <p>Car Details</p>
                         <div class="row">

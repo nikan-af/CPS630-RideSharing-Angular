@@ -6,13 +6,14 @@ import { MainComponent } from './main/main.component';
 import { ContactComponent } from './contact/contact.component';
 import { OrdersComponent } from './orders/orders.component';
 import { AboutComponent } from './about/about.component';
+import { DeliveryServices } from './delivery-services/delivery-services.component';
 
 /* All the url routes in our website and the corresponding components  */
 
 export const routes: Routes = [
   { path: 'home', component: MainComponent },
   { path: 'ride-services', component: RideServicesComponent },
-  { path: 'delivery-services', component: RideServicesComponent },
+  { path: 'delivery-services', component: DeliveryServices },
   { path: 'contact', component: ContactComponent },
   { path: 'orders', component: OrdersComponent },
   { path: 'about', component: AboutComponent },

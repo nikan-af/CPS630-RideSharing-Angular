@@ -214,31 +214,31 @@ export class CheckoutComponent implements OnInit {
       }, 300);
     })
 
-    this.dataService.paymentInfoBehaviourService.subscribe(
-      success => {
-        if (success) {
-          var cc = success.credit_card_number;
-          var masked = '************' + cc.substr(-4);
-          this.checkout_validations.controls['credit_card_number'].setValue(success.credit_card_number);
-          this.checkout_validations.controls['credit_card_address_line_1'].setValue(success['credit_card_address_line_1']);
-          this.checkout_validations.controls['credit_card_address_line_2'].setValue(success['credit_card_address_line_2']);
-          this.checkout_validations.controls['expiry_month'].setValue(success['expiry_month']);
-          this.checkout_validations.controls['expiry_year'].setValue(success['expiry_year']);
-          this.checkout_validations.controls['credit_card_first_name'].setValue(success['credit_card_first_name']);
-          this.checkout_validations.controls['credit_card_last_name'].setValue(success['credit_card_last_name']);
-          this.checkout_validations.controls['credit_card_holder'].setValue(success['credit_card_holder']);
-          this.checkout_validations.controls['country'].setValue(success['country']);
-          this.checkout_validations.controls['city'].setValue(success['city']);
-          this.checkout_validations.controls['province'].setValue(success['province']);
-          this.checkout_validations.controls['postal_code'].setValue(success['postal_code']);
-          this.postcode = success['postal_code'];
-          this.city = success['city'];
-          this.country = success['country'];
-          this.state = success['province'];
-          // this.credit_card_number = masked;
-        }
-      }
-    );
+    // this.dataService.paymentInfoBehaviourService.subscribe(
+    //   success => {
+    //     if (success) {
+    //       var cc = success.credit_card_number;
+    //       var masked = '************' + cc.substr(-4);
+    //       this.checkout_validations.controls['credit_card_number'].setValue(success.credit_card_number);
+    //       this.checkout_validations.controls['credit_card_address_line_1'].setValue(success['credit_card_address_line_1']);
+    //       this.checkout_validations.controls['credit_card_address_line_2'].setValue(success['credit_card_address_line_2']);
+    //       this.checkout_validations.controls['expiry_month'].setValue(success['expiry_month']);
+    //       this.checkout_validations.controls['expiry_year'].setValue(success['expiry_year']);
+    //       this.checkout_validations.controls['credit_card_first_name'].setValue(success['credit_card_first_name']);
+    //       this.checkout_validations.controls['credit_card_last_name'].setValue(success['credit_card_last_name']);
+    //       this.checkout_validations.controls['credit_card_holder'].setValue(success['credit_card_holder']);
+    //       this.checkout_validations.controls['country'].setValue(success['country']);
+    //       this.checkout_validations.controls['city'].setValue(success['city']);
+    //       this.checkout_validations.controls['province'].setValue(success['province']);
+    //       this.checkout_validations.controls['postal_code'].setValue(success['postal_code']);
+    //       this.postcode = success['postal_code'];
+    //       this.city = success['city'];
+    //       this.country = success['country'];
+    //       this.state = success['province'];
+    //       // this.credit_card_number = masked;
+    //     }
+    //   }
+    // );
   }
 
   /*
@@ -257,14 +257,7 @@ export class CheckoutComponent implements OnInit {
         /*
           Once the request succeeds reset the form and show success message.
         */
-        this.dataService.createOrder({'order': this.cartItems, 'payment': formValues}).subscribe(
-          success => {
-            this.purchaseComplete = true;
-            this.resetCheckoutForm();
-          }, fail => {
-            console.log(fail);
-          }
-        );
+        this.dataService.createOrder({'order': this.cartItems, 'payment': formValues});
         this.checkout_validations.reset();
         for (let name in this.checkout_validations.controls) {
           this.checkout_validations.controls[name].setErrors(null);

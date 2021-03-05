@@ -39,6 +39,8 @@ import { AboutComponent } from './about/about.component';
 import { DirectionsMapDirective } from './shared/directives-map.directive';
 import { OnDrag } from './ride-services/ride-services.directive';
 import { OnDrop } from './shopping-cart/shopping-cart.directive';
+import { DeliveryServices } from './delivery-services/delivery-services.component';
+import { ProductDialogComponent } from './product-dialog/product-dialog.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import { OnDrop } from './shopping-cart/shopping-cart.directive';
     AboutComponent,
     DirectionsMapDirective,
     OnDrag,
-    OnDrop
+    OnDrop,
+    DeliveryServices,
+    ProductDialogComponent
   ],
   imports: [
     BrowserModule,

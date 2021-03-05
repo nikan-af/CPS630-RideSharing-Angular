@@ -9,9 +9,12 @@ import { DataService } from '../shared/data.service';
 export class ShoppingCartComponent implements OnInit, AfterViewInit {
 
   cartItems = [];
+  cartItems2 = [];
   checkout = false;
   subTotal = 0;
+  delivery = 0;
   subTotalTxt = '';
+  deliveryTxt = '';
 
   lat: number = 43.6556101;
   lng: number = -79.37587479999999;
@@ -87,8 +90,13 @@ export class ShoppingCartComponent implements OnInit, AfterViewInit {
   resetTotal() {
     this.subTotal = 0;
     for (var i = 0; i < this.cartItems.length; i++) {
-      this.subTotal += parseFloat(this.cartItems[i].TotalFare);
+      this.subTotal += parseFloat(this.cartItems[i].OrderTotal);
+      if (this.cartItems[i].DeliveryFee) {
+        this.delivery += parseFloat(this.cartItems[i].DeliveryFee);
+      }
     }
+
+    this.deliveryTxt = this.delivery.toFixed(2);
     this.subTotalTxt = this.subTotal.toFixed(2);
   }
 
