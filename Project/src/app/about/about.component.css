@@ -4,6 +4,16 @@ h1 {
 }
 
 .example-card {
-    max-width: 400px;
-    margin: 30px 300px;
+    max-width: 380px;
+    max-height: 250px;
+    display: inline-block;
+    margin: 30px;
   }
+
+  p.info {
+    text-align: center;
+    font-weight: bold !important;
+    margin: 10px 20px;
+    text-shadow: 0 0 black;
+    font-size: large;
+}
