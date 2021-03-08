@@ -23,18 +23,13 @@ export class ShoppingCartComponent implements OnInit, AfterViewInit {
   @ViewChildren('mapContainer') containers;
 
   constructor(private dataService: DataService) { 
-    this.dataService.cartItemsBehaviourSubject.subscribe(data => {
-      console.log(data);
-      this.cartItems = data;
-      this.initializeMaps();
-      this.resetTotal();
-    });
   }
 
   /**
    * Upon initializing sets event listener on cartItems.
    */
   ngOnInit(): void {
+    this.cartItems = JSON.parse(localStorage.getItem('cartItems')) ? JSON.parse(localStorage.getItem('cartItems')) : [];
     this.resetTotal();
   }
 
