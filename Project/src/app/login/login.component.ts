@@ -3,8 +3,8 @@ import { NgForm } from '@angular/forms';
 import { ModalService } from '../shared/modal.service';
 import { Router } from '@angular/router';
 import { DataService } from '../shared/data.service'
-import { User } from '../shared/models/user.model';
 import { ToastrService } from 'ngx-toastr';
+import { User } from '../shared/interfaces';
 
 @Component({
   selector: 'app-login',
@@ -23,14 +23,15 @@ export class LoginComponent {
   }
 
   tempUser: User = {
-    id: 0,
-    fullName: '',
-    email: '',
-    pwd: '',
-    phoneNumber: '',
-    address: '',
-    postal: '',
-    balance: 0
+    UserId: 0,
+    Name: '',
+    Email: '',
+    Password: '',
+    Tel: '',
+    Address: '',
+    CityCode: '',
+    Balance: 0,
+    isAdmin: 0
   };
 
   signUpSelected = false;
@@ -66,7 +67,7 @@ export class LoginComponent {
   onSubmit(form) {
     console.log(form);
     if (form.value.passwordSignUp) {
-      this.dataService.registerUser({ 'fullName': form.value.fullName, 'email': form.value.emailSignUp, 'password': form.value.passwordSignUp , 'phoneNumber': form.value.phone, 'address': form.value.address, 'postal': form.value.postal}).subscribe(
+      this.dataService.registerUser({ 'Name': form.value.fullName, 'Email': form.value.emailSignUp, 'Password': form.value.passwordSignUp , 'Tel': form.value.phone, 'Address': form.value.address, 'CityCode': form.value.postal}).subscribe(
         success => {
           this.userWasCreated = true;
           this.userHasSignedUp = true;
@@ -81,19 +82,19 @@ export class LoginComponent {
         Once the user logs in we set all the behavior subjects set on user, paymentinfo, orders and favorites to inform other components that 
         the user has logged and we then fetch the data for paymentInfo, favorites and orders using the if of the user.
       */
-      this.dataService.userlogin(this.tempUser.email, this.tempUser.pwd).subscribe(
+      this.dataService.userlogin(this.tempUser.Email, this.tempUser.Password).subscribe(
         response => {
-          console.log(response)
           this.dataService.userBehaviorSubject.next(
             {
-              id: response['records'][0].UserId,
-              email: response['records'][0].Email,
-              fullName: response['records'][0].Name,
-              pwd: '',
-              phoneNumber: response['records'][0].Tel,
-              address: response['records'][0].Address,
-              postal: response['records'][0].CityCode,
-              balance: response['records'][0].Balance
+              UserId: response['records'][0].UserId,
+              Email: response['records'][0].Email,
+              Name: response['records'][0].Name,
+              Password: '',
+              Tel: response['records'][0].Tel,
+              Address: response['records'][0].Address,
+              CityCode: response['records'][0].CityCode,
+              Balance: response['records'][0].Balance,
+              isAdmin: response['records'][0].isAdmin
             }
           );
           // this.dataService.getPaymentInfo(response['records'][0].userId).subscribe(

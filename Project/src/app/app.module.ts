@@ -22,6 +22,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { ContactComponent } from './contact/contact.component';
 import { AppComponent } from './app.component';
@@ -37,10 +39,13 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { OrdersComponent } from './orders/orders.component';
 import { AboutComponent } from './about/about.component';
 import { DirectionsMapDirective } from './shared/directives-map.directive';
-import { OnDrag } from './ride-services/ride-services.directive';
-import { OnDrop } from './shopping-cart/shopping-cart.directive';
+import { OnDrag } from './shared/onDrag.directive';
+import { OnDrop } from './shared/onDrop.directive';
 import { DeliveryServices } from './delivery-services/delivery-services.component';
 import { ProductDialogComponent } from './product-dialog/product-dialog.component';
+import { DataService } from './shared/data.service';
+import { DbmaintainComponent } from './dbmaintain/dbmaintain.component';
+import { RecordUpdateDialogComponent } from './dbmaintain/record-update-dialog/record-update-dialog.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +66,9 @@ import { ProductDialogComponent } from './product-dialog/product-dialog.componen
     OnDrag,
     OnDrop,
     DeliveryServices,
-    ProductDialogComponent
+    ProductDialogComponent,
+    DbmaintainComponent,
+    RecordUpdateDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -84,11 +91,14 @@ import { ProductDialogComponent } from './product-dialog/product-dialog.componen
     MatAutocompleteModule,
     MatTooltipModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [
     CookieService,
-    MatDatepickerModule
+    MatDatepickerModule,
+    DataService
   ],
   bootstrap: [AppComponent]
 })

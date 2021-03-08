@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, ChangeDetectorRef, ChangeDetectionStrategy, ViewChild, ElementRef, NgZone, AfterViewInit } from '@angular/core';
-import { DataService, Order } from '../shared/data.service';
+import { DataService } from '../shared/data.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { Order } from '../shared/interfaces';
 
 @Component({
     selector: 'ride-services-component',

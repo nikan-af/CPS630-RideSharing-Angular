@@ -17,7 +17,16 @@ Here is a link to a tutorial: https://www.youtube.com/watch?v=3B-CnezwEeo
 
 After running XAMPP make sure you change the PHP port number to 8080.
 
-Then place the api directory located in the project directory inside the htdocs folder in XAMPP.
+Then place the `api` directory located in the project directory inside the `htdocs` folder in XAMPP.
+
+To get phpmysql working you need to run the `CREATE` and `INSERT` statements that have been placed under sql directory.
+1. Head over to localhost:8080/phpmyadmin.
+2. create a new database and name it `cps630`
+3. Click on the new database created and click on SQL
+4. Run the code inside create.sql 
+5. Run the code inside insert.sql
+
+You should be good to play around with our app on your local now!
 
 ## Development server
 

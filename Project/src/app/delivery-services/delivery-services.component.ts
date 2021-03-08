@@ -1,11 +1,12 @@
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChildren, ViewChild } from '@angular/core';
-import { DataService, Order } from '../shared/data.service';
+import { DataService } from '../shared/data.service';
 import { ProductDialogComponent } from '../product-dialog/product-dialog.component';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalService } from '../shared/modal.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute } from '@angular/router';
+import { Order, Product } from '../shared/interfaces';
 
 @Component({
     selector: 'delivery-services',
@@ -211,22 +212,3 @@ export class DeliveryServices implements OnInit, AfterViewInit {
     }
 
 }
-
-/* The interface used for the object that gets passed into the product dialog */
-export interface ProductDialogData {
-    ProductId: string;
-    ProductType: string;
-    Name: string;
-    Price: string;
-    ImageURL: string;
-}
-
-export interface Product {
-    ProductId: string;
-    ProductType: string;
-    Name: string;
-    Price: string;
-    ImageURL: string;
-    Qty: number;
-    Size: string;
-} 

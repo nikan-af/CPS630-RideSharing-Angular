@@ -11,14 +11,14 @@
       <form #signInForm="ngForm" (ngSubmit)="signInForm.valid && onSubmit(signInForm)">
         <label for="username">Email Address</label>
         <input id="usernameSignIn" #usernameSignIn="ngModel" type="text" name="usernameSignIn"
-          [(ngModel)]="this.tempUser.email" required />
+          [(ngModel)]="this.tempUser.Email" required />
         <div *ngIf="signInForm.submitted && usernameSignIn.errors">
           <label *ngIf="usernameSignIn.errors.required" class="validation-message">This field is required.</label>
           <label *ngIf="usernameSignIn.errors.pattern" class="validation-message">Invalid username.</label>
         </div>
         <label for="password">Password</label>
         <input id="passwordSignIn" type="password" #passwordSignIn="ngModel" name="passwordSignIn"
-          [(ngModel)]="this.tempUser.pwd" required />
+          [(ngModel)]="this.tempUser.Password" required />
         <div *ngIf="signInForm.submitted && passwordSignIn.errors">
           <label *ngIf="passwordSignIn.errors.required" class="validation-message">This field is required.</label>
         </div>
@@ -37,13 +37,13 @@
       <form #signUpForm="ngForm" (ngSubmit)="signUpForm.valid && onSubmit(signUpForm)">
         <div class="" [hidden]="displayAdditionalInfo">
           <label for="fullName">Full Name</label>
-          <input id="fullName" type="text" name="fullName" #fullName="ngModel" [(ngModel)]="this.tempUser.fullName"
+          <input id="fullName" type="text" name="fullName" #fullName="ngModel" [(ngModel)]="this.tempUser.Name"
             required />
           <div *ngIf="signUpForm.submitted && fullName.errors">
             <label *ngIf="fullName.errors.required" class="validation-message">This field is required.</label>
           </div>
           <label for="email">Email Address</label>
-          <input id="emailSignUp" type="text" name="emailSignUp" #emailSignUp="ngModel" [(ngModel)]="this.tempUser.email"
+          <input id="emailSignUp" type="text" name="emailSignUp" #emailSignUp="ngModel" [(ngModel)]="this.tempUser.Email"
             required [pattern]="emailRX" />
           <div *ngIf="signUpForm.submitted && emailSignUp.errors">
             <label *ngIf="emailSignUp.errors.required" class="validation-message">This field is required.</label>
@@ -52,7 +52,7 @@
           </div>
           <label for="password">Password</label>
           <input id="passwordSignUp" type="password" name="passwordSignUp" #passwordSignUp="ngModel"
-            [(ngModel)]="this.tempUser.pwd" required />
+            [(ngModel)]="this.tempUser.Password" required />
           <div *ngIf="signUpForm.submitted && passwordSignUp.errors">
             <label *ngIf="passwordSignUp.errors.required" class="validation-message">This field is required.</label>
           </div>
@@ -61,7 +61,7 @@
 
         <div class="onNext" [hidden]="!displayAdditionalInfo">
           <label for="phone">Phone Number</label>
-          <input id="phone" type="text" name="phone" #phone="ngModel" placeholder="ex. (647) 123-3453" [(ngModel)]="this.tempUser.phoneNumber"
+          <input id="phone" type="text" name="phone" #phone="ngModel" placeholder="ex. (647) 123-3453" [(ngModel)]="this.tempUser.Tel"
             required [pattern]="phoneRX"/>
           <div *ngIf="signUpForm.submitted && phone.errors">
             <label *ngIf="phone.errors.required" class="validation-message">This field is required.</label>
@@ -70,13 +70,13 @@
           </div>
           <label for="address">Full Address</label>
           <input id="address" type="text" name="address" #address="ngModel"
-            [(ngModel)]="this.tempUser.address" required />
+            [(ngModel)]="this.tempUser.Address" required />
           <div *ngIf="signUpForm.submitted && address.errors">
             <label *ngIf="address.errors.required" class="validation-message">This field is required.</label>
           </div>
           <label for="postal">Postal Code</label>
           <input id="postal" type="text" name="postal" #postal="ngModel"
-            [(ngModel)]="this.tempUser.postal" required placeholder="ex. M5B4L1" [pattern]="postalCodeRX"/>
+            [(ngModel)]="this.tempUser.CityCode" required placeholder="ex. M5B4L1" [pattern]="postalCodeRX"/>
           <div *ngIf="signUpForm.submitted && postal.errors">
             <label *ngIf="postal.errors.required" class="validation-message">This field is required.</label>
             <label *ngIf="postal.errors.pattern" class="validation-message">Invalid postal code. Please enter a valid
@@ -95,7 +95,7 @@
     <div id="email-conformation" *ngIf="userHasSignedUp">
       <div class="container-fluid email-conformation-container">
         <mat-icon class="email-conformation-icon">check_circle_outline</mat-icon>
-        <h3>Hi {{this.tempUser.fullName}}, thank you for signing up! <span>
+        <h3>Hi {{this.tempUser.Name}}, thank you for signing up! <span>
             <mat-icon class="smile-icon">sentiment_satisfied_alt</mat-icon>
           </span></h3>
         <h3>You need to confirm your email to be able to login.</h3>

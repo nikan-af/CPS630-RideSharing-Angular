@@ -1,12 +1,13 @@
 CREATE TABLE `cps630`.`User` (
   `UserId` INT NOT NULL AUTO_INCREMENT,
   `Name` VARCHAR(255) NULL,
-  `Tel` NVARCHAR(100) NULL,
-  `Email` NVARCHAR(255) NULL,
-  `Address` NVARCHAR(255) NULL,
-  `CityCode` NVARCHAR(10) NULL,
-  `Password` NVARCHAR(50) NULL,
+  `Tel` VARCHAR(100) NULL,
+  `Email` VARCHAR(255) NULL,
+  `Address` VARCHAR(255) NULL,
+  `CityCode` VARCHAR(10) NULL,
+  `Password` VARCHAR(50) NULL,
   `Balance` DECIMAL(6, 2) DEFAULT 0 NULL,
+  `isAdmin` BOOLEAN DEFAULT 0 NOT NULL,
   PRIMARY KEY (`UserId`)
 );
 
@@ -27,7 +28,7 @@ CREATE TABLE `cps630`.`Payment` (
   `CardNumber` VARCHAR(255) NULL,
   `CardHolderFirstName` VARCHAR(255) NULL,
   `CardHolderLastName` VARCHAR(255) NULL,
-  `ExpirtyMonth` VARCHAR(2) NULL,
+  `ExpiryMonth` VARCHAR(2) NULL,
   `ExpiryYear` VARCHAR(4) NULL,
   `CardAddressLine1` VARCHAR(255) NULL,
   `CardAddressLine2` VARCHAR(255) NULL,
@@ -37,6 +38,16 @@ CREATE TABLE `cps630`.`Payment` (
   `Country` VARCHAR(255) NULL,
   PRIMARY KEY (`PaymentId`)
 );
+
+CREATE TABLE `cps630`.`Inquiry` (
+  `InquiryId` INT NOT NULL AUTO_INCREMENT,
+  `FName` TEXT NOT NULL,
+  `LName` TEXT NOT NULL,
+  `Email` TEXT NOT NULL,
+  `Message` TEXT NOT NULL,
+  `TypeOfInquiry` TEXT NOT NULL,
+  PRIMARY KEY (`InquiryId`)
+) ENGINE = InnoDB;
 
 CREATE TABLE `cps630`.`Flower` (
   `ProductId` INT NOT NULL AUTO_INCREMENT,
@@ -53,7 +64,7 @@ CREATE TABLE `cps630`.`Coffee` (
   `Price` VARCHAR(10) NOT NULL,
   `ImageURL` VARCHAR(255) NOT NULL,
   `StoreCode` VARCHAR(10) NOT NULL,
-  PRIMARY KEY (`BeverageId`)
+  PRIMARY KEY (`ProductId`)
 );
 
 CREATE TABLE `cps630`.`Order` (
@@ -75,12 +86,16 @@ CREATE TABLE `cps630`.`Trip` (
   `StartLocationLng` VARCHAR(255) NOT NULL,
   `EndLocationLat` VARCHAR(255) NOT NULL,
   `EndLocationLng` VARCHAR(255) NOT NULL,
+  `CarId` INT,
   PRIMARY KEY (`TripId`)
 );
 
-CREATE TABLE `cps630`.`OrderProductMap` (
-  `OrderProductMapId` INT NOT NULL AUTO_INCREMENT,
-  `OrderId` INT NOT NULL,
-  `ProductId` INT NOT NULL,
-  PRIMARY KEY (`OrderProductMapId`)
+CREATE TABLE `cps630`.`Inquiry` (
+  `InquiryId` INT NOT NULL AUTO_INCREMENT,
+  `FName` TEXT NOT NULL,
+  `LName` TEXT NOT NULL,
+  `Email` TEXT NOT NULL,
+  `Message` TEXT NOT NULL,
+  `TypeOfInquiry` TEXT NOT NULL,
+  PRIMARY KEY (`InquiryId`)
 );

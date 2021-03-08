@@ -1,5 +1,5 @@
 <div class="container-fluid" onDrop (onDropEvent)="onDrop($event)">
-    <div *ngIf="(cartItems.length > 0 || cartItems2.length > 0) && !this.checkout" class="products">
+    <div *ngIf="(cartItems.length > 0) && !this.checkout" class="products">
         <div *ngFor="let item of cartItems; let i = index">
             <div class="row">
                 <div class="col-md-12 shopping-cart-item">

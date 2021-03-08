@@ -34,7 +34,8 @@
                 "Email" => $Email,
                 "Address" => $Address,
                 "CityCode" => $CityCode,
-                "Balance" => $Balance
+                "Balance" => $Balance,
+                "isAdmin" => $isAdmin
             );
       
             array_push($user_arr["records"], $user_item);

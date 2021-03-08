@@ -3,7 +3,7 @@ import { DataService } from '../shared/data.service';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ModalService } from '../shared/modal.service';
 import { CookieService } from 'ngx-cookie-service';
-import { ProductDialogData } from '../delivery-services/delivery-services.component';
+import { ProductDialogData } from '../shared/interfaces';
 
 @Component({
     selector: 'product-dialog-component',

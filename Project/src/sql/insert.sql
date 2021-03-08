@@ -20,5 +20,3 @@ INSERT INTO `Coffee` (`ProductId`, `Name`, `Price`, `ImageURL`, `StoreCode`) VAL
 ('4', 'Pistachio Coffee Frappuccino® Blended Beverage', '8.99', 'https://globalassets.starbucks.com/assets/06cfd44aac9f4b488495e0f7da404825.jpg?impolicy=1by1_wide_1242', 'M5B'),
 ('5', 'Featured Dark Roast', '4.99', 'https://globalassets.starbucks.com/assets/30c60a8357a74f83be4d2161e5e7c7c5.jpg?impolicy=1by1_wide_1242', 'M5B'), 
 ('6', 'Iced Chai Latte', '8.99', 'https://globalassets.starbucks.com/assets/7b51b01b4a394a829ff9df4ef9f3be3c.jpg?impolicy=1by1_wide_1242', 'M5B');
-
-

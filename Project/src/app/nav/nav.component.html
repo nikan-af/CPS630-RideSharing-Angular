@@ -31,6 +31,9 @@
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['contact']" routerLinkActive="active">Contact Us</a>
             </li>
+            <li class="nav-item" *ngIf="user.isAdmin == 1">
+                <a class="nav-link" [routerLink]="['dbMaintain']" routerLinkActive="active">DB Maintain</a>
+            </li>
         </ul>
         <div class="navbar-collapse">
             <ul class="navbar-nav ml-auto">
@@ -41,13 +44,13 @@
                 <li class="nav-item">
                     <a class="nav-link item-icon" (click)="this.openCartHandler()"><span
                             class="material-icons">shopping_basket</span><span class='badge badge-warning'
-                            id='lblCartCount' *ngIf="this.dataService.cartItems.length > 0">
-                            {{this.dataService.cartItems.length}} </span></a>
+                            id='lblCartCount' *ngIf="cartItems.length > 0">
+                            {{cartItems.length}} </span></a>
                 </li>
                 <li class="nav-item item-icon">
                     <a class="nav-link" (click)="handleLogin(content)"><span *ngIf="!userIsLoggedIn"
                             class="material-icons">account_circle</span><span *ngIf="userIsLoggedIn"
-                            class="material-icons" (click)="this.dataService.logout()">login</span></a>
+                            class="material-icons" (click)="logout()">login</span></a>
                 </li>
             </ul>
         </div>

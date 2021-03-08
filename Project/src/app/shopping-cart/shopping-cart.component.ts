@@ -9,7 +9,6 @@ import { DataService } from '../shared/data.service';
 export class ShoppingCartComponent implements OnInit, AfterViewInit {
 
   cartItems = [];
-  cartItems2 = [];
   checkout = false;
   subTotal = 0;
   delivery = 0;
@@ -23,17 +22,20 @@ export class ShoppingCartComponent implements OnInit, AfterViewInit {
 
   @ViewChildren('mapContainer') containers;
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService) { 
+    this.dataService.cartItemsBehaviourSubject.subscribe(data => {
+      console.log(data);
+      this.cartItems = data;
+      this.initializeMaps();
+      this.resetTotal();
+    });
+  }
 
   /**
    * Upon initializing sets event listener on cartItems.
    */
   ngOnInit(): void {
-    this.dataService.cartItemsBehaviourSubject.subscribe(data => {
-      console.log(data);
-      this.cartItems = data;
-      this.resetTotal();
-    });
+    this.resetTotal();
   }
 
   ngAfterViewInit() {
@@ -42,7 +44,10 @@ export class ShoppingCartComponent implements OnInit, AfterViewInit {
   }
 
   onDrop(data) {
-    this.dataService.addOrderToCart(data);
+    if (this.dataService.addOrderToCart(data)) {
+      this.cartItems.push(data);
+      this.resetTotal();
+    }
   }
 
   initializeMaps() {

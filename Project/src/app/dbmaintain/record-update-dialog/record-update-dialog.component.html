@@ -1,0 +1,15 @@
+<form>
+    <div class="formBody">
+        <mat-form-field appearance="outline" class="field" *ngFor="let fieldName of fieldNames">
+            <mat-label>{{fieldName}}</mat-label>
+            <input name="{{fieldName}}" id="{{fieldName}}" matInput [(ngModel)]="this.tempData['formData'][fieldName]">
+        </mat-form-field>
+    </div>
+
+    <div class="row actionButtons">
+        <div class="col-md-12">
+            <button mat-raised-button *ngIf="this.data.operationType !== 'insert'" class="resetButton" (click)="resetForm()">Reset Settings</button>
+            <button mat-raised-button class="saveButton" type="submit" (click)="onClick()">{{this.tempData.operationType.toLocaleUpperCase()}}</button>
+        </div>
+    </div>
+</form>

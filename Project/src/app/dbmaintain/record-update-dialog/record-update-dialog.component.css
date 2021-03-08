@@ -1,0 +1,18 @@
+.formBody {
+  text-align: center;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+.formBody mat-form-field {
+  margin: 5px;
+}
+
+.actionButtons {
+  text-align: center;
+}
+
+.actionButtons button {
+  margin: 0 10px;
+}
+

@@ -1,0 +1,41 @@
+.content {
+  padding: 40px;
+  min-height: 800px;
+}
+
+.title {
+  font-size: 3rem;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.users-table {
+  width: 900px;
+  margin: 0 auto;
+  margin-top: 60px;
+}
+
+.add-item:hover {
+    cursor: pointer;
+}
+
+.users-table .h4 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.row {
+  padding: 20px;
+}
+
+table {
+  width: 100%;
+}
+
+td.mat-cell {
+  text-align: center;
+}
+
+th.mat-header-cell {
+  text-align: center;
+}

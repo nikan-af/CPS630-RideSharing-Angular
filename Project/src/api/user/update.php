@@ -15,21 +15,21 @@
     $user = new User($db);
 
     if(isset($postdata) && !empty($postdata)){
+        $user->UserId = $request->UserId;
         $user->Name = $request->Name;
         $user->Email = $request->Email;
-        $user->Password = $request->Password;
         $user->Tel = $request->Tel;
         $user->Address = $request->Address;
         $user->CityCode = $request->CityCode;
         $user->Balance = $request->Balance;
         $user->isAdmin = $request->isAdmin;
 
-        if ($response = $user->register()) {
+        if ($response = $user->update()) {
             http_response_code(200);
-            echo json_encode(array("message" => "User was created."));
+            echo json_encode(array("message" => "User record was updated."));
         } else {
             http_response_code(400);
-            echo json_encode(array("message" => "User was not created."));
+            echo json_encode(array("message" => "User record was not updated."));
         }
     }
 ?>

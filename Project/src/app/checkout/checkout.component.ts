@@ -3,9 +3,9 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Subscribable, Subscription, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { MatOptionSelectionChange } from '@angular/material/core';
-import { DataService, Order } from '../shared/data.service';
+import { DataService } from '../shared/data.service';
 import { ModalService } from '../shared/modal.service';
-import { User } from '../shared/models/user.model';
+import { Order, User } from '../shared/interfaces';
 
 @Component({
   selector: 'app-checkout',
@@ -251,13 +251,21 @@ export class CheckoutComponent implements OnInit {
         for (const field in this.checkout_validations.controls) {
           formValues[field] = this.checkout_validations.controls[field].value;
         }
-        formValues['userId'] = this.user.id;
+        formValues['userId'] = this.user.UserId;
         formValues['products'] = this.cartItems;
 
         /*
           Once the request succeeds reset the form and show success message.
         */
-        this.dataService.createOrder({'order': this.cartItems, 'payment': formValues});
+        this.dataService.createOrder({'order': this.cartItems, 'payment': formValues}).subscribe(
+          success => {
+            console.log(success);
+            this.dataService.resetCart();
+            this.cartItems = [];
+          }, fail => {
+            console.log(fail);
+          }
+        );
         this.checkout_validations.reset();
         for (let name in this.checkout_validations.controls) {
           this.checkout_validations.controls[name].setErrors(null);

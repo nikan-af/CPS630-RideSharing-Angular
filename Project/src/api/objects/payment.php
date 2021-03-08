@@ -4,15 +4,15 @@ class Payment {
     private $conn;
     private $tblName = "Payment";
 
-    public $UserId;
+    public $OrderId;
     public $CardNumber;
-    public $CardHolderName;
+    public $CardHolder;
     public $ExpiryMonth;
     public $ExpiryYear;
-    public $ShippingLastName;
-    public $ShippingFirstName;
-    public $ShippingAddressLine1;
-    public $ShippingAddressLine2;
+    public $CardHolderFirstName;
+    public $CardHolderLastName;
+    public $CardAddressLine1;
+    public $CardAddressLine2;
     public $PostalCode;
     public $City;
     public $StateOrProvince;
@@ -25,7 +25,7 @@ class Payment {
     public function read() {
         $query = "SELECT 
                     * FROM
-                        " . $this->tblName . " WHERE USERID=" . $this->UserId;
+                        " . $this->tblName . " WHERE USERID = " . $this->UserId;
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
@@ -33,12 +33,11 @@ class Payment {
     }
 
     public function create() {
-        $query = "INSERT INTO $this->tblName(UserId, CardNumber, CardHolderName, ExpiryMonth, ExpiryYear, ShippingFirstName, ShippingLastName, ShippingAddressLine1, ShippingAddressLine2, PostalCode, City, StateOrProvince, Country) VALUES($this->UserId, '$this->CardNumber', '$this->CardHolderName', '$this->ExpiryMonth', '$this->ExpiryYear', '$this->ShippingFirstName', '$this->ShippingLastName', '$this->ShippingAddressLine1', '$this->ShippingAddressLine2', '$this->PostalCode'. '$this->City', '$this->StateOrProvince', '$this->Country')";
+        $query = "INSERT INTO cps630.$this->tblName(OrderId, CardNumber, ExpiryMonth, ExpiryYear, CardHolderFirstName, CardHolderLastName, CardAddressLine1, CardAddressLine2, PostalCode, City, StateOrProvince, Country) VALUES($this->OrderId, '$this->CardNumber', '$this->ExpiryMonth', '$this->ExpiryYear', '$this->CardHolderFirstName', '$this->CardHolderLastName', '$this->CardAddressLine1', '$this->CardAddressLine2', '$this->PostalCode', '$this->City', '$this->StateOrProvince', '$this->Country')";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
-        print_r($this->conn->errorInfo());
         return $stmt;
     }
 }
