@@ -72,8 +72,8 @@ export class ShoppingCartComponent implements OnInit, AfterViewInit {
    * @param product 
    */
   removeItem(product) {
-    // this.cartItems.splice(this.cartItems.indexOf(product), 1);
     this.dataService.removeItem(product);
+    this.cartItems.splice(this.cartItems.indexOf(product), 1);
   }
 
   /**
