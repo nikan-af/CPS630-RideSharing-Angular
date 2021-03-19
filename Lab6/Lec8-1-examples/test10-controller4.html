@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>AngularJS MVC Architecture</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+</head>
+
+<body ng-app="app1">
+    <div ng-controller="fullName">
+        <p>{{Student.FName}}</p>
+    </div>
+    <script>
+        var app = angular.module("app1", []);
+        var ctrl = app.controller("fullName", function($scope) {
+            $scope.Student= 
+            { 
+                'FName': 'John', 
+                'LName': 'Smith', 
+            }
+        })
+    </script>
+</body>
+
+</html>
+
+<!--
+----------------------------------
+Output:
+
+    John
+
+-->
