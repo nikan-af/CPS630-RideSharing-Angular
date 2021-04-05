@@ -17,12 +17,13 @@
     if(isset($postdata) && !empty($postdata)){
         $user->Name = $request->Name;
         $user->Email = $request->Email;
-        $user->Password = $request->Password;
+        $user->Password = password_hash($request->Password, PASSWORD_DEFAULT);
         $user->Tel = $request->Tel;
         $user->Address = $request->Address;
         $user->CityCode = $request->CityCode;
         $user->Balance = $request->Balance;
         $user->isAdmin = $request->isAdmin;
+        
 
         if ($response = $user->register()) {
             http_response_code(200);

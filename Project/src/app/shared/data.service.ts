@@ -3,7 +3,8 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject } from 'rxjs';
-import { User, Order, Trip, Car, Payment, Product } from './interfaces';
+import { User, Order, Trip, Car, Payment, Product, Review } from './interfaces';
+import { ReviewsComponent } from '../reviews/reviews.component';
 
 @Injectable()
 export class DataService {
@@ -278,6 +279,15 @@ export class DataService {
      */
     isLoggedIn() {
         return new BehaviorSubject<any>(this.loggedIn);
+    }
+
+    createReview(review: Review) {
+        console.log(review);
+        return this.httpClient.post(this.baseUrl + '/review/create.php', { FirstName: review.FirstName, LastName: review.LastName, Message: review.Message, Rating: review.Rating, ServiceType: review.ServiceType, Timestamp: review.Timestamp });
+    }
+
+    getReviews() {
+        return this.httpClient.get(this.baseUrl + '/review/read.php');
     }
 }
 

@@ -6,6 +6,8 @@
 *.log
 node_modules
 
+.DS_Store
+
 # Include when developing application packages.
 pubspec.lock
 .c9

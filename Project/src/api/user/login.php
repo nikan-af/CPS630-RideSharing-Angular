@@ -13,19 +13,31 @@
     $db = $database->getConnection();
     
     $user = new User($db);
-
+    
+    $enteredPassword = $request->password;
     $user->Email = $request->email;
-    $user->Password = $request->password;
 
-    $stmt = $user->login();
+    $stmt = $user->readUserByEmail();
     $num = $stmt->rowCount();
 
-    if($num > 0){
+    if ($num === 0) {
+        // http_response_code(403);
+        echo json_encode("No users found.");
+        exit(0);
+    }
+
+    if($num === 1){
         $user_arr=array();
         $user_arr["records"]=array();
       
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             extract($row);
+
+            if (!password_verify($enteredPassword, $Password)) {
+                http_response_code(403);
+                echo json_encode("No users found.");
+                exit(0);
+            }
       
             $user_item=array(
                 "UserId" => $UserId,
@@ -43,8 +55,6 @@
       
         http_response_code(200);
         echo json_encode($user_arr);
-    } else {
-        http_error_code(403);
-        echo json_encode("No users found.");
-    }
+        exit(0);
+    } 
 ?>

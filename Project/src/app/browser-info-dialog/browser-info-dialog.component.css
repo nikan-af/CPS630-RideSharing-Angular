@@ -1,0 +1,13 @@
+.container {
+  padding: 30px;
+}
+
+.details {
+  margin: 10px 0;
+  font-size: 0.7rem;
+  color: rgb(143, 143, 143);
+}
+
+.browser-icon {
+    float: right;
+}

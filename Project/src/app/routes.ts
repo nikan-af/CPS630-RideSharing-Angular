@@ -8,12 +8,14 @@ import { OrdersComponent } from './orders/orders.component';
 import { AboutComponent } from './about/about.component';
 import { DeliveryServices } from './delivery-services/delivery-services.component';
 import { DbmaintainComponent } from './dbmaintain/dbmaintain.component';
+import { ReviewsComponent } from './reviews/reviews.component';
 
 /* All the url routes in our website and the corresponding components  */
 
 export const routes: Routes = [
   { path: 'home', component: MainComponent },
   { path: 'ride-services', component: RideServicesComponent },
+  { path: 'reviews', component: ReviewsComponent },
   { path: 'delivery-services', component: DeliveryServices },
   { path: 'contact', component: ContactComponent },
   { path: 'orders', component: OrdersComponent },

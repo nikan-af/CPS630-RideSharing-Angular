@@ -1,3 +1,5 @@
+import { Timestamp } from 'rxjs/internal/operators/timestamp';
+
 export interface User {
     UserId: number;
     Password: string;
@@ -99,4 +101,13 @@ export interface UserInquiry {
     Email: string;
     TypeOfInquiry: string;
     Message: string;
+}
+
+export interface Review {
+    FirstName: string;
+    LastName: string;
+    Message: string;
+    Rating: number;
+    ServiceType: string;
+    Timestamp: string;
 }

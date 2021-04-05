@@ -5,7 +5,7 @@ CREATE TABLE `cps630`.`User` (
   `Email` VARCHAR(255) NULL,
   `Address` VARCHAR(255) NULL,
   `CityCode` VARCHAR(10) NULL,
-  `Password` VARCHAR(50) NULL,
+  `Password` VARCHAR(255) NULL,
   `Balance` DECIMAL(6, 2) DEFAULT 0 NULL,
   `isAdmin` BOOLEAN DEFAULT 0 NOT NULL,
   PRIMARY KEY (`UserId`)
@@ -98,4 +98,13 @@ CREATE TABLE `cps630`.`Inquiry` (
   `Message` TEXT NOT NULL,
   `TypeOfInquiry` TEXT NOT NULL,
   PRIMARY KEY (`InquiryId`)
+);
+
+CREATE TABLE `cps630`.`Review` (
+  `FirstName` VARCHAR(255) NOT NULL,
+  `LastName` VARCHAR(255) NOT NULL,
+  `Message` VARCHAR(255),
+  `Rating` INT NOT NULL,
+  `ServiceType` VARCHAR(255),
+  `Timestamp` VARCHAR(255) NOT NULL
 );

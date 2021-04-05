@@ -46,6 +46,9 @@ import { ProductDialogComponent } from './product-dialog/product-dialog.componen
 import { DataService } from './shared/data.service';
 import { DbmaintainComponent } from './dbmaintain/dbmaintain.component';
 import { RecordUpdateDialogComponent } from './dbmaintain/record-update-dialog/record-update-dialog.component';
+import { ReviewsComponent } from './reviews/reviews.component';
+import { MyDatePipe } from './shared/date.pipe';
+import { BrowserInfoDialog } from './browser-info-dialog/browser-info-dialog.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +71,10 @@ import { RecordUpdateDialogComponent } from './dbmaintain/record-update-dialog/r
     DeliveryServices,
     ProductDialogComponent,
     DbmaintainComponent,
-    RecordUpdateDialogComponent
+    RecordUpdateDialogComponent,
+    ReviewsComponent,
+    MyDatePipe,
+    BrowserInfoDialog
   ],
   imports: [
     BrowserModule,

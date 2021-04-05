@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="broswer-name">
+        Browser Name: {{browserName}}
+        <div [ngSwitch]="browserName" class="browser-icon">
+            <div *ngSwitchCase="'Google Chrome'"><img src="../../assets/icons/chrome.png" alt="Chrome Browser" width="75px" height="75px"></div>
+            <div *ngSwitchCase="'Apple Safari'"><img src="../../assets/icons/safari.png" width="75px"
+                 height="75px" alt="Safari Browser"></div>
+            <div *ngSwitchCase="'Mozilla Firefox'"><img src="../../assets/icons/firefox.png" alt="Mozilla Firefox " width="75px"
+                 height="75px"></div>
+        </div>
+    </div>
+    <div class="details">
+        <b>App Code Name:</b> {{appCodeName}} <br>
+        <b>App Version:</b> {{appVersion}} <br>
+        <b>User Agent:</b> {{userAgent}} <br>
+    </div>
+</div>
