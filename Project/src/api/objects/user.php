@@ -67,5 +67,13 @@ class User {
         $stmt->execute();
         return $stmt;
     }
+
+    public function readUserByEmail() {
+        $query = "SELECT * FROM $this->tblName WHERE Email='$this->Email'";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
 }
 ?>
