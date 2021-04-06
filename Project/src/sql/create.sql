@@ -11,6 +11,9 @@ CREATE TABLE `cps630`.`User` (
   PRIMARY KEY (`UserId`)
 );
 
+ALTER TABLE `cps630`.`User`
+ADD `Salt` VARCHAR(255) NOT NULL;
+
 CREATE TABLE `cps630`.`Car` (
   `CarId` INT NOT NULL AUTO_INCREMENT,
   `CarModel` VARCHAR(255) NULL,

@@ -34,7 +34,7 @@ class User {
     }
 
     public function register() {
-        $query = "INSERT INTO User(Name, Tel, Email, Address, CityCode, Password, Balance, isAdmin) VALUES('$this->Name', '$this->Tel', '$this->Email', '$this->Address', '$this->CityCode', '$this->Password', $this->Balance, '$this->isAdmin')";
+        $query = "INSERT INTO User(Name, Tel, Email, Address, CityCode, Password, Balance, isAdmin,Salt) VALUES('$this->Name', '$this->Tel', '$this->Email', '$this->Address', '$this->CityCode', '$this->Password', $this->Balance, '$this->isAdmin' , '$this->Salt')";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
