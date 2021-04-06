@@ -20,12 +20,6 @@
     $stmt = $user->readUserByEmail();
     $num = $stmt->rowCount();
 
-    if ($num === 0) {
-        // http_response_code(403);
-        echo json_encode("No users found.");
-        exit(0);
-    }
-
     if($num === 1){
         $user_arr=array();
         $user_arr["records"]=array();
