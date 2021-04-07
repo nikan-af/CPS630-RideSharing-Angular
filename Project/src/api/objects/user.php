@@ -12,6 +12,7 @@ class User {
     public $CityCode;
     public $Password;
     public $Balance;
+    public $Salt;
 
     public function __construct($db) {
         $this->conn = $db;

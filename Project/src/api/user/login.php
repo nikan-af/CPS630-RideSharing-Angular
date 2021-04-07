@@ -27,7 +27,8 @@
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             extract($row);
 
-            if (!password_verify($enteredPassword, $Password)) {
+
+            if (!password_verify($enteredPassword.$Salt, $Password)) {
                 http_response_code(403);
                 echo json_encode("No users found.");
                 exit(0);

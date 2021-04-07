@@ -16,7 +16,7 @@
 
     if(isset($postdata) && !empty($postdata)){
         $salt = getSalt();
-        $pass = $request->Password . $salt
+        $pass = $request->Password . $salt;
         $user->Name = $request->Name;
         $user->Email = $request->Email;
         $user->Password = password_hash($pass, PASSWORD_DEFAULT);
@@ -30,8 +30,7 @@
 
         if ($response = $user->register()) {
             http_response_code(200);
-            echo json_encode(array("message" => "User was created.")
-        echo $salt);
+            echo json_encode(array("message" => "User was created."));
         } else {
             http_response_code(400);
             echo json_encode(array("message" => "User was not created."));
@@ -39,7 +38,7 @@
     }
 
     function getSalt() {
-        $charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/\\][{}\'";:?.>,<!@#$%^&*()-_=+|';
+        $charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/][{}\;:?.>,<!@#$%^&*()-_=+|';
         $randStringLen = 64;
    
         $randString = "";
