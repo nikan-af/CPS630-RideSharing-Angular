@@ -5,34 +5,33 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 // import { RecordAddDialog } from '../add-record-dialog/add-record-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { DataService } from '../shared/data.service';
-import { RecordUpdateDialogComponent } from './record-update-dialog/record-update-dialog.component';
-import { User } from '../shared/interfaces';
-import { LoginAlertComponent } from '../login-alert/login-alert.component';
+import { DataService } from '../../shared/data.service';
+import { RecordUpdateDialogComponent } from '../record-update-dialog/record-update-dialog.component';
+import { User } from '../../shared/interfaces';
+import { LoginAlertComponent } from 'src/app/login-alert/login-alert.component';
 
 @Component({
-  selector: 'app-dbmaintain',
-  templateUrl: './dbmaintain.component.html',
-  styleUrls: ['./dbmaintain.component.css']
+  selector: 'app-car-maintain',
+  templateUrl: './car-maintain.component.html',
+  styleUrls: ['./car-maintain.component.css']
 })
-export class DbmaintainComponent implements OnInit {
+export class CarMaintainComponent implements OnInit {
   dataSource;
   tblColumns = [];
   tblData = [];
 
-  user = {
-    Password: '',
-    Name: '',
-    Email: '',
-    Balance: 0,
-    isAdmin: 0,
-    Address: '',
-    CityCode: '',
-    Tel: ''
+  car = {
+    CarId: '',
+    CarModel: '',
+    CarCode: '',
+    AvailabilityCode: '',
+    CarColour: '',
+    ImageURL: '',
+    CarPrice: ''
   };
 
   @ViewChild('paginator') paginator: MatPaginator;
-  displayedColumns: string[] = ['UserId', 'Name', 'Email', 'Address', 'CityCode', 'Tel', 'Balance', 'isAdmin', 'delete', 'update'];
+  displayedColumns: string[] = ['CarId', 'CarModel', 'CarCode', 'AvailabilityCode', 'CarColour', 'ImageURL', 'CarPrice', 'delete', 'update'];
 
   constructor(private router: Router, private dataService: DataService, private toastr: ToastrService, private dialog: MatDialog) { }
 
@@ -51,7 +50,7 @@ export class DbmaintainComponent implements OnInit {
     const dialogRef = this.dialog.open(RecordUpdateDialogComponent, {
       width: '600px',
       height: '500px',
-      data: { 'tblName': tblName, 'primaryKey': primaryKey, 'formData': this.user, 'operationType': 'insert' }
+      data: { 'tblName': tblName, 'primaryKey': primaryKey, 'formData': this.car, 'operationType': 'insert' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -64,8 +63,8 @@ export class DbmaintainComponent implements OnInit {
     });
   }
 
-  deleteUser(element) {
-    this.dataService.deleteUser(element.UserId).subscribe(
+  deleteCar(element) {
+    this.dataService.deleteCar(element.CarId).subscribe(
       success => {
         this.tblData.splice(this.tblData.indexOf(element), 1);
         this.dataSource = new MatTableDataSource<Object>(this.tblData);
@@ -85,7 +84,7 @@ export class DbmaintainComponent implements OnInit {
     this.toastr.error(`Failed to ${command} the record.`);
   }
 
-  updateUser(element, tblName, primaryKey) {
+  updateCar(element, tblName, primaryKey) {
     const dialogRef = this.dialog.open(RecordUpdateDialogComponent, {
       width: '600px',
       height: '500px',
@@ -102,7 +101,8 @@ export class DbmaintainComponent implements OnInit {
   }
 
   updateRecords() {
-    this.dataService.getUsers().subscribe(success => {
+    this.dataService.getCars().subscribe(success => {
+      console.log(success);
       this.tblData = [];
       this.tblData = success['records'];
       this.dataSource = new MatTableDataSource<Object>(this.tblData);
@@ -112,5 +112,6 @@ export class DbmaintainComponent implements OnInit {
     });
   }
 }
+
 
 

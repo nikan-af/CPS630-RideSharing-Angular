@@ -5,17 +5,16 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 // import { RecordAddDialog } from '../add-record-dialog/add-record-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { DataService } from '../shared/data.service';
-import { RecordUpdateDialogComponent } from './record-update-dialog/record-update-dialog.component';
-import { User } from '../shared/interfaces';
-import { LoginAlertComponent } from '../login-alert/login-alert.component';
+import { DataService } from '../../shared/data.service';
+import { RecordUpdateDialogComponent } from '../record-update-dialog/record-update-dialog.component';
+import { User } from '../../shared/interfaces';
 
 @Component({
-  selector: 'app-dbmaintain',
-  templateUrl: './dbmaintain.component.html',
-  styleUrls: ['./dbmaintain.component.css']
+  selector: 'app-user-maintain',
+  templateUrl: './user-maintain.component.html',
+  styleUrls: ['./user-maintain.component.css']
 })
-export class DbmaintainComponent implements OnInit {
+export class UserMaintainComponent implements OnInit {
   dataSource;
   tblColumns = [];
   tblData = [];
@@ -37,13 +36,6 @@ export class DbmaintainComponent implements OnInit {
   constructor(private router: Router, private dataService: DataService, private toastr: ToastrService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    if (!this.dataService.tempUser.Email) {
-      this.router.navigate(['/']);
-      const dialogRef = this.dialog.open(LoginAlertComponent, {
-        width: '400px',
-        height: '150px'
-      });
-    }
     this.updateRecords();
   }
 
@@ -51,7 +43,7 @@ export class DbmaintainComponent implements OnInit {
     const dialogRef = this.dialog.open(RecordUpdateDialogComponent, {
       width: '600px',
       height: '500px',
-      data: { 'tblName': tblName, 'primaryKey': primaryKey, 'formData': this.user, 'operationType': 'insert' }
+      data: {'tblName': tblName, 'primaryKey': primaryKey, 'formData': this.user, 'operationType': 'insert'}
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -89,7 +81,7 @@ export class DbmaintainComponent implements OnInit {
     const dialogRef = this.dialog.open(RecordUpdateDialogComponent, {
       width: '600px',
       height: '500px',
-      data: { 'tblName': tblName, 'primaryKey': primaryKey, 'formData': element, 'operationType': 'update' }
+      data: {'tblName': tblName, 'primaryKey': primaryKey, 'formData': element, 'operationType': 'update'}
     });
 
     dialogRef.afterClosed().subscribe(result => {

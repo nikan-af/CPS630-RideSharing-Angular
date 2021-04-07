@@ -1,0 +1,111 @@
+.store {
+  padding: 20px;
+}
+
+.title {
+  font-size: 3rem;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.products {
+  margin-top: 30px;
+}
+
+.row {
+  display: flex;
+}
+
+.product-card {
+  width: 200px;
+  min-height: 300px;
+  margin: 10px 20px;
+  border-radius: unset;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.add-product {
+  width: 100px;
+  height: 300px;
+  border-radius: 15px;
+  margin: 20px;
+  cursor: pointer;
+  padding: 55px 35px;
+}
+
+.add-product img {
+  width: 75px;
+  height: 75px;
+}
+
+.product-card .card-image {
+  border-radius: inherit;
+}
+
+.product-card .mat-content {
+  padding: 20px;
+  min-height: 120px;
+}
+
+.product-card .mat-content {
+  font-size: 1.1rem;
+}
+
+.mat-card {
+  padding: 0px !important;
+  cursor: pointer;
+}
+
+.card-image {
+  border-radius: 15px;
+  width: 100%;
+  height: 200px;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.products .row {
+  margin: 20px 0;
+}
+
+.formBody {
+  text-align: center;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+.formBody mat-form-field {
+  margin: 5px;
+}
+
+.field {
+  margin: 10px 20px;
+}
+
+.subsection-title {
+  font-size: 2rem;
+}
+
+.action-buttons {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.action-buttons button {
+    margin: 0 5px;
+}
+
+.delete{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.delete-icon:hover {
+  color: #f9b384;
+}

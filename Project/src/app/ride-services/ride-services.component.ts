@@ -3,6 +3,9 @@ import { DataService } from '../shared/data.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { Order } from '../shared/interfaces';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginAlertComponent } from '../login-alert/login-alert.component';
 
 @Component({
     selector: 'ride-services-component',
@@ -12,11 +15,11 @@ import { Order } from '../shared/interfaces';
 export class RideServicesComponent implements OnInit, AfterViewInit {
     orderObj: Order = {
         UserId: -1,
-        Car: null, 
-        OrderTotal: '', 
-        PickupTime: '', 
-        PickupDate: '', 
-        Direction: null, 
+        Car: null,
+        OrderTotal: '',
+        PickupTime: '',
+        PickupDate: '',
+        Direction: null,
         OrderType: 'ride',
         Distance: '',
         Duration: '',
@@ -95,7 +98,7 @@ export class RideServicesComponent implements OnInit, AfterViewInit {
     };
     @ViewChild('mapContainer', { static: false }) gmap: ElementRef;
 
-    constructor(private ngZone: NgZone, private toastr: ToastrService, private dataService: DataService, private cookieService: CookieService) {
+    constructor(private dialog: MatDialog, private router: Router, private ngZone: NgZone, private toastr: ToastrService, private dataService: DataService, private cookieService: CookieService) {
         // this.cartItems = JSON.parse(this.cookieService.get("cartItems"));
     }
 
@@ -109,6 +112,13 @@ export class RideServicesComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
+        if (!this.dataService.tempUser.Email) {
+            this.router.navigate(['/']);
+            const dialogRef = this.dialog.open(LoginAlertComponent, {
+                width: '400px',
+                height: '150px'
+            });
+        }
         // Gets the cars from the back-end by making a get request.
         this.dataService.getCars().subscribe(
             success => {
@@ -143,6 +153,8 @@ export class RideServicesComponent implements OnInit, AfterViewInit {
     reviewOrder() {
         this.orderObj.Car = this.cars[this.selected];
         this.showOrderReview = true;
+        this.orderObj.PickupDate = this.pickUpDate;
+        this.orderObj.PickupTime = this.pickUpTime;
     }
 
     calculateAndDisplayRoute(origin, destination) {
@@ -150,6 +162,8 @@ export class RideServicesComponent implements OnInit, AfterViewInit {
         this.directionService.route({ origin, destination, travelMode: google.maps.TravelMode.DRIVING },
             (response, status) => {
                 if (status === "OK") {
+                    console.log(this.pickUpDate)
+                    console.log(this.pickUpTime)
                     console.log(response.routes[0].legs[0]);
                     this.distance = response.routes[0].legs[0].distance.text;
                     this.duration = response.routes[0].legs[0].duration.text;
@@ -171,8 +185,6 @@ export class RideServicesComponent implements OnInit, AfterViewInit {
                     this.orderObj.Distance = this.distance;
                     this.orderObj.EndAddress = response.routes[0].legs[0].end_address;
                     this.orderObj.StartAddress = response.routes[0].legs[0].start_address;
-                    this.orderObj.PickupDate = this.pickUpDate;
-                    this.orderObj.PickupTime = this.pickUpTime;
                     this.orderObj.Direction = response;
                     this.orderObj.OrderTotal = this.total;
                     this.orderObj.StartLocationLat = response.routes[0].legs[0].start_location.lat();
@@ -193,7 +205,7 @@ export class RideServicesComponent implements OnInit, AfterViewInit {
     }
 
     findAdressSource() {
-        let autocomplete = new google.maps.places.Autocomplete(this.source.nativeElement, {componentRestrictions: { country: "ca" }});
+        let autocomplete = new google.maps.places.Autocomplete(this.source.nativeElement, { componentRestrictions: { country: "ca" } });
         autocomplete.addListener("place_changed", () => {
             let place: google.maps.places.PlaceResult = autocomplete.getPlace();
             this.address = place.formatted_address;
@@ -207,7 +219,7 @@ export class RideServicesComponent implements OnInit, AfterViewInit {
     }
 
     findAdressDestination() {
-        let autocomplete = new google.maps.places.Autocomplete(this.end.nativeElement, {componentRestrictions: { country: "ca" }});
+        let autocomplete = new google.maps.places.Autocomplete(this.end.nativeElement, { componentRestrictions: { country: "ca" } });
         autocomplete.addListener("place_changed", () => {
             let place: google.maps.places.PlaceResult = autocomplete.getPlace();
             this.address = place.formatted_address;
@@ -226,6 +238,7 @@ export class RideServicesComponent implements OnInit, AfterViewInit {
             this.displayEstimate = true;
             this.loading = true;
             this.calculateAndDisplayRoute(this.origin, this.destination);
+
         } else {
             this.displayPickRideError = true;
         }

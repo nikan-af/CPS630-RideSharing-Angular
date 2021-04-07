@@ -1,0 +1,24 @@
+.content {
+    padding: 10px;
+}
+
+p {
+    margin: 5px 0!important;
+}
+
+.action-buttons {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.action-buttons button {
+    margin: 0 5px;
+}
+
+.error-message {
+    font-size: 1.1rem;
+}
+
+hr {
+    margin: 0!important;
+}

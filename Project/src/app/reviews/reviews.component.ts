@@ -3,6 +3,9 @@ import { DataService } from '../shared/data.service';
 import { Review } from '../shared/interfaces';
 import { ToastrService } from 'ngx-toastr';
 import { min } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { LoginAlertComponent } from '../login-alert/login-alert.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-reviews',
@@ -24,9 +27,16 @@ export class ReviewsComponent implements OnInit {
   };
   reviews = [];
 
-  constructor(private dataService: DataService, private toastr: ToastrService) { }
+  constructor(private dataService: DataService, private toastr: ToastrService, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    if (!this.dataService.tempUser.Email) {
+      this.router.navigate(['/']);
+      const dialogRef = this.dialog.open(LoginAlertComponent, {
+        width: '400px',
+        height: '150px'
+      });
+    }
     this.review.ServiceType = this.serviceType;
     this.dataService.getReviews().subscribe(
       success => {

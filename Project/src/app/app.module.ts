@@ -49,6 +49,12 @@ import { RecordUpdateDialogComponent } from './dbmaintain/record-update-dialog/r
 import { ReviewsComponent } from './reviews/reviews.component';
 import { MyDatePipe } from './shared/date.pipe';
 import { BrowserInfoDialog } from './browser-info-dialog/browser-info-dialog.component';
+import { UserMaintainComponent } from './dbmaintain/user-maintain/user-maintain.component';
+import { CarMaintainComponent } from './dbmaintain/car-maintain/car-maintain.component';
+import { StoreMaintainComponent } from './dbmaintain/store-maintain/store-maintain.component';
+import { StoreUpdateDialogComponent } from './dbmaintain/store-update-dialog/store-update-dialog.component';
+import { LoginAlertComponent } from './login-alert/login-alert.component';
+import { RideGreenComponent } from './ride-green/ride-green.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +80,13 @@ import { BrowserInfoDialog } from './browser-info-dialog/browser-info-dialog.com
     RecordUpdateDialogComponent,
     ReviewsComponent,
     MyDatePipe,
-    BrowserInfoDialog
+    BrowserInfoDialog,
+    UserMaintainComponent,
+    CarMaintainComponent,
+    StoreMaintainComponent,
+    StoreUpdateDialogComponent,
+    LoginAlertComponent,
+    RideGreenComponent
   ],
   imports: [
     BrowserModule,

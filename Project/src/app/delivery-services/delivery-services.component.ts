@@ -5,8 +5,9 @@ import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalService } from '../shared/modal.service';
 import { CookieService } from 'ngx-cookie-service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Order, Product } from '../shared/interfaces';
+import { LoginAlertComponent } from '../login-alert/login-alert.component';
 
 @Component({
     selector: 'delivery-services',
@@ -85,11 +86,19 @@ export class DeliveryServices implements OnInit, AfterViewInit {
     total = '0';
     totalValue = 0;
 
-    constructor(private dataService: DataService, private toastr: ToastrService, private dialog: MatDialog, private modalService: ModalService, private cookieService: CookieService, private route: ActivatedRoute) {
+    constructor(private router: Router, private dataService: DataService, private toastr: ToastrService, private dialog: MatDialog, private modalService: ModalService, private cookieService: CookieService, private route: ActivatedRoute) {
 
     }
 
     ngOnInit() {
+        if (!this.dataService.tempUser.Email) {
+            this.router.navigate(['/']);
+            const dialogRef = this.dialog.open(LoginAlertComponent, {
+                width: '400px',
+                height: '150px'
+            });
+        }
+
         this.dataService.getCoffees().subscribe(
             success => {
                 console.log(success['records']);
@@ -117,7 +126,7 @@ export class DeliveryServices implements OnInit, AfterViewInit {
     }
 
     findAdressDestination() {
-        let autocomplete = new google.maps.places.Autocomplete(this.end.nativeElement, {componentRestrictions: { country: "ca" }});
+        let autocomplete = new google.maps.places.Autocomplete(this.end.nativeElement, { componentRestrictions: { country: "ca" } });
         autocomplete.addListener("place_changed", () => {
             let place: google.maps.places.PlaceResult = autocomplete.getPlace();
             this.address = place.formatted_address;
@@ -145,7 +154,7 @@ export class DeliveryServices implements OnInit, AfterViewInit {
             panelClass: 'custom-dialog-container',
             width: '300px',
             height: '500px',
-            data: {...product, productType}
+            data: { ...product, productType }
         });
 
         dialogRef.afterClosed().subscribe(

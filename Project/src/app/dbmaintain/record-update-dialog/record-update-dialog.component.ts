@@ -45,14 +45,26 @@ export class RecordUpdateDialogComponent {
 
   insertRecord() {
     console.log(this.tempData);
-    this.dataService.registerUser(this.tempData.formData).subscribe(
-      success => {
-        this.dialogRef.close({'message': 'success', data: this.tempData.formData});
-      },
-      fail => {
-        this.dialogRef.close({'message': 'fail'});
-      }
-    );
+    if (this.tempData.tblName === 'User') {
+      this.dataService.registerUser(this.tempData.formData).subscribe(
+        success => {
+          this.dialogRef.close({'message': 'success', data: this.tempData.formData});
+        },
+        fail => {
+          this.dialogRef.close({'message': 'fail'});
+        }
+      );
+    } else {
+      this.dataService[`create${this.tempData.tblName}`](this.tempData.formData).subscribe(
+        success => {
+          this.dialogRef.close({'message': 'success', data: this.tempData.formData});
+        },
+        fail => {
+          this.dialogRef.close({'message': 'fail'});
+        }
+      );
+    }
+    
   }
 
   resetForm() {

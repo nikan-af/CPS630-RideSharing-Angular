@@ -1,0 +1,88 @@
+<div class="content">
+    <p class="title">Maintain Cars</p>
+    <div class="users-table">
+        <div class="h4">Cars<span class="material-icons add-item" (click)="addRecord('Car', 'CarId')">add_box</span>
+        </div>
+        <table mat-table [dataSource]="this.dataSource">
+    
+            <!-- CarId Column -->
+            <ng-container matColumnDef="CarId">
+                <th mat-header-cell *matHeaderCellDef> CarId </th>
+                <td mat-cell *matCellDef="let element"> {{element.CarId}} </td>
+            </ng-container>
+    
+            <!-- CarModel Column -->
+            <ng-container matColumnDef="CarModel">
+                <th mat-header-cell *matHeaderCellDef> CarModel </th>
+                <td mat-cell *matCellDef="let element"> {{element.CarModel}} </td>
+            </ng-container>
+    
+            <!-- CarCode Column -->
+            <ng-container matColumnDef="CarCode">
+                <th mat-header-cell *matHeaderCellDef> CarCode </th>
+                <td mat-cell *matCellDef="let element"> {{element.CarCode}} </td>
+            </ng-container>
+    
+            <!-- AvailabilityCode Column -->
+            <ng-container matColumnDef="AvailabilityCode">
+                <th mat-header-cell *matHeaderCellDef> AvailabilityCode </th>
+                <td mat-cell *matCellDef="let element"> {{element.AvailabilityCode}} </td>
+            </ng-container>
+    
+            <!-- CarColour Column -->
+            <ng-container matColumnDef="CarColour">
+                <th mat-header-cell *matHeaderCellDef> CarColour </th>
+                <td mat-cell *matCellDef="let element"> {{element.CarColour}} </td>
+            </ng-container>
+    
+            <!-- ImageURL Column -->
+            <ng-container matColumnDef="ImageURL">
+                <th mat-header-cell *matHeaderCellDef> ImageURL </th>
+                <td mat-cell *matCellDef="let element"> {{element.ImageURL}} </td>
+            </ng-container>
+    
+            <!-- CarPrice Column -->
+            <ng-container matColumnDef="CarPrice">
+                <th mat-header-cell *matHeaderCellDef> CarPrice </th>
+                <td mat-cell *matCellDef="let element"> {{element.CarPrice}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef> Delete </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button (click)="deleteCar(element)">
+                        <span class="material-icons delete-icon">delete</span>
+                    </button>
+                </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="update">
+                <th mat-header-cell *matHeaderCellDef> Update </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button (click)="updateCar(element, 'car', 'CarId')">
+                        <span class="material-icons update-icon">update</span>
+                    </button>
+                </td>
+            </ng-container>
+    
+            <!-- <ng-container *ngFor="let column of tblColumns" matColumnDef="{{column}}">
+                <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+                <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef> delete </th>
+                <td mat-cell>
+                    <button mat-icon-button (click)="deleteUser()">
+                        <span class="material-icons delete-icon">delete</span>
+                    </button>
+                </td>
+            </ng-container> -->
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    
+        <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>

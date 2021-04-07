@@ -1,0 +1,37 @@
+<div class="store">
+    <p class="title">{{tempData.storeName}} Store</p>
+    <div class="products">
+        <div class="row">
+            <mat-card appMaterialElevation *ngFor="let product of products; let i = index" class="product-card"
+                (click)="updateProduct(product)">
+                <div class="card-image"><img src={{products[i].ImageURL}} alt={{products[i].Name}}></div>
+                <button class="delete" mat-icon-button (click)="delete(product)">
+                    <span class="material-icons delete-icon">delete</span>
+                </button>
+                <mat-card-content class="mat-content">
+                    <p class="name">
+                        {{products[i].Name}}
+                    </p>
+                    <p class="price">
+                        CAD {{products[i].Price}}
+                    </p>
+                </mat-card-content>
+            </mat-card>
+            <div class="add-product" (click)="addProduct()"><img src="../../../assets/icons/plus.png" alt="Add Store">
+            </div>
+        </div>
+    </div>
+    <div class="update-product" [hidden]="!showUpdate">
+        <p class="subsection-title">
+            Product Details
+        </p>
+        <mat-form-field appearance="outline" class="field" *ngFor="let fieldName of fieldNames">
+            <mat-label>{{fieldName}}</mat-label>
+            <input name="{{fieldName}}" id="{{fieldName}}" matInput [(ngModel)]="this.productToUpdate[fieldName]">
+        </mat-form-field>
+    </div>
+    <div class="action-buttons" [hidden]="!showUpdate">
+        <button mat-raised-button color="warn" class="saveButton" (click)="discard()">Discard</button>
+        <button mat-raised-button color="primary" class="saveButton" (click)="update()">Save</button>
+    </div>
+</div>

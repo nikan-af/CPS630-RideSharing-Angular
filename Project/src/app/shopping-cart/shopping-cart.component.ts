@@ -8,6 +8,7 @@ import { DataService } from '../shared/data.service';
 })
 export class ShoppingCartComponent implements OnInit, AfterViewInit {
 
+  rideGreen = false;
   cartItems = [];
   checkout = false;
   subTotal = 0;
@@ -30,7 +31,9 @@ export class ShoppingCartComponent implements OnInit, AfterViewInit {
    */
   ngOnInit(): void {
     this.cartItems = JSON.parse(localStorage.getItem('cartItems')) ? JSON.parse(localStorage.getItem('cartItems')) : [];
+    this.isRideGreen();
     this.resetTotal();
+    console.log(this.cartItems);
   }
 
   ngAfterViewInit() {
@@ -41,6 +44,8 @@ export class ShoppingCartComponent implements OnInit, AfterViewInit {
   onDrop(data) {
     if (this.dataService.addOrderToCart(data)) {
       this.cartItems.push(data);
+      this.isRideGreen();
+      console.log(this.cartItems);
       this.resetTotal();
     }
   }
@@ -74,6 +79,7 @@ export class ShoppingCartComponent implements OnInit, AfterViewInit {
   removeItem(product) {
     this.dataService.removeItem(product);
     this.cartItems.splice(this.cartItems.indexOf(product), 1);
+    this.isRideGreen();
   }
 
   /**
@@ -81,6 +87,7 @@ export class ShoppingCartComponent implements OnInit, AfterViewInit {
    * @param event 
    */
   onChange(event) {
+    this.isRideGreen();
     this.resetTotal();
   }
 
@@ -98,6 +105,21 @@ export class ShoppingCartComponent implements OnInit, AfterViewInit {
 
     this.deliveryTxt = this.delivery.toFixed(2);
     this.subTotalTxt = this.subTotal.toFixed(2);
+  }
+
+  isRideGreen() {
+    const rideServiceOrders = this.cartItems.filter(cartItem => cartItem.OrderType === 'ride');
+    const deliveryServiceOrders = this.cartItems.filter(cartItem => cartItem.OrderType === 'delivery');
+
+    console.log(rideServiceOrders.length);
+    console.log(deliveryServiceOrders.length);
+    if (rideServiceOrders.length > 0 && deliveryServiceOrders.length > 0) {
+      this.rideGreen = true;
+    } else {
+      this.rideGreen = false;
+    }
+
+    console.log(this.rideGreen);
   }
 
 }

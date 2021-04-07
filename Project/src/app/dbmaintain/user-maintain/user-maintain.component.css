@@ -1,3 +1,9 @@
+.title {
+  font-size: 3rem;
+  margin: 20px 0;
+  text-align: center;
+}
+
 .content {
   padding: 40px;
   min-height: 800px;
@@ -9,19 +15,11 @@
   text-align: center;
 }
 
-
 mat-card {
-  padding: 0!important;
   margin: 20px auto;
   border-radius: 50px;
   width: 200px;
   height: 150px;
-}
-
-mat-card a {
-  padding: 15px;
-  text-decoration: none;
-  color: black;
 }
 
 .row {
@@ -54,7 +52,7 @@ mat-card:hover {
 }
 
 .add-item:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .users-table .h4 {

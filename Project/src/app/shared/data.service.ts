@@ -225,6 +225,14 @@ export class DataService {
     //     return this.httpClient.post(this.baseUrl + '/getOrders.php', {"userId":userId});
     // }
 
+    createCar(car) {
+        return this.httpClient.post(this.baseUrl + '/car/create.php', {CarId: car.CarId, CarCode: car.CarCode, CarModel: car.CarModel, CarColour: car.CarColour, AvailabilityCode: car.AvailabilityCode, ImageURL: car.ImageURL, CarPrice: car.CarPrice})
+    }
+
+    deleteCar(CarId) {
+        return this.httpClient.post(this.baseUrl + '/car/delete.php', {CarId: CarId});
+    }
+
     createOrder(data) {
         console.log(data);
         let orderTotal = 0;
@@ -288,6 +296,31 @@ export class DataService {
 
     getReviews() {
         return this.httpClient.get(this.baseUrl + '/review/read.php');
+    }
+
+    addProduct(product, storeName) {
+        if (storeName === 'Flower') {
+            return this.httpClient.post(this.baseUrl + '/flower/create.php', {...product});
+        } else if (storeName === 'Coffee') {
+            return this.httpClient.post(this.baseUrl + '/coffee/create.php', {...product});
+        }
+    }
+
+    updateProduct(product, storeName) {
+        console.log(product, storeName);
+        if (storeName === 'Flower') {
+            return this.httpClient.post(this.baseUrl + '/flower/update.php', {...product});
+        } else if (storeName === 'Coffee') {
+            return this.httpClient.post(this.baseUrl + '/coffee/update.php', {...product});
+        }
+    }
+
+    deleteProduct(product, storeName) {
+        if (storeName === 'Flower') {
+            return this.httpClient.post(this.baseUrl + '/flower/delete.php', {...product});
+        } else if (storeName === 'Coffee') {
+            return this.httpClient.post(this.baseUrl + '/coffee/delete.php', {...product});
+        }
     }
 }
 

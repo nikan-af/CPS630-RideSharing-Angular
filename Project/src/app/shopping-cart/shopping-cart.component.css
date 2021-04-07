@@ -1,7 +1,6 @@
 .container-fluid {
   width: 400px;
   padding: 30px;
-  height: 100%;
 }
 
 .shopping-cart-item {
@@ -108,6 +107,17 @@
 
 .total-price .sub-title {
   font-size: 1rem;
+}
+
+.ride-green {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.ride-green img {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
 }
 
 @media only screen and (max-width: 1000px) and (min-width: 600px) {

@@ -89,5 +89,6 @@
     <div class="no-items" *ngIf="cartItems.length === 0">
         <h3>CART IS EMPTY</h3>
     </div>
+    <div class="ride-green" [hidden]="!rideGreen"><img src="../../assets/images/ride-green.png" alt="Ride Green"></div>
     <app-checkout *ngIf="this.checkout" (goBack)="this.checkout = false;" [cartItems]="cartItems"></app-checkout>
 </div>
