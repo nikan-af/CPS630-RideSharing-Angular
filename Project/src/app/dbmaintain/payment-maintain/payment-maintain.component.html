@@ -1,0 +1,119 @@
+<!-- <div class="review-container">
+    <div class="title">
+        USER ORDERS
+    </div>
+    <div class="no-reviews" *ngIf="reviews.length === 0">
+        <h3>No Orders</h3>
+    </div>
+</div> -->
+
+<div class="content">
+    <p class="title">Maintain Payments</p>
+    <div class="payments-table">
+        <div class="h4">Payments<span class="material-icons add-item" (click)="addRecord('Payment', 'PaymentId')">add_box</span>
+        </div>
+        <table mat-table [dataSource]="this.dataSource">
+    
+            <!-- PaymentId Column -->
+            <ng-container matColumnDef="PaymentId">
+                <th mat-header-cell *matHeaderCellDef> PaymentId </th>
+                <td mat-cell *matCellDef="let element"> {{element.PaymentId}} </td>
+            </ng-container>
+    
+            <!-- OrderId Column -->
+            <ng-container matColumnDef="OrderId">
+                <th mat-header-cell *matHeaderCellDef> OrderId </th>
+                <td mat-cell *matCellDef="let element"> {{element.OrderId}} </td>
+            </ng-container>
+    
+            <!-- CardNumber Column -->
+            <ng-container matColumnDef="CardNumber">
+                <th mat-header-cell *matHeaderCellDef> CardNumber </th>
+                <td mat-cell *matCellDef="let element"> {{element.CardNumber}} </td>
+            </ng-container>
+    
+            <!-- ExpiryMonth Column -->
+            <ng-container matColumnDef="ExpiryMonth">
+                <th mat-header-cell *matHeaderCellDef> ExpiryMonth </th>
+                <td mat-cell *matCellDef="let element"> {{element.ExpiryMonth}} </td>
+            </ng-container>
+
+            <!-- ExpiryYear Column -->
+            <ng-container matColumnDef="ExpiryYear">
+                <th mat-header-cell *matHeaderCellDef> ExpiryYear </th>
+                <td mat-cell *matCellDef="let element"> {{element.ExpiryYear}} </td>
+            </ng-container>
+
+            <!-- CardHolderFirstName Column -->
+            <ng-container matColumnDef="CardHolderFirstName">
+                <th mat-header-cell *matHeaderCellDef> CardHolderFirstName </th>
+                <td mat-cell *matCellDef="let element"> {{element.CardHolderFirstName}} </td>
+            </ng-container>
+
+            <!-- CardHolderLastName Column -->
+            <ng-container matColumnDef="CardHolderLastName">
+                <th mat-header-cell *matHeaderCellDef> CardHolderLastName </th>
+                <td mat-cell *matCellDef="let element"> {{element.CardHolderLastName}} </td>
+            </ng-container>
+
+            <!-- CardAddressLine1 Column -->
+            <ng-container matColumnDef="CardAddressLine1">
+                <th mat-header-cell *matHeaderCellDef> CardAddressLine1 </th>
+                <td mat-cell *matCellDef="let element"> {{element.CardAddressLine1}} </td>
+            </ng-container>
+
+            <!-- CardAddressLine2 Column -->
+            <ng-container matColumnDef="CardAddressLine2">
+                <th mat-header-cell *matHeaderCellDef> CardAddressLine2 </th>
+                <td mat-cell *matCellDef="let element"> {{element.CardAddressLine2}} </td>
+            </ng-container>
+
+            <!-- PostalCode Column -->
+            <ng-container matColumnDef="PostalCode">
+                <th mat-header-cell *matHeaderCellDef> PostalCode </th>
+                <td mat-cell *matCellDef="let element"> {{element.PostalCode}} </td>
+            </ng-container>
+
+            <!-- City Column -->
+            <ng-container matColumnDef="City">
+                <th mat-header-cell *matHeaderCellDef> City </th>
+                <td mat-cell *matCellDef="let element"> {{element.City}} </td>
+            </ng-container>
+
+            <!-- StateOrProvince Column -->
+            <ng-container matColumnDef="StateOrProvince">
+                <th mat-header-cell *matHeaderCellDef> StateOrProvince </th>
+                <td mat-cell *matCellDef="let element"> {{element.StateOrProvince}} </td>
+            </ng-container>
+
+            <!-- Country Column -->
+            <ng-container matColumnDef="Country">
+                <th mat-header-cell *matHeaderCellDef> Country </th>
+                <td mat-cell *matCellDef="let element"> {{element.Country}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef> Delete </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button (click)="deleteOrder(element)">
+                        <span class="material-icons delete-icon">delete</span>
+                    </button>
+                </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="update">
+                <th mat-header-cell *matHeaderCellDef> Update </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button (click)="updatePayment(element, 'Payment', 'PaymentId')">
+                        <span class="material-icons update-icon">update</span>
+                    </button>
+                </td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    
+        <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>

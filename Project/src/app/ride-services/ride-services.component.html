@@ -191,6 +191,14 @@
                                 <span class="sub-title">CAD {{totalEstimate}}</span>
                             </div>
                         </div>
+                        <div class="row" *ngIf="hasPersonalizedDriver">
+                            <div class="col-md-6">
+                                <span class="sub-title">Personal Driver Fee</span>
+                            </div>
+                            <div class="col-md-6 prices">
+                                <span class="sub-title">CAD {{personalizedDriver}}</span>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <span class="sub-title">Driver Tip (5%)</span>

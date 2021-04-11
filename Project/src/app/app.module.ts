@@ -55,6 +55,15 @@ import { StoreMaintainComponent } from './dbmaintain/store-maintain/store-mainta
 import { StoreUpdateDialogComponent } from './dbmaintain/store-update-dialog/store-update-dialog.component';
 import { LoginAlertComponent } from './login-alert/login-alert.component';
 import { RideGreenComponent } from './ride-green/ride-green.component';
+import { RideSocialComponent } from './ride-social/ride-social.component';
+import { ReviewsMaintainComponent } from './dbmaintain/reviews-maintain/reviews-maintain.component';
+import { OrderMaintainComponent } from './dbmaintain/order-maintain/order-maintain.component';
+import { PaymentMaintainComponent } from './dbmaintain/payment-maintain/payment-maintain.component';
+import { TripMaintainComponent } from './dbmaintain/trip-maintain/trip-maintain.component';
+import { InquiryMaintainComponent } from './dbmaintain/inquiry-maintain/inquiry-maintain.component';
+import { MessageReplyComponent } from './dbmaintain/inquiry-maintain/message-reply/message-reply.component';
+import { DriverMaintainComponent } from './dbmaintain/driver-maintain/driver-maintain.component';
+import { DriverDialogComponent } from './dbmaintain/driver-maintain/driver-dialog/driver-dialog.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +95,16 @@ import { RideGreenComponent } from './ride-green/ride-green.component';
     StoreMaintainComponent,
     StoreUpdateDialogComponent,
     LoginAlertComponent,
-    RideGreenComponent
+    RideGreenComponent,
+    RideSocialComponent,
+    ReviewsMaintainComponent,
+    OrderMaintainComponent,
+    PaymentMaintainComponent,
+    TripMaintainComponent,
+    InquiryMaintainComponent,
+    MessageReplyComponent,
+    DriverMaintainComponent,
+    DriverDialogComponent
   ],
   imports: [
     BrowserModule,

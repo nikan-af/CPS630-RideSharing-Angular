@@ -209,6 +209,15 @@ export class DataService {
         return this.httpClient.post(this.baseUrl + '/inquiry/create.php', {FName: formData.first_name, LName: formData.last_name, Email: formData.email, TypeOfInquiry: formData.type_of_inquiry, Message: formData.message});
     }
 
+    getInquiries() {
+        return this.httpClient.get(this.baseUrl + '/inquiry/read.php');
+    }
+
+    deleteInquiry(InquiryId) {
+        console.log(InquiryId);
+        return this.httpClient.post(this.baseUrl + '/inquiry/delete.php', { "InquiryId": InquiryId });
+    }
+
     /**
      * Takes in userId and makes a post request to 'getPaymentInfo.php' to get the payment info on the last order of the user.
      * @param userId 
@@ -233,7 +242,7 @@ export class DataService {
         return this.httpClient.post(this.baseUrl + '/car/delete.php', {CarId: CarId});
     }
 
-    createOrder(data) {
+    createOrderPayment(data) {
         console.log(data);
         let orderTotal = 0;
 
@@ -252,7 +261,8 @@ export class DataService {
             let trip: Trip = {
                 TripId: 0,
                 OrderId: 0,
-                CarId: order.Car ? order.Car.CarId : 1,
+                CarId: order.Car ? order.Car.CarId : 0,
+                DriverId: order.Driver ? order.Driver.DriverId : 0,
                 Distance: order.Distance,
                 Duration: order.Duration,
                 StartAddress: order.StartAddress,
@@ -279,7 +289,7 @@ export class DataService {
         };
 
         console.log({Payment: payment, Trips: trips, Order: order, Products: products});
-        return this.httpClient.post(this.baseUrl + '/order/create.php', {Payment: payment, Trips: trips, Order: order, Products: products});
+        return this.httpClient.post(this.baseUrl + '/order/createOrderPayment.php', { Payment: payment, Trips: trips, Order: order, Products: products });
     }
 
     /**
@@ -296,6 +306,30 @@ export class DataService {
 
     getReviews() {
         return this.httpClient.get(this.baseUrl + '/review/read.php');
+    }
+
+    deleteReview(ReviewId) {
+        return this.httpClient.post(this.baseUrl + '/review/delete.php', {ReviewId});
+    }
+
+    getDrivers() {
+        return this.httpClient.get(this.baseUrl + '/driver/readAll.php');
+    }
+
+    updateDriver(driverObj) {
+        return this.httpClient.post(this.baseUrl + '/driver/update.php', { ...driverObj });
+    }
+
+    createDriver(driverObj) {
+        return this.httpClient.post(this.baseUrl + '/driver/create.php', { ...driverObj });
+    }
+
+    deleteDriver(DriverId) {
+        return this.httpClient.post(this.baseUrl + '/driver/delete.php', { DriverId });
+    }
+
+    getDriverByDriverId(DriverId) {
+        return this.httpClient.post(this.baseUrl + '/driver/readByDriverId.php', { DriverId });
     }
 
     addProduct(product, storeName) {
@@ -321,6 +355,71 @@ export class DataService {
         } else if (storeName === 'Coffee') {
             return this.httpClient.post(this.baseUrl + '/coffee/delete.php', {...product});
         }
+    }
+
+    getOrders() {
+        return this.httpClient.get(this.baseUrl + '/order/readAll.php');
+    }
+
+    getOrdersByUserId(UserId) {
+        return this.httpClient.post(this.baseUrl + '/order/readByUserId.php', { UserId });
+    }
+
+    getOrderByOrderId(OrderId) {
+        return this.httpClient.post(this.baseUrl + '/order/readOne.php', { OrderId });
+    }
+
+    createOrder(OrderObj: {OrderId: number, UserId: number, OrderTotal: string, Timestamp: string }) {
+        return this.httpClient.post(this.baseUrl + '/order/create.php', { ...OrderObj });
+    }
+
+    deleteOrder(OrderId) {
+        return this.httpClient.post(this.baseUrl + '/order/delete.php', { OrderId });
+    }
+
+    updateOrder(OrderObj: { OrderId: number, UserId: number, OrderTotal: string, Timestamp: string }) {
+        return this.httpClient.post(this.baseUrl + '/order/update.php', { ...OrderObj });
+    }
+
+    getPayments() {
+        return this.httpClient.get(this.baseUrl + '/payment/readAll.php');
+    }
+
+    createPayment(paymentObj) {
+        return this.httpClient.post(this.baseUrl + '/payment/create.php', { ...paymentObj });
+    }
+
+    getPaymentByPaymentId(PaymentId) {
+        return this.httpClient.post(this.baseUrl + '/payment/readByPaymentId.php', { PaymentId });
+    }
+
+    updatePayment(paymentObj) {
+        console.log(paymentObj);
+        return this.httpClient.post(this.baseUrl + '/payment/update.php', { ...paymentObj });
+    }
+
+    deletePayment(PaymentId) {
+        return this.httpClient.post(this.baseUrl + '/payment/delete.php', { PaymentId });
+    }
+
+    getTrips() {
+        return this.httpClient.get(this.baseUrl + '/trip/readAll.php');
+    }
+
+    createTrip(tripObj) {
+        return this.httpClient.post(this.baseUrl + '/trip/create.php', { ...tripObj });
+    }
+
+    getTripByTripId(TripId) {
+        return this.httpClient.post(this.baseUrl + '/trip/readByTripId.php', { TripId });
+    }
+
+    updateTrip(tripObj) {
+        return this.httpClient.post(this.baseUrl + '/trip/update.php', { ...tripObj });
+    }
+
+    deleteTrip(TripId) {
+        return this.httpClient.post(this.baseUrl + '/trip/delete.php', { TripId });
     }
 }
 

@@ -1,0 +1,138 @@
+<div class="header">
+    <div class="backdrop">
+        <img class="backdrop" src="../../../../assets/images/backdrop.png" alt="Backdrop">
+    </div>
+    <div class="driver-image">
+        <img src="{{data.ImageURL !== '' ? data.ImageURL : noImageURL}}" alt="{{data.FirstName}}">
+    </div>
+    <div class="driver-info">
+        <form action="">
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="field">
+                        <mat-label>First Name</mat-label>
+                        <input name="FirstName" id="FirstName" matInput [(ngModel)]="this.data.FirstName">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="field">
+                        <mat-label>Last Name</mat-label>
+                        <input name="LastName" id="LastName" matInput [(ngModel)]="this.data.LastName">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="field">
+                        <mat-label>ٍEnglish Proficiency</mat-label>
+                        <mat-select name="EnglishProficiency" [(ngModel)]="this.data.EnglishProficiency">
+                            <mat-option value="fluent">Fluent</mat-option>
+                            <mat-option value="native">Native</mat-option>
+                            <mat-option value="intermediate">Intermediate</mat-option>
+                            <mat-option value="basic">Basic</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="field">
+                        <mat-label>ٍExperience (Year)</mat-label>
+                        <mat-select name="DriverExperienceYears" [(ngModel)]="this.data.DriverExperienceYears">
+                            <mat-option value="1">1</mat-option>
+                            <mat-option value="2">2</mat-option>
+                            <mat-option value="3">3</mat-option>
+                            <mat-option value="4">4</mat-option>
+                            <mat-option value="5">5</mat-option>
+                            <mat-option value="6">6</mat-option>
+                            <mat-option value="7">7</mat-option>
+                            <mat-option value="8">8</mat-option>
+                            <mat-option value="9">9</mat-option>
+                            <mat-option value="10">10</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="field">
+                        <mat-label>ٍPlay Music</mat-label>
+                        <mat-select name="PlaysMusic" [(ngModel)]="this.data.PlaysMusic">
+                            <mat-option value="y">Yes</mat-option>
+                            <mat-option value="n">No</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="field">
+                        <mat-label>ٍDriving Speed</mat-label>
+                        <mat-select name="DrivingSpeed" [(ngModel)]="this.data.DrivingSpeed">
+                            <mat-option value="fast">Fast</mat-option>
+                            <mat-option value="slow">Slow</mat-option>
+                            <mat-option value="normal">Normal</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="field">
+                        <mat-label>ٍAppearance</mat-label>
+                        <mat-select name="Appearance" [(ngModel)]="this.data.Appearance">
+                            <mat-option value="casual">Casual</mat-option>
+                            <mat-option value="classic">Classic</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="field">
+                        <mat-label>ٍSocial Preferences</mat-label>
+                        <mat-select name="SocialPreferences" [(ngModel)]="this.data.SocialPreferences">
+                            <mat-option value="very social">Very Social</mat-option>
+                            <mat-option value="social">Social</mat-option>
+                            <mat-option value="not social">Not Social</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="field">
+                        <mat-label>Driver Rating > </mat-label>
+                        <mat-select name="DriverRating" [(ngModel)]="this.data.DriverRating">
+                            <mat-option value="1">1</mat-option>
+                            <mat-option value="1.5">1.5</mat-option>
+                            <mat-option value="2">2</mat-option>
+                            <mat-option value="2.5">2.5</mat-option>
+                            <mat-option value="3">3</mat-option>
+                            <mat-option value="3.5">3.5</mat-option>
+                            <mat-option value="4">4</mat-option>
+                            <mat-option value="4.5">4.5</mat-option>
+                            <mat-option value="5">5</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="field">
+                        <mat-label>Image URL</mat-label>
+                        <input name="ImageURL" id="ImageURL" matInput [(ngModel)]="this.data.ImageURL">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline" class="field">
+                        <mat-label>Driver Price</mat-label>
+                        <input name="DriverPrice" id="DriverPrice" matInput [(ngModel)]="this.data.DriverPrice">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="action-buttons">
+        <button mat-raised-button *ngIf="this.data.operationType !== 'insert'" color="warn" class="reset-button"
+            (click)="resetForm()">Reset Settings</button>
+        <button mat-raised-button class="save-button" color="primary" type="submit"
+            (click)="onClick()">{{this.data.operationType.toLocaleUpperCase()}}</button>
+    </div>
+</div>

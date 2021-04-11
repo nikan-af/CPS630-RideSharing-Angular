@@ -75,3 +75,7 @@ td.mat-cell {
 th.mat-header-cell {
   text-align: center;
 }
+
+th.mat-header-cell {
+  padding: 10px;
+}

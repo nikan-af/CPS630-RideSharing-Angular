@@ -4,6 +4,7 @@ class Review {
     private $conn;
     private $tblName = "Review";
 
+    public $ReviewId;
     public $FirstName;
     public $LastName;
     public $Rating;
@@ -27,6 +28,15 @@ class Review {
 
     public function create() {
         $query = "INSERT INTO cps630.$this->tblName(FirstName, LastName, Message, Rating, ServiceType, Timestamp) VALUES('$this->FirstName', '$this->LastName', '$this->Message', $this->Rating, '$this->ServiceType', '$this->Timestamp')";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    public function delete() {
+        $query = "DELETE FROM cps630.$this->tblName WHERE ReviewId=$this->ReviewId";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();

@@ -1,0 +1,45 @@
+.header {
+  position: relative;
+}
+
+.backdrop {
+  width: 100%;
+  height: 150px;
+}
+
+.driver-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 75px;
+  position: absolute;
+  top: 55px;
+  left: 33%;
+  border: 2px solid black;
+}
+
+.driver-image img {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.driver-info {
+  text-align: center;
+  padding: 20px;
+  overflow-x: hidden;
+  margin-top: 50px;
+}
+
+.driver-info mat-form-field {
+  margin: 5px;
+}
+
+.action-buttons {
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+.action-buttons button {
+    margin: 0 10px;
+}

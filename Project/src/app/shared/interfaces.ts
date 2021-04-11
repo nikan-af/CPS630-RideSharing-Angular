@@ -12,14 +12,31 @@ export interface User {
     isAdmin: number;
 }
 
+export interface Driver {
+    DriverId: number;
+    FirstName: string;
+    LastName: string;
+    EnglishProficiency: string;
+    DriverExperienceYears: string;
+    PlaysMusic: string;
+    DrivingSpeed: string;
+    Appearance: string;
+    SocialPreferences: string;
+    DriverRating: string;
+    DriverPrice: string;
+    ImageURL: string;
+}
+
 export interface Order {
     UserId: number;
     Products?: Product[];
     Car?: Car;
+    Driver?: Driver;
     PickupTime: string;
     PickupDate: string;
     OrderTotal: string;
     DeliveryFee?: string;
+    DriverFee?: string;
     Distance: string;
     Duration: string;
     StartAddress: string;
@@ -36,6 +53,7 @@ export interface Trip {
     TripId: number;
     OrderId: number;
     CarId?: number;
+    DriverId?: number;
     Distance: string;
     Duration: string;
     EndAddress: string;
@@ -92,6 +110,7 @@ export interface UpdateDialogData {
     primaryKey: string;
     formData: [any];
     operationType: string;
+    disabledFields?: [any];
 }
 
 export interface UserInquiry {

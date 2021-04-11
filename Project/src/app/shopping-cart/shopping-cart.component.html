@@ -6,9 +6,11 @@
                     <mat-card appMaterialElevation class="example-card">
                         <mat-card-content class="mat-content">
                             <div #mapContainer id="map-{{i}}" class="map"></div>
-                            <div *ngIf="item.OrderType === 'ride'" class="carImage"><img src="{{item.Car.ImageURL}}"></div>
-                            <div *ngIf="item.OrderType === 'delivery'" class="carImage"><img src="{{item.Products[0].ImageURL}}"></div>
-                            <div class="card-content" *ngIf="item.OrderType === 'ride'">
+                            <div *ngIf="item.OrderType === 'ride' || item.OrderType === 'social'" class="carImage"><img src="{{item.Car.ImageURL}}">
+                            </div>
+                            <div *ngIf="item.OrderType === 'delivery'" class="carImage"><img
+                                    src="{{item.Products[0].ImageURL}}"></div>
+                            <div class="card-content" *ngIf="item.OrderType === 'ride' || item.OrderType === 'social'">
                                 <div class="row">
                                     <span class="material-icons delete-icon"
                                         (click)="removeItem(item); $event.stopPropagation()">clear</span>
@@ -31,7 +33,25 @@
                                         <span>{{item.PickupTime}}</span>
                                     </div>
                                 </div>
+                                <div class="row" *ngIf="item.OrderType === 'social'">
+                                    <div class="col-md-6">
+                                        <span class="sub-title">Driver</span><br>
+                                        <span>{{item.Driver.FirstName}} {{item.Driver.LastName}}</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <img class="driver-image" src="{{item.Driver.ImageURL}}" alt="{{item.Driver.FirstName}}">
+                                    </div>
+                                </div>
                                 <hr>
+                                <div class="row" *ngIf="item.OrderType === 'social'">
+                                    <div class="col-md-6">
+                                        <span>Personal Driver Fee</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span>CAD {{item.DriverFee}}</span>
+                                    </div>
+
+                                </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <span>Total Fare</span><br>
@@ -78,12 +98,14 @@
         <div class="row total-price">
             <p><span class="title sub-title">SUB-TOTAL: </span><span class="price sub-title">CAD
                     {{this.subTotalTxt}}</span></p>
-            <p><span class="title sub-title">DELIVERY: </span><span class="price sub-title">CAD {{deliveryTxt}}</span></p>
+            <p><span class="title sub-title">DELIVERY: </span><span class="price sub-title">CAD {{deliveryTxt}}</span>
+            </p>
             <p><span class="title">TOTAL TO PAY: </span><span class="price">CAD {{this.subTotalTxt }}</span></p>
         </div>
         <div class="action-buttons">
             <button mat-raised-button class="cancel">CANCEL</button>
-            <button mat-raised-button color="primary" class="checkout" (click)="this.checkout = true;">CHECKOUT</button>
+            <button mat-raised-button color="primary" class="checkout"
+                (click)="this.checkout = true;this.rideGreen = false;">CHECKOUT</button>
         </div>
     </div>
     <div class="no-items" *ngIf="cartItems.length === 0">

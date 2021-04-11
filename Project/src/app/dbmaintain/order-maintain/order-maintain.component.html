@@ -1,0 +1,65 @@
+<!-- <div class="review-container">
+    <div class="title">
+        USER ORDERS
+    </div>
+    <div class="no-reviews" *ngIf="reviews.length === 0">
+        <h3>No Orders</h3>
+    </div>
+</div> -->
+
+<div class="content">
+    <p class="title">Maintain Orders</p>
+    <div class="orders-table">
+        <div class="h4">Orders<span class="material-icons add-item" (click)="addRecord('Order', 'OrderId')">add_box</span>
+        </div>
+        <table mat-table [dataSource]="this.dataSource">
+    
+            <!-- OrderId Column -->
+            <ng-container matColumnDef="OrderId">
+                <th mat-header-cell *matHeaderCellDef> OrderId </th>
+                <td mat-cell *matCellDef="let element"> {{element.OrderId}} </td>
+            </ng-container>
+    
+            <!-- UserId Column -->
+            <ng-container matColumnDef="UserId">
+                <th mat-header-cell *matHeaderCellDef> UserId </th>
+                <td mat-cell *matCellDef="let element"> {{element.UserId}} </td>
+            </ng-container>
+    
+            <!-- OrderTotal Column -->
+            <ng-container matColumnDef="OrderTotal">
+                <th mat-header-cell *matHeaderCellDef> OrderTotal </th>
+                <td mat-cell *matCellDef="let element"> {{element.OrderTotal}} </td>
+            </ng-container>
+    
+            <!-- Timestamp Column -->
+            <ng-container matColumnDef="Timestamp">
+                <th mat-header-cell *matHeaderCellDef> Timestamp </th>
+                <td mat-cell *matCellDef="let element"> {{element.Timestamp}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef> Delete </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button (click)="deleteOrder(element)">
+                        <span class="material-icons delete-icon">delete</span>
+                    </button>
+                </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="update">
+                <th mat-header-cell *matHeaderCellDef> Update </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button (click)="updateOrder(element, 'Order', 'OrderId')">
+                        <span class="material-icons update-icon">update</span>
+                    </button>
+                </td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    
+        <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+</div>

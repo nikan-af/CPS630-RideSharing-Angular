@@ -15,15 +15,15 @@
     $payment = new Payment($db);
 
     if (isset($postdata) && !empty($postdata)) {
-        $payment->UserId = $request->UserId;
+        $payment->PaymentId = $request->PaymentId;
+        $payment->OrderId = $request->OrderId;
         $payment->CardNumber = $request->CardNumber;
-        $payment->CardHolderName = $request->CardHolderName;
         $payment->ExpiryMonth = $request->ExpiryMonth;
         $payment->ExpiryYear = $request->ExpiryYear;
-        $payment->ShippingLastName = $request->ShippingLastName;
-        $payment->ShippingFirstName = $request->ShippingFirstName;
-        $payment->ShippingAddressLine1 = $request->ShippingAddressLine1;
-        $payment->ShippingAddressLine2 = $request->ShippingAddressLine2;
+        $payment->CardHolderFirstName = $request->CardHolderFirstName;
+        $payment->CardHolderLastName = $request->CardHolderLastName;
+        $payment->CardAddressLine1 = $request->CardAddressLine1;
+        $payment->CardAddressLine2 = $request->CardAddressLine2;
         $payment->PostalCode = $request->PostalCode;
         $payment->City = $request->City;
         $payment->StateOrProvince = $request->StateOrProvince;

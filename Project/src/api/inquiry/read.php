@@ -1,6 +1,6 @@
 <?php
 include_once '../config/database.php';
-include_once '../objects/coffee.php';
+include_once '../objects/inquiry.php';
   
 $database = new Database();
 $db = $database->getConnection();
@@ -18,7 +18,7 @@ if($num > 0){
         extract($row);
   
         $inquiry_item=array(
-            "InqiuryId" => $InquiryId,
+            "InquiryId" => $InquiryId,
             "FName" => $FName,
             "LName" => $LName,
             "Message" => $Message,

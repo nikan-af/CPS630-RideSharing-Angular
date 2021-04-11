@@ -257,7 +257,7 @@ export class CheckoutComponent implements OnInit {
         /*
           Once the request succeeds reset the form and show success message.
         */
-        this.dataService.createOrder({'order': this.cartItems, 'payment': formValues}).subscribe(
+        this.dataService.createOrderPayment({'order': this.cartItems, 'payment': formValues}).subscribe(
           success => {
             console.log(success);
             this.dataService.resetCart();

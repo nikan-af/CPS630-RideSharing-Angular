@@ -2,7 +2,7 @@
     <div class="formBody">
         <mat-form-field appearance="outline" class="field" *ngFor="let fieldName of fieldNames">
             <mat-label>{{fieldName}}</mat-label>
-            <input name="{{fieldName}}" id="{{fieldName}}" matInput [(ngModel)]="this.tempData['formData'][fieldName]">
+            <input [disabled]="tempData['disabledFields'] && tempData['disabledFields'].indexOf(fieldName) > -1" name="{{fieldName}}" id="{{fieldName}}" matInput [(ngModel)]="this.tempData['formData'][fieldName]">
         </mat-form-field>
     </div>
 

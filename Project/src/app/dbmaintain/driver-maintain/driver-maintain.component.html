@@ -1,0 +1,14 @@
+<div class="content">
+    <p class="title">Maintain Drivers</p>
+    <div class="drivers-container">
+        <mat-card appMaterialElevation class="drivers">
+            <div class="add-driver" (click)="addDriver()"><img src="../../../assets/icons/plus.png" alt="Add Driver"></div>
+            <div class="driver" *ngFor="let driver of drivers" (click)="updateDriver(driver)">
+                <img src="{{driver.ImageURL}}" alt="{{driver.FirstName}}">
+                <button class="delete" mat-icon-button (click)="delete(driver, $event)">
+                    <span class="material-icons delete-icon">delete</span>
+                </button>
+            </div>
+        </mat-card>
+    </div>
+</div>

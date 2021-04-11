@@ -4,6 +4,7 @@ class Inquiry {
     private $conn;
     private $tblName = "Inquiry";
 
+    public $InquiryId;
     public $FName;
     public $LName;
     public $Message;
@@ -24,6 +25,14 @@ class Inquiry {
 
     public function create() {
         $query = "INSERT INTO cps630.$this->tblName(FName, LName, Message, TypeOfInquiry, Email) VALUES('$this->FName', '$this->LName', '$this->Message', '$this->TypeOfInquiry', '$this->Email')";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    public function delete() {
+        $query = "DELETE FROM cps630.$this->tblName WHERE InquiryId=$this->InquiryId";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();

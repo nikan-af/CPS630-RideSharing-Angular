@@ -88,6 +88,7 @@ CREATE TABLE `cps630`.`Trip` (
   `EndLocationLat` VARCHAR(255) NOT NULL,
   `EndLocationLng` VARCHAR(255) NOT NULL,
   `CarId` INT,
+  `DriverId` INT,
   PRIMARY KEY (`TripId`)
 );
 
@@ -102,10 +103,28 @@ CREATE TABLE `cps630`.`Inquiry` (
 );
 
 CREATE TABLE `cps630`.`Review` (
+  `ReviewId` INT NOT NULL AUTO_INCREMENT,
   `FirstName` VARCHAR(255) NOT NULL,
   `LastName` VARCHAR(255) NOT NULL,
   `Message` VARCHAR(255),
   `Rating` INT NOT NULL,
   `ServiceType` VARCHAR(255),
-  `Timestamp` VARCHAR(255) NOT NULL
+  `Timestamp` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`ReviewId`)
+);
+
+CREATE TABLE `cps630`.`Driver` (
+  `DriverId` INT NOT NULL AUTO_INCREMENT,
+  `FirstName` VARCHAR(255) NOT NULL,
+  `LastName` VARCHAR(255) NOT NULL,
+  `EnglishProficiency` VARCHAR(255) NOT NULL,
+  `DriverExperienceYears` INT NOT NULL,
+  `PlaysMusic` VARCHAR(3) NOT NULL,
+  `DrivingSpeed` VARCHAR(255) NOT NULL,
+  `Appearance` VARCHAR(255) NOT NULL,
+  `SocialPreferences` VARCHAR(255) NOT NULL,
+  `DriverRating` VARCHAR(4) NOT NULL,
+  `DriverPrice` VARCHAR(10) NOT NULL,
+  `ImageURL` TEXT NOT NULL,
+  PRIMARY KEY (`DriverId`)
 );

@@ -1,0 +1,141 @@
+*:not(.material-icons) {
+  box-sizing: border-box;
+  font-family: "Open Sans Condensed", sans-serif;
+}
+
+.inquiry-container {
+  padding: 50px;
+  min-height: 80vh;
+}
+
+.title {
+  font-size: 3rem;
+  margin: 30px 0;
+  margin-bottom: 60px;
+}
+
+.container {
+  font-family: 'Asap Condensed', sans-serif;
+}
+
+.container h1 {
+  font-family: 'Asap Condensed', sans-serif;
+  font-size: 4rem;
+  color: #6e6e6ebd;
+  text-align: center;
+  margin: 30% auto;
+}
+
+.container h2 {
+  text-align: center;
+  font-family: 'Asap Condensed', sans-serif;
+  margin: 10px 0;
+}
+
+.no-reviews {
+  margin-top: 250px;
+  text-align: center;
+}
+
+.no-reviews h3 {
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 4.5rem;
+  margin: 30px 0;
+  color: #686870d0;
+}
+
+.row {
+  width: 100%;
+  height: 20%;
+  margin: 0 auto;
+}
+
+.row .example-card {
+  width: 80%;
+  height: 100%;
+}
+
+.text-oneline {
+  margin: 15px 0;
+  font-size: 1rem;
+}
+
+.values {
+  font-weight: 100;
+  font-size: 1rem;
+}
+
+.inquiry-card {
+  margin: 12px auto;
+  width: 80%;
+  height: 100%;
+  cursor: pointer;
+}
+
+/* Loading sign */
+
+.backdrop {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border-top: 8px solid aliceblue;
+  border-right: 8px solid aliceblue;
+  border-bottom: 8px solid aliceblue;
+  border-left: 8px solid #26191b;
+  border-radius: 50%;
+  margin: 0 auto;
+  animation-name: spin;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+    border-left:8px solid #26191b;
+  }
+
+  25%{
+    transform: rotate(360deg);
+    border-left:8px solid #f9b384;
+  }
+
+  50%{
+    transform:rotate(720deg);
+    border-left:8px solid #26191b;
+  }
+
+  75%{
+    transform: rotate(1080deg);
+    border-left:8px solid #f9b384;
+  }
+
+  100% {
+    transform: rotate(1440deg);
+    border-left:8px solid #26191b;
+  }
+
+}
+
+.logo {
+  margin-top: 5px;
+  letter-spacing:0.06em;
+  font-size: 1rem;
+}
+
+.delete-icon {
+  position: absolute;
+  color: #26191b;
+  right: 10px;
+  top: 10px;
+}
+
+.delete-icon:hover {
+  color: #f9b384;
+}
+

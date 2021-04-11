@@ -1,0 +1,28 @@
+<div class="review-container">
+    <div class="title">
+        CUSTOMER REVIEWS
+    </div>
+    <div class="no-reviews" *ngIf="reviews.length === 0">
+        <h3>No Customer Reviews</h3>
+    </div>
+    <div class="service-type" *ngFor="let key of getFilteredReviewsObjKeys()">
+        <div *ngIf="filteredReviews[key].length > 0">
+            <p class="service-type-title">{{key}}</p>
+            <mat-card appMaterialElevation class="customer-review" *ngFor="let review of filteredReviews[key]">
+                <div class="header">
+                    <div class="creator-timestamp">
+                        <span>{{review.FirstName}} {{review.LastName}}</span> | <span>{{review.Timestamp}}</span>
+                    </div>
+                    <div class="stars">
+                        <span class="material-icons delete-icon" (click)="onDelete(review.ReviewId)">delete</span>
+                        <span class="star-rating" *ngFor="let star of getArray(review.Rating); let i = index"><img src="../../assets/icons/star.png" alt=""></span><span class="star-rating" *ngFor="let star of getArray(5 - review.Rating); let i = index"><img src="../../assets/icons/grey-star.png" alt=""></span> | {{ review.Rating }}.0
+                    </div>
+                </div>
+                <hr>
+                <div class="body">
+                    <p>{{review.Message}}</p>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

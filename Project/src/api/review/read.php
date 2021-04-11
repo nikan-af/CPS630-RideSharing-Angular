@@ -30,6 +30,7 @@ if($num>0){
         extract($row);
   
         $review_item=array(
+            "ReviewId" => $ReviewId,
             "FirstName" => $FirstName,
             "LastName" => $LastName,
             "Message" => $Message,

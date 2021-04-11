@@ -13,8 +13,8 @@ a:hover {
 }
 
 #logo {
-  width: 120px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
 }
 
 .badge {
@@ -43,7 +43,7 @@ a:hover {
   position: absolute!important;
   background-color: #f8f9fa!important;
   top: 82px;
-  left: 260px;
+  left: 220px;
   border: none!important;
 }
 

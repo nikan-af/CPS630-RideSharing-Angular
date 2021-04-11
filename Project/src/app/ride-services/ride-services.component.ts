@@ -13,6 +13,8 @@ import { LoginAlertComponent } from '../login-alert/login-alert.component';
     styleUrls: ['./ride-services.component.css']
 })
 export class RideServicesComponent implements OnInit, AfterViewInit {
+    @Input('driver') driver?;
+
     orderObj: Order = {
         UserId: -1,
         Car: null,
@@ -43,6 +45,7 @@ export class RideServicesComponent implements OnInit, AfterViewInit {
     showOrderReview = false;
     pickUpDate;
     pickUpTime;
+    hasPersonalizedDriver = false;
 
     pos = {
         top: 0,
@@ -82,6 +85,8 @@ export class RideServicesComponent implements OnInit, AfterViewInit {
     startFee = 5.00;
     driverTipValue = 0;
     driverTip = '0';
+    personalizedDriverValue = 0;
+    personalizedDriver = '0';
     taxesValue = 0;
     taxes = '0';
     total = '0';
@@ -170,8 +175,17 @@ export class RideServicesComponent implements OnInit, AfterViewInit {
                     this.distanceNumber = response.routes[0].legs[0].distance.value;
                     this.directionsRenderer.setDirections(response);
 
+                    if (this.driver) {
+                        this.hasPersonalizedDriver = true;
+                        this.personalizedDriverValue = (this.distanceNumber * parseFloat(this.driver.DriverPrice)) / 1000;
+                        this.personalizedDriver = (this.personalizedDriverValue).toFixed(2);
+                        this.orderObj.OrderType = 'social';
+                        this.orderObj.DriverFee = this.personalizedDriver;
+                        this.orderObj.Driver = this.driver;
+                    }
+                    
                     this.directionsReponse = response;
-                    this.totalEstimateValue = (this.distanceNumber * parseFloat(this.cars[this.selected].CarPrice) / 1000) + this.startFee;
+                    this.totalEstimateValue = (this.distanceNumber * parseFloat(this.cars[this.selected].CarPrice) / 1000) + this.startFee + this.personalizedDriverValue;
                     this.totalEstimate = (this.totalEstimateValue).toFixed(2);
                     this.driverTipValue = this.totalEstimateValue * 5 / 100;
                     this.driverTip = this.driverTipValue.toFixed(2);

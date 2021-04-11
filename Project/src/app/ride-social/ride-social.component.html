@@ -1,0 +1,150 @@
+<div class="content">
+    <p class="title">
+        Ride Social
+    </p>
+    <div class="driver-finder">
+        <div class="row">
+            <div class="col-md-6">
+                <mat-card appMaterialElevation class="preferences">
+                    <p class="title">Your Preferences</p>
+                    <form action="">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline" class="field">
+                                    <mat-label>ٍEnglish Proficiency</mat-label>
+                                    <mat-select name="EnglishProficiency" [(ngModel)]="this.driverObj.EnglishProficiency">
+                                        <mat-option value="fluent">Fluent</mat-option>
+                                        <mat-option value="native">Native</mat-option>
+                                        <mat-option value="intermediate">Intermediate</mat-option>
+                                        <mat-option value="basic">Basic</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline" class="field">
+                                    <mat-label>ٍExperience (Year)</mat-label>
+                                    <mat-select name="DriverExperienceYears" [(ngModel)]="this.driverObj.DriverExperienceYears">
+                                        <mat-option value="1">1</mat-option>
+                                        <mat-option value="2">2</mat-option>
+                                        <mat-option value="3">3</mat-option>
+                                        <mat-option value="4">4</mat-option>
+                                        <mat-option value="5">5</mat-option>
+                                        <mat-option value="6">6</mat-option>
+                                        <mat-option value="7">7</mat-option>
+                                        <mat-option value="8">8</mat-option>
+                                        <mat-option value="9">9</mat-option>
+                                        <mat-option value="10">10</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline" class="field">
+                                    <mat-label>ٍPlay Music</mat-label>
+                                    <mat-select name="PlaysMusic" [(ngModel)]="this.driverObj.PlaysMusic">
+                                        <mat-option value="y">Yes</mat-option>
+                                        <mat-option value="n">No</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline" class="field">
+                                    <mat-label>ٍDriving Speed</mat-label>
+                                    <mat-select name="DrivingSpeed" [(ngModel)]="this.driverObj.DrivingSpeed">
+                                        <mat-option value="fast">Fast</mat-option>
+                                        <mat-option value="slow">Slow</mat-option>
+                                        <mat-option value="normal">Normal</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline" class="field">
+                                    <mat-label>ٍAppearance</mat-label>
+                                    <mat-select name="Appearance" [(ngModel)]="this.driverObj.Appearance">
+                                        <mat-option value="casual">Casual</mat-option>
+                                        <mat-option value="classic">Classic</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline" class="field">
+                                    <mat-label>ٍSocial Preferences</mat-label>
+                                    <mat-select name="SocialPreferences" [(ngModel)]="this.driverObj.SocialPreferences">
+                                        <mat-option value="very social">Very Social</mat-option>
+                                        <mat-option value="social">Social</mat-option>
+                                        <mat-option value="not social">Not Social</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <mat-form-field appearance="outline" class="field">
+                                    <mat-label>Driver Rating > </mat-label>
+                                    <mat-select name="DriverRating" [(ngModel)]="this.driverObj.DriverRating">
+                                        <mat-option value="1">1</mat-option>
+                                        <mat-option value="1.5">1.5</mat-option>
+                                        <mat-option value="2">2</mat-option>
+                                        <mat-option value="2.5">2.5</mat-option>
+                                        <mat-option value="3">3</mat-option>
+                                        <mat-option value="3.5">3.5</mat-option>
+                                        <mat-option value="4">4</mat-option>
+                                        <mat-option value="4.5">4.5</mat-option>
+                                        <mat-option value="5">5</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                    </form>
+                    <div class="action-buttons">
+                        <button mat-raised-button color="warn" class="saveButton" (click)="resetForm()">Reset</button>
+                        <button mat-raised-button color="primary" class="saveButton" (click)="findDriver()">Find Driver</button>
+                    </div>
+                    <p class="error" [hidden]="!noDriversFound">No Drivers Found.</p>
+                </mat-card>
+            </div>
+            <div class="col-md-6">
+                <mat-card appMaterialElevation class="drivers">
+                    <div class="driver" [ngClass]="{'selected': i === selectedDriverId}" (click)="selectDriver(driver.DriverId)" *ngFor="let driver of filteredDrivers; let i = index;"><img src="{{driver.ImageURL}}"
+                            alt="{{driver.FirstName}}">
+                            <mat-icon class="selection" [hidden]="i !== selectedDriverId">check_circle</mat-icon>
+                        </div>
+                </mat-card>
+                <mat-card class="driver-information" appMaterialElevation *ngIf="selectedDriverId !== -1">
+                    <p class="title">Driver Information</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Name: {{ drivers[selectedDriverId].FirstName }} {{ drivers[selectedDriverId].LastName }}
+                        </div>
+                        <div class="col-md-6">
+                            English Proficiency: {{ drivers[selectedDriverId].EnglishProficiency }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Years of Experience: {{ drivers[selectedDriverId].DriverExperienceYears }}
+                        </div>
+                        <div class="col-md-6">
+                            Plays Music: {{ drivers[selectedDriverId].PlaysMusic === 'y' ? 'Yes' : 'No' }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Driving Speed: {{ drivers[selectedDriverId].DrivingSpeed }}
+                        </div>
+                        <div class="col-md-6">
+                            Social Preferences: {{ drivers[selectedDriverId].SocialPreferences }}
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+
+    <ride-services-component *ngIf="selectedDriverId !== -1" [driver]="drivers[selectedDriverId]"></ride-services-component>
+</div>

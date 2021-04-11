@@ -1,0 +1,20 @@
+<div class="inquiry-container">
+    <div class="title">
+        CUSTOMER INQUIRIES
+    </div>
+    <div class="no-reviews" *ngIf="(inquiries && inquiries.length === 0) || !inquiries">
+        <h3>No Customer Inquiries</h3>
+    </div>
+    <div class="row" *ngFor="let inquiry of inquiries">
+        <mat-card appMaterialElevation class="inquiry-card" (click)="openMessageDialog(inquiry)">
+          <a (click)="deleteInquiry(inquiry); $event.stopPropagation()"><span class="material-icons delete-icon">delete</span></a>
+          <mat-card-content class="mat-content">
+            <mat-card-title class="text-oneline" style="display:inline-block; width: 50%;"><b>First Name:  </b> <span class="values">{{inquiry.FName}}</span></mat-card-title>
+            <mat-card-title class="text-oneline" style="display:inline-block; width: 50%;"><b>Last Name:  </b> <span class="values">{{inquiry.LName}}</span></mat-card-title>
+            <mat-card-title class="text-oneline" style="display:inline-block; width: 50%;"><b>Email Address:  </b> <span class="values">{{inquiry.Email}}</span></mat-card-title>
+            <mat-card-title class="text-oneline" style="display:inline-block; width: 50%;"><b>Type of Inquiry:  </b> <span class="values">{{inquiry.TypeOfInquiry}}</span></mat-card-title>
+            <mat-card-title class="text-oneline"><b>Message:  </b><div class="message values" style="margin-top: 5px;">{{inquiry.Message}}</div></mat-card-title>
+          </mat-card-content>
+        </mat-card>
+      </div>
+</div>
