@@ -25,7 +25,7 @@
                     <td><span class="material-icons" style="color: rgb(7, 165, 7);">check_circle</span></td>
                     <td>KM</td>
                     <td><span class="material-icons" style="color: rgb(7, 165, 7);">check_circle</span></td>
-                    <td>{{rideServicesAvg}}</td>
+                    <td>{{rideServicesAvg === 0 ? '5.0' : rideServicesAvg}}</td>
                 </tr>
                 <tr>
                     <th scope="row">Delivery Services</th>
@@ -36,7 +36,7 @@
                     <td><span class="material-icons" style="color: rgb(7, 165, 7);">check_circle</span></td>
                     <td>KM</td>
                     <td><span class="material-icons" style="color: rgb(7, 165, 7);">check_circle</span></td>
-                    <td>{{deliveryServicesAvg}}</td>
+                    <td>{{deliveryServicesAvg === 0 ? '5.0' : deliveryServicesAvg}}</td>
                 </tr>
                 <tr>
                     <th scope="row">Ride Green</th>
@@ -47,7 +47,7 @@
                     <td><span class="material-icons" style="color: rgb(7, 165, 7);">check_circle</span></td>
                     <td>KM</td>
                     <td><span class="material-icons" style="color: rgb(7, 165, 7);">check_circle</span></td>
-                    <td>{{rideGreenServiceAvg}}</td>
+                    <td>{{rideGreenServiceAvg === 0 ? '5.0' : rideGreenServiceAvg}}</td>
                 </tr>
                 <tr>
                     <th scope="row">Ride Social</th>
@@ -58,15 +58,42 @@
                     <td><span class="material-icons" style="color: rgb(7, 165, 7);">check_circle</span></td>
                     <td>Minutes</td>
                     <td><span class="material-icons">cancel</span></td>
-                    <td>{{rideSocialServiceAvg}}</td>
+                    <td>{{rideSocialServiceAvg === 0 ? '5.0' : rideSocialServiceAvg}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
     <div class="notes">
-        Note: In order to book with our "green ride" service you need to add one "delivery service" item and one "ride service" order to your shopping cart. The system will automatically identify your order as a "green ride" service and you should be able to see the "green ride" service logo on your cart. <img src="../../assets/images/ride-green.png" class="ride-green" alt="Ride Green">
+        Note: In order to book with our "green ride" service you need to add one "delivery service" item and one "ride
+        service" order to your shopping cart. The system will automatically identify your order as a "green ride"
+        service and you should be able to see the "green ride" service logo on your cart. <img
+            src="../../assets/images/ride-green.png" class="ride-green" alt="Ride Green">
         <br>
         <br>
         Note: Ride Green allows customers to get their favorite items delivered while using the ride services.
+    </div>
+    <div class="services">
+        <mat-card appMaterialElevation class="service" (click)="select('ride-service')">
+            <div class="title">RIDE SERVICES</div>
+            <hr>
+            <div class="service-logo">
+                <img src="../../assets/icons/insurance.png" alt="Ride Services">
+            </div>
+        </mat-card>
+        <mat-card appMaterialElevation class="service" (click)="select('delivery-service')">
+            <div class="title">DELIVERY SERVICES</div>
+            <hr>
+            <div class="service-logo">
+                <img src="../../assets/icons/package.png" alt="Delivery Services">
+            </div>
+        </mat-card>
+    </div>
+    <div class="row service-container">
+        <div class="col-md-6 service" *ngIf="servicesSelected.indexOf('ride-service') > -1">
+            <ride-services-component></ride-services-component>
+        </div>
+        <div class="col-md-6 service" *ngIf="servicesSelected.indexOf('delivery-service') > -1">
+            <delivery-services></delivery-services>
+        </div>
     </div>
 </div>

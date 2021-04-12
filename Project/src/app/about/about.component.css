@@ -3,12 +3,25 @@ h1 {
   font-weight: bold !important;
 }
 
+.team-container {
+  justify-content: center;
+}
+
+.team-container .mat-card {
+   margin: 20px;
+ }
+
 .mat-card {
   height: 100%;
 }
 
+.team-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .mat-card-image {
-  height: 300px;
+  height: 250px;
 }
 
 p.info {
@@ -27,23 +40,30 @@ p.info {
   font-size: 2rem;
 }
 
-.row {
+/* .row {
   padding: 50px 350px;
-}
+} */
 
 hr {
   width: 70%;
 }
 
+.team-card {
+  width: 250px;
+  height: 420px;
+}
+
 .desc {
-  padding: 25px 350px;
+  width: 50%;
+  margin: 20px auto;
+  margin-bottom: 10vh;
 }
 
 .desc .title {
   font-size: 1.7rem;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .desc .text {

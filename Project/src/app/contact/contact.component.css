@@ -2,10 +2,16 @@
   font-family: "Asap Condensed", sans-serif;
 }
 
+img {
+  width: 100%;
+  height: auto;
+}
+
 .form-box {
-  margin: 10vh auto;
+  box-sizing: content-box;
+  margin:  20% auto;
   height: 570px;
-  width: 50%;
+  width: 80%;
   border: 3px #26191b solid;
   padding: 2rem 0;
   overflow: auto;
@@ -18,8 +24,12 @@
 }
 
 .contact-form {
-  padding: 5% 15%; 
+  padding: 5% 15%;
   text-align: center;
+}
+
+.col-md-6 {
+  padding: 0px!important;
 }
 
 .field {
@@ -88,13 +98,19 @@
   background-color: #26191b;
 }
 
-@media (max-width: 570px) {
+@media (max-width: 1200px) {
   .image-banner {
     display: none;
   }
 
+  .col-md-6 {
+    flex: unset;
+    max-width: 100%;
+  }
+
   .form-box {
-    width: 80%;
+    width: 70%;
+    margin: 10% auto;
     margin-bottom: 2rem;
   }
 }
