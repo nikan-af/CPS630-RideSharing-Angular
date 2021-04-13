@@ -1,4 +1,5 @@
-<?php  
+
+ <?php  
  $connect = mysqli_connect("localhost", "root", "", "testing");  
  session_start();  
  if(isset($_SESSION["username"]))  
@@ -23,9 +24,11 @@
           for ($i = 0; $i < $randStringLen; $i++) {
               $randString .= $charset[mt_rand(0, strlen($charset) - 1)];
           }
-     
+
            $salt = $randString; 
-           $password = md5($password) . $salt;  
+           $password = md5($password) . $salt; 
+           $password2 = substr(md5($password), 0, 5). $salt;
+           $pass = $password2; 
            $query = "INSERT INTO user (username, password,salt) VALUES('$username', '$password','$salt')";  
            if(mysqli_query($connect, $query))  
            {  
