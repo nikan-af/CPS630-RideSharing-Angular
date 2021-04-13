@@ -119,26 +119,26 @@
                     <p class="title">Driver Information</p>
                     <div class="row">
                         <div class="col-md-6">
-                            Name: {{ drivers[selectedDriverId].FirstName }} {{ drivers[selectedDriverId].LastName }}
+                            Name: {{ filteredDrivers[selectedDriverId].FirstName }} {{ filteredDrivers[selectedDriverId].LastName }}
                         </div>
                         <div class="col-md-6">
-                            English Proficiency: {{ drivers[selectedDriverId].EnglishProficiency }}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            Years of Experience: {{ drivers[selectedDriverId].DriverExperienceYears }}
-                        </div>
-                        <div class="col-md-6">
-                            Plays Music: {{ drivers[selectedDriverId].PlaysMusic === 'y' ? 'Yes' : 'No' }}
+                            English Proficiency: {{ filteredDrivers[selectedDriverId].EnglishProficiency }}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            Driving Speed: {{ drivers[selectedDriverId].DrivingSpeed }}
+                            Years of Experience: {{ filteredDrivers[selectedDriverId].DriverExperienceYears }}
                         </div>
                         <div class="col-md-6">
-                            Social Preferences: {{ drivers[selectedDriverId].SocialPreferences }}
+                            Plays Music: {{ filteredDrivers[selectedDriverId].PlaysMusic === 'y' ? 'Yes' : 'No' }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Driving Speed: {{ filteredDrivers[selectedDriverId].DrivingSpeed }}
+                        </div>
+                        <div class="col-md-6">
+                            Social Preferences: {{ filteredDrivers[selectedDriverId].SocialPreferences }}
                         </div>
                     </div>
                 </mat-card>
@@ -146,5 +146,5 @@
         </div>
     </div>
 
-    <ride-services-component *ngIf="selectedDriverId !== -1" [driver]="drivers[selectedDriverId]"></ride-services-component>
+    <ride-services-component *ngIf="selectedDriverId !== -1" [driver]="filteredDrivers[selectedDriverId]"></ride-services-component>
 </div>

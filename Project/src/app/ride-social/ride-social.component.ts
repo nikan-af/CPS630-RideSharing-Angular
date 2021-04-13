@@ -84,6 +84,7 @@ export class RideSocialComponent implements OnInit {
   }
 
   selectDriver(DriverId: number) {
-    this.selectedDriverId = this.drivers.findIndex(driver => driver.DriverId === DriverId );
+    this.selectedDriverId = this.filteredDrivers.findIndex(driver => driver.DriverId === DriverId );
+    console.log(this.selectedDriverId);
   }
 }

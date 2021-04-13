@@ -16,6 +16,8 @@ export class RideGreenComponent implements OnInit {
   rideGreenServiceReviews = [];
   rideSocialServiceReviews = [];
 
+  servicesSelected = [];
+
   rideServicesAvg = 0;
   deliveryServicesAvg = 0;
   rideGreenServiceAvg = 0;
@@ -68,6 +70,10 @@ export class RideGreenComponent implements OnInit {
     console.log(count);
 
     return total / count;
+  }
+
+  select(serviceName) {
+    this.servicesSelected.push(serviceName);
   }
 
 }

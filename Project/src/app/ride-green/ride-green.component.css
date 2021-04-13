@@ -9,6 +9,48 @@
   margin: 50px 0;
 }
 
+.services .mat-card {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.mat-card * {
+  font-family: "Open Sans Condensed", sans-serif !important;
+}
+
+.mat-card .title {
+  margin: 0px;
+  font-size: 2rem;
+}
+
+.services {
+  display: flex;
+  justify-content: center;
+}
+
+.services .mat-card  {
+  margin: 30px;
+}
+
+.services .mat-card .service-logo img {
+  width: 100%;
+  height: 100%;
+}
+
+.services .mat-card .service-logo {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+}
+
+.services .mat-card.selected {
+  border: 2px solid black;
+}
+
+.mat-card hr {
+  margin-bottom: 20px;
+}
+
 .comparison-table {
     width: 90%;
     text-align: center;
@@ -30,3 +72,15 @@
   height: 75px;
   margin-left: 20px;
 }
+
+.services .col-md-6 {
+  padding: 30px 100px;
+}
+
+.services .service {
+  cursor: pointer;
+}
+/* 
+.service-container {
+  display: flex;
+} */

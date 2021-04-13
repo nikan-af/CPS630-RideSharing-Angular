@@ -50,8 +50,8 @@
                             {{cartItems.length}} </span></a>
                 </li>
                 <li class="nav-item item-icon">
-                    <a class="nav-link" (click)="handleLogin(content)"><span *ngIf="!userIsLoggedIn"
-                            class="material-icons">account_circle</span><span *ngIf="userIsLoggedIn"
+                    <a class="nav-link" (click)="handleLogin(content)"><span *ngIf="!user.Email"
+                            class="material-icons">account_circle</span><span *ngIf="user.Email"
                             class="material-icons" (click)="logout()">login</span></a>
                 </li>
             </ul>

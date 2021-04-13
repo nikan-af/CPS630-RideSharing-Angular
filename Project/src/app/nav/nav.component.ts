@@ -40,7 +40,7 @@ export class NavComponent implements AfterViewInit {
      * @param content 
      */
     handleLogin(content) {
-        if (this.userIsLoggedIn) {
+        if (this.user.Email) {
             this.userIsLoggedIn = false;
             this.router.navigate(['']);
             this.dataService.logout();

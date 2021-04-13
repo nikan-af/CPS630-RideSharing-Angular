@@ -9,6 +9,7 @@ CREATE TABLE `cps630`.`User` (
   `Balance` DECIMAL(6, 2) DEFAULT 0 NULL,
   `isAdmin` BOOLEAN DEFAULT 0 NOT NULL,
   `Salt` VARCHAR(255) NOT NULL,
+  `Token` TEXT DEFAULT NULL,
   PRIMARY KEY (`UserId`)
 );
 

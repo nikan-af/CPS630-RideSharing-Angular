@@ -1,80 +1,33 @@
 <div class="content">
     <div class="stores" *ngIf="storeSelected === ''">
         <p class="title">Featured Stores</p>
-        <div class="row">
-            <div class="col-md-3">
-                <mat-card appMaterialElevation class="store-card" (click)="selectStore('flowerStore')">
-                    <div class="card-image"><img src="../../assets/images/flowerStore.jpg"></div>
-                </mat-card>
-            </div>
-            <div class="col-md-3">
-                <mat-card appMaterialElevation class="store-card" (click)="selectStore('coffeeStore')">
-                    <div class="card-image"><img src="../../assets/images/coffeeStore.jpg"></div>
-                </mat-card>
-            </div>
+        <div class="stores-cotainer">
+            <mat-card appMaterialElevation class="store-card" (click)="selectStore('flowerStore')">
+                <div class="card-image"><img src="../../assets/images/flowerStore.jpg"></div>
+            </mat-card>
+            <mat-card appMaterialElevation class="store-card" (click)="selectStore('coffeeStore')">
+                <div class="card-image"><img src="../../assets/images/coffeeStore.jpg"></div>
+            </mat-card>
         </div>
     </div>
+    <span class="material-icons go-back" *ngIf="this.storeSelected !== ''" (click)="this.storeSelected = ''">arrow_back_ios</span>
     <div class="store" *ngIf="storeSelected === 'flowerStore'">
         <p class="title">Flower Store</p>
         <div class="products">
-            <div *ngFor="let flower of flowers; let i = index">
-                <div class="row" *ngIf="i % 4 === 0">
-                    <div class="col-md-3" *ngIf="i < flowers.length"
-                        (click)="this.openProductDialog(flowers[i], 'flower')">
-                        <mat-card appMaterialElevation class="product-card">
-                            <div class="card-image"><img src={{flowers[i].ImageURL}} alt={{flowers[i].Name}}></div>
-                            <mat-card-content class="mat-content">
-                                <p class="name">
-                                    {{flowers[i].Name}}
-                                </p>
-                                <p class="price">
-                                    CAD {{flowers[i].Price}}
-                                </p>
-                            </mat-card-content>
-                        </mat-card>
-                    </div>
-                    <div class="col-md-3" *ngIf="i + 1 < flowers.length"
-                        (click)="this.openProductDialog(flowers[i+1], 'flower')">
-                        <mat-card appMaterialElevation class="product-card">
-                            <div class="card-image"><img src={{flowers[i+1].ImageURL}} alt={{flowers[i+1].Name}}></div>
-                            <mat-card-content class="mat-content">
-                                <p class="name">
-                                    {{flowers[i+1].Name}}
-                                </p>
-                                <p class="price">
-                                    CAD {{flowers[i+1].Price}}
-                                </p>
-                            </mat-card-content>
-                        </mat-card>
-                    </div>
-                    <div class="col-md-3" *ngIf="i + 2 < flowers.length"
-                        (click)="this.openProductDialog(flowers[i+2], 'flower')">
-                        <mat-card appMaterialElevation class="product-card">
-                            <div class="card-image"><img src={{flowers[i+2].ImageURL}} alt={{flowers[i+2].Name}}></div>
-                            <mat-card-content class="mat-content">
-                                <p class="name">
-                                    {{flowers[i+2].Name}}
-                                </p>
-                                <p class="price">
-                                    CAD {{flowers[i+2].Price}}
-                                </p>
-                            </mat-card-content>
-                        </mat-card>
-                    </div>
-                    <div class="col-md-3" *ngIf="i + 3 < flowers.length"
-                        (click)="this.openProductDialog(flowers[i+3], 'flower')">
-                        <mat-card appMaterialElevation class="product-card">
-                            <div class="card-image"><img src={{flowers[i+3].ImageURL}} alt={{flowers[i+3].Name}}></div>
-                            <mat-card-content class="mat-content">
-                                <p class="name">
-                                    {{flowers[i+3].Name}}
-                                </p>
-                                <p class="price">
-                                    CAD {{flowers[i+3].Price}}
-                                </p>
-                            </mat-card-content>
-                        </mat-card>
-                    </div>
+            <div class="product-container">
+                <div *ngFor="let flower of flowers; let i = index" class="flower"
+                    (click)="this.openProductDialog(flowers[i], 'flower')">
+                    <mat-card appMaterialElevation class="product-card">
+                        <div class="card-image"><img src={{flowers[i].ImageURL}} alt={{flowers[i].Name}}></div>
+                        <mat-card-content class="mat-content">
+                            <p class="name">
+                                {{flowers[i].Name}}
+                            </p>
+                            <p class="price">
+                                CAD {{flowers[i].Price}}
+                            </p>
+                        </mat-card-content>
+                    </mat-card>
                 </div>
             </div>
         </div>
@@ -82,64 +35,20 @@
     <div class="store" *ngIf="storeSelected === 'coffeeStore'">
         <p class="title">Coffee Store</p>
         <div class="products">
-            <div *ngFor="let coffee of coffees; let i = index">
-                <div class="row" *ngIf="i % 4 === 0">
-                    <div class="col-md-3" *ngIf="i < flowers.length"
-                        (click)="this.openProductDialog(coffees[i], 'coffee')">
-                        <mat-card appMaterialElevation class="product-card">
-                            <div class="card-image"><img src={{coffees[i].ImageURL}} alt={{coffees[i].Name}}></div>
-                            <mat-card-content class="mat-content">
-                                <p class="name">
-                                    {{coffees[i].Name}}
-                                </p>
-                                <p class="price">
-                                    CAD {{coffees[i].Price}}
-                                </p>
-                            </mat-card-content>
-                        </mat-card>
-                    </div>
-                    <div class="col-md-3" *ngIf="i + 1 < flowers.length"
-                        (click)="this.openProductDialog(coffees[i+1], 'coffee')">
-                        <mat-card appMaterialElevation class="product-card">
-                            <div class="card-image"><img src={{coffees[i+1].ImageURL}} alt={{coffees[i+1].Name}}></div>
-                            <mat-card-content class="mat-content">
-                                <p class="name">
-                                    {{coffees[i+1].Name}}
-                                </p>
-                                <p class="price">
-                                    CAD {{coffees[i+1].Price}}
-                                </p>
-                            </mat-card-content>
-                        </mat-card>
-                    </div>
-                    <div class="col-md-3" *ngIf="i + 2 < flowers.length"
-                        (click)="this.openProductDialog(coffees[i+2], 'coffee')">
-                        <mat-card appMaterialElevation class="product-card">
-                            <div class="card-image"><img src={{coffees[i+2].ImageURL}} alt={{coffees[i+2].Name}}></div>
-                            <mat-card-content class="mat-content">
-                                <p class="name">
-                                    {{coffees[i+2].Name}}
-                                </p>
-                                <p class="price">
-                                    CAD {{coffees[i+2].Price}}
-                                </p>
-                            </mat-card-content>
-                        </mat-card>
-                    </div>
-                    <div class="col-md-3" *ngIf="i + 3 < flowers.length"
-                        (click)="this.openProductDialog(coffees[i+3], 'coffee')">
-                        <mat-card appMaterialElevation class="product-card">
-                            <div class="card-image"><img src={{coffees[i+3].ImageURL}} alt={{coffees[i+3].Name}}></div>
-                            <mat-card-content class="mat-content">
-                                <p class="name">
-                                    {{coffees[i+3].Name}}
-                                </p>
-                                <p class="price">
-                                    CAD {{coffees[i+3].Price}}
-                                </p>
-                            </mat-card-content>
-                        </mat-card>
-                    </div>
+            <div class="product-container">
+                <div *ngFor="let coffee of coffees; let i = index" class="coffee"
+                    (click)="this.openProductDialog(coffees[i], 'coffee')">
+                    <mat-card appMaterialElevation class="product-card">
+                        <div class="card-image"><img src={{coffees[i].ImageURL}} alt={{coffees[i].Name}}></div>
+                        <mat-card-content class="mat-content">
+                            <p class="name">
+                                {{coffees[i].Name}}
+                            </p>
+                            <p class="price">
+                                CAD {{coffees[i].Price}}
+                            </p>
+                        </mat-card-content>
+                    </mat-card>
                 </div>
             </div>
         </div>
@@ -147,8 +56,8 @@
 
     <div class="delivery" [hidden]="orders.length <= 0">
         <p class="title">Schedule Delivery</p>
-        <div class="row">
-            <div class="col-md-3">
+        <div class="delivery-container">
+            <div class="delivery-details">
                 <mat-form-field appearance="outline" class="field">
                     <mat-label>Destination</mat-label>
                     <input #destination autocorrect="off" autocapitalize="off" spellcheck="off" matInput
@@ -183,10 +92,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="map">
                 <div #mapContainer id="map"></div>
             </div>
-            <div class="col-md-4">
+            <div class="delivery-review">
                 <div class="content-box order-review" onDrag [order]="orderObj" draggable="true">
                     <p class="review-title">Order Review</p>
                     <p class="review-subtitle">Order Items</p>

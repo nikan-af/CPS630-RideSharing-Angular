@@ -13,6 +13,7 @@ class User {
     public $Password;
     public $Balance;
     public $Salt;
+    public $Token;
 
     public function __construct($db) {
         $this->conn = $db;
@@ -35,7 +36,7 @@ class User {
     }
 
     public function register() {
-        $query = "INSERT INTO User(Name, Tel, Email, Address, CityCode, Password, Balance, isAdmin,Salt) VALUES('$this->Name', '$this->Tel', '$this->Email', '$this->Address', '$this->CityCode', '$this->Password', $this->Balance, '$this->isAdmin' , '$this->Salt')";
+        $query = "INSERT INTO cps630.User(Name, Tel, Email, Address, CityCode, Password, Balance, isAdmin,Salt) VALUES('$this->Name', '$this->Tel', '$this->Email', '$this->Address', '$this->CityCode', '$this->Password', $this->Balance, '$this->isAdmin' , '$this->Salt')";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
@@ -69,11 +70,37 @@ class User {
         return $stmt;
     }
 
+    public function readByEmail() {
+        $query = "SELECT * FROM $this->tblName WHERE Email='$this->Email'";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
     public function readUserByEmail() {
         $query = "SELECT * FROM $this->tblName WHERE Email='$this->Email'";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
+        return $stmt;
+    }
+
+    public function storeToken() {
+        $query = "Update cps630.$this->tblName SET Token='$this->Token' WHERE Email='$this->Email'";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    public function getSaltToken() {
+        $query = "Select Salt, Token from cps630.$this->tblName WHERE Email='$this->Email'";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
         return $stmt;
     }
 }

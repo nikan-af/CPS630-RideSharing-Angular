@@ -159,9 +159,11 @@ export class DeliveryServices implements OnInit, AfterViewInit {
 
         dialogRef.afterClosed().subscribe(
             data => {
-                this.orders.push(data);
-                console.log(this.orders);
-                this.orderObj.Products = this.orders;
+                if (data && data['Qty'] && data.Qty !== 0) {
+                    this.orders.push(data);
+                    console.log(this.orders);
+                    this.orderObj.Products = this.orders;
+                }
             }
         )
     }

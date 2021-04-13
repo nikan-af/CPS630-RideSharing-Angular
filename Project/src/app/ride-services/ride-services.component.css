@@ -17,7 +17,7 @@
   transition: all .3s ease-in-out;
   padding: 20px 10px;
   margin: 20px auto;
-  height: 200px;
+  max-height: 300px;
   width: 72%;
 }
 
@@ -43,6 +43,29 @@
   background-color: lightblue;
 }
 
+.review-schedule-cotainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.schedule-details {
+  flex: 1;
+  max-width: 400px;
+  min-width: 250px;
+  margin-bottom: 50px;
+}
+
+.review-section {
+  flex: 1;
+  max-width: 400px;
+  min-width: 250px;
+}
+
+.review-section .content-box {
+  max-height: unset;
+  height: 100%;
+}
+
 .hr {
   width: 80%!important;
 }
@@ -66,6 +89,10 @@
   margin: 30px 0;
 }
 
+.schedule-section {
+  padding: 30px;
+}
+
 .schedule-section .col-md-4 {
   text-align: center;
 }
@@ -82,6 +109,24 @@
 p {
   font-size: 1.1rem;
   font-family: "Open Sans Condensed", sans-serif;
+}
+
+.direction {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.direction .direction-details {
+  flex: 1;
+  min-width: 200px;
+  max-width: 400px;
+}
+
+.direction .map {
+  flex: 1;
+  min-width: 300px;
+  max-width: 600px;
+  margin: 30px 0;
 }
 
 .review-title {
@@ -118,8 +163,6 @@ p {
   margin: 0 auto;
   width: 300px!important;
   height: auto;
-  position: relative;
-  top: -100px;
 }
 
 .order-review p {
@@ -139,8 +182,8 @@ p {
 .backdrop {
   margin: 0 auto;
   text-align: center;
-  margin-top: 5vh;
-  margin-bottom: 40vh;
+  /* margin-top: 5vh;
+  margin-bottom: 40vh; */
 }
 
 .spinner {
