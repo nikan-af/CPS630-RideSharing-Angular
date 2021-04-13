@@ -1,10 +1,11 @@
-import { Component, Input, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, Input, ElementRef, Output, EventEmitter, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ModalService } from '../shared/modal.service';
 import { Router } from '@angular/router';
 import { DataService } from '../shared/data.service'
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../shared/interfaces';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -12,14 +13,21 @@ import { User } from '../shared/interfaces';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+
+
+  keepMeLoggedIn = false;
 
   @Input() content: ElementRef;
 
   // Once the user logs in emits the event to the parent component.
   @Output() userStatus: EventEmitter<any> = new EventEmitter();
 
-  constructor(private dataService: DataService, private toastr: ToastrService, private modalService: ModalService) {
+  constructor(private dataService: DataService, private toastr: ToastrService, private modalService: ModalService, private cookieService: CookieService) {
+  }
+
+  ngOnInit() {
+    console.log('here');
   }
 
   tempUser: User = {
@@ -82,7 +90,8 @@ export class LoginComponent {
         Once the user logs in we set all the behavior subjects set on user, paymentinfo, orders and favorites to inform other components that 
         the user has logged and we then fetch the data for paymentInfo, favorites and orders using the if of the user.
       */
-      this.dataService.userlogin(this.tempUser.Email, this.tempUser.Password).subscribe(
+     console.log(this.keepMeLoggedIn);
+      this.dataService.userlogin(this.tempUser.Email, this.tempUser.Password, this.keepMeLoggedIn).subscribe(
         response => {
           this.dataService.userBehaviorSubject.next(
             {
@@ -97,6 +106,12 @@ export class LoginComponent {
               isAdmin: response['records'][0].isAdmin
             }
           );
+
+          if (this.keepMeLoggedIn) {
+            const dateNow = new Date();
+            dateNow.setMinutes(dateNow.getMinutes() + 10);
+            this.cookieService.set('rememberme', response['records'][0].cookie, dateNow);
+          }
           // this.dataService.getPaymentInfo(response['records'][0].userId).subscribe(
           //   success => {
           //     this.dataService.paymentInfoBehaviourService.next(success[0]);

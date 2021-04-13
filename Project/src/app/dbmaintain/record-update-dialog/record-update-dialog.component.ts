@@ -108,6 +108,8 @@ export class RecordUpdateDialogComponent {
             this.tempData.formData['CityCode'] = success['records'][0]['CityCode'];
             this.tempData.formData['Balance'] = success['records'][0]['Balance'];
             this.tempData.formData['isAdmin'] = success['records'][0]['isAdmin'];
+            this.tempData.formData['Salt'] = success['records'][0]['Salt'];
+            this.tempData.formData['Token'] = success['records'][0]['Token'];
           },
           fail => {
             console.log(fail);

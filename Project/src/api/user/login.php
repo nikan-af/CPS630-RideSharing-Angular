@@ -16,6 +16,7 @@
     
     $enteredPassword = $request->password;
     $user->Email = $request->email;
+    $keep_logged_in = $request->keep_logged_in;
 
     $stmt = $user->readUserByEmail();
     $num = $stmt->rowCount();
@@ -27,13 +28,23 @@
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             extract($row);
 
-
-            if (!password_verify($enteredPassword.$Salt, $Password)) {
+            $hash = crypt($enteredPassword, $Salt);
+            if ($hash !== $Password) {
                 http_response_code(403);
                 echo json_encode("No users found.");
                 exit(0);
             }
-      
+
+            $token = generateRandomToken();
+            $cookie = $Email . ':' . $token;
+            $mac = hash_hmac('sha256', $cookie, $Salt);
+            $cookie .= ':' . $mac;
+            setcookie('rememberme', $cookie);
+            if ($token) {
+                $user->Token = $token;
+                $result = $user->storeToken();
+            }
+           
             $user_item=array(
                 "UserId" => $UserId,
                 "Name" => $Name,
@@ -43,7 +54,7 @@
                 "CityCode" => $CityCode,
                 "Balance" => $Balance,
                 "isAdmin" => $isAdmin,
-                "Salt" => $Salt
+                "cookie" => $cookie
             );
       
             array_push($user_arr["records"], $user_item);
@@ -53,4 +64,8 @@
         echo json_encode($user_arr);
         exit(0);
     } 
+
+    function generateRandomToken() {
+        return md5(uniqid(rand(), true));
+    }
 ?>

@@ -31,7 +31,7 @@ export class UserMaintainComponent implements OnInit {
   };
 
   @ViewChild('paginator') paginator: MatPaginator;
-  displayedColumns: string[] = ['UserId', 'Name', 'Email', 'Address', 'CityCode', 'Tel', 'Balance', 'isAdmin', 'delete', 'update'];
+  displayedColumns: string[] = ['UserId', 'Name', 'Email', 'Address', 'CityCode', 'Tel', 'Balance', 'isAdmin', 'Salt', 'Token', 'delete', 'update'];
 
   constructor(private router: Router, private dataService: DataService, private toastr: ToastrService, private dialog: MatDialog) { }
 
@@ -97,6 +97,7 @@ export class UserMaintainComponent implements OnInit {
     this.dataService.getUsers().subscribe(success => {
       this.tblData = [];
       this.tblData = success['records'];
+      console.log(this.tblData);
       this.dataSource = new MatTableDataSource<Object>(this.tblData);
       this.dataSource.paginator = this.paginator;
     }, fail => {

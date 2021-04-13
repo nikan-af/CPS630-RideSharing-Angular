@@ -2,7 +2,7 @@ import { Injectable, Output, EventEmitter, ElementRef } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { User, Order, Trip, Car, Payment, Product, Review } from './interfaces';
 import { ReviewsComponent } from '../reviews/reviews.component';
 
@@ -60,13 +60,27 @@ export class DataService {
 
     }
 
+    public isUserAlreadyLoggedIn() {
+        console.log(this.cookieService.get('rememberme'));
+        if (this.cookieService.get('rememberme')) {
+            return this.rememberUser(this.cookieService.get('rememberme'));
+        } else {
+            return of(false);
+        }
+    }
+
     /**
      * Makes a post request to login.php end point to sign in.
      * @param email 
      * @param password 
      */
-    public userlogin(email, password) {
-        return this.httpClient.post(this.baseUrl + '/user/login.php', { 'email': email, 'password': password });
+    public userlogin(email, password, keepMeLoggedIn) {
+        return this.httpClient.post(this.baseUrl + '/user/login.php', { 'email': email, 'password': password, 'keep_logged_in': keepMeLoggedIn });
+    }
+
+    public rememberUser(cookie) {
+        console.log(cookie);
+        return this.httpClient.post(this.baseUrl + '/user/rememberUser.php', { cookie });
     }
 
     public getUsers() {
@@ -121,8 +135,8 @@ export class DataService {
             }
         );
         this.isLoggedInBehvaiourSubject.next(false);
-
-    }
+        this.cookieService.set('rememberme', '');
+    }   
 
     /**
      * Returns the cars that we have for ride services.

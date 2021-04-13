@@ -22,8 +22,8 @@
         <div *ngIf="signInForm.submitted && passwordSignIn.errors">
           <label *ngIf="passwordSignIn.errors.required" class="validation-message">This field is required.</label>
         </div>
-        <input id="remember" type="checkbox" />
-        <label for="remember" id="rlabel">Keep me Signed in</label>
+        <input id="remember" type="checkbox" name="keepMeLoggedin" [(ngModel)]="keepMeLoggedIn"/>
+        <label for="remember" id="rlabel" >Keep me Signed in</label>
         <input type="submit" class="button" name="submit" value="Sign in" />
       </form>
       <footer>

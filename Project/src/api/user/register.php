@@ -16,10 +16,9 @@
 
     if(isset($postdata) && !empty($postdata)){
         $salt = getSalt();
-        $pass = $request->Password . $salt;
         $user->Name = $request->Name;
         $user->Email = $request->Email;
-        $user->Password = password_hash($pass, PASSWORD_DEFAULT);
+        $user->Password = crypt($request->Password, $salt);
         $user->Tel = $request->Tel;
         $user->Address = $request->Address;
         $user->CityCode = $request->CityCode;

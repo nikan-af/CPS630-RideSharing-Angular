@@ -31,7 +31,9 @@ if($num>0){
             "Address" => $Address,
             "CityCode" => $CityCode,
             "Balance" => $Balance,
-            "isAdmin" => $isAdmin
+            "isAdmin" => $isAdmin,
+            "Salt" => $Salt,
+            "Token" => $Token
         );
   
         array_push($user_arr["records"], $user_item);
