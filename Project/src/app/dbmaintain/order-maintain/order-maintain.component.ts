@@ -32,14 +32,7 @@ export class OrderMaintainComponent implements OnInit {
   constructor(private dataService: DataService, private router: Router, private dialog: MatDialog, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    if (!this.dataService.tempUser.Email) {
-      this.router.navigate(['/']);
-      const dialogRef = this.dialog.open(LoginAlertComponent, {
-        width: '400px',
-        height: '150px'
-      });
-    }
-
+    this.dataService.isLoggedOut();
     this.updateRecords();
   }
 

@@ -1,13 +1,13 @@
 <div class="container-shadow"></div>
 <div class="container">
   <div class="wrap">
-    <div class="headings" *ngIf="!this.userHasSignedUp">
+    <div class="headings" *ngIf="!this.userHasSignedUp && !suspiciousActivity">
       <a id="sign-in" [ngClass]="{'active': !signUpSelected}" (click)="changeTab()"><span>Log In</span></a>
       <a id="sign-up" [ngClass]="{'active': signUpSelected}" (click)="changeTab()"><span>Sign Up</span></a>
     </div>
     <span (click)="onGoBack()" *ngIf="!userHasSignedUp && signUpSelected && displayAdditionalInfo" class="material-icons go-back">arrow_back_ios</span>
 
-    <div id="sign-in-form" *ngIf="!this.signUpSelected && !this.userHasSignedUp">
+    <div id="sign-in-form" *ngIf="!this.signUpSelected && !this.userHasSignedUp && !suspiciousActivity">
       <form #signInForm="ngForm" (ngSubmit)="signInForm.valid && onSubmit(signInForm)">
         <label for="username">Email Address</label>
         <input id="usernameSignIn" #usernameSignIn="ngModel" type="text" name="usernameSignIn"
@@ -25,6 +25,7 @@
         <input id="remember" type="checkbox" name="keepMeLoggedin" [(ngModel)]="keepMeLoggedIn"/>
         <label for="remember" id="rlabel" >Keep me Signed in</label>
         <input type="submit" class="button" name="submit" value="Sign in" />
+        <p class="error" *ngIf="remainingAttempts < 5">Invalid credentials. {{remainingAttempts}} remaining attempts.</p>
       </form>
       <footer>
         <div class="hr"></div>
@@ -99,6 +100,14 @@
             <mat-icon class="smile-icon">sentiment_satisfied_alt</mat-icon>
           </span></h3>
         <h3>You need to confirm your email to be able to login.</h3>
+      </div>
+    </div>
+
+    <div class="suspicious-activity" *ngIf="suspiciousActivity">
+      <div class="container-fluid">
+        <img src="../../assets/icons/001-hacker.png" alt="Suspicious Activity">
+        <h3>Hi there, we have noticed suspicious activity with your account.</h3>
+        <h3>Please contact the system admin.</h3>
       </div>
     </div>
   </div>

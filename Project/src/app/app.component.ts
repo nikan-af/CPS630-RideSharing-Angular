@@ -28,29 +28,7 @@ export class AppComponent implements OnInit {
       height: '200px'
     });
 
-    this.dataService.isUserAlreadyLoggedIn().subscribe(
-      response => {
-        this.dataService.userBehaviorSubject.next(
-          {
-            UserId: response['records'][0].UserId,
-            Email: response['records'][0].Email,
-            Name: response['records'][0].Name,
-            Password: '',
-            Tel: response['records'][0].Tel,
-            Address: response['records'][0].Address,
-            CityCode: response['records'][0].CityCode,
-            Balance: response['records'][0].Balance,
-            isAdmin: response['records'][0].isAdmin
-          }
-        );
-        this.dataService.isLoggedInBehvaiourSubject.next(true);
-        console.log(response);
-
-        const dateNow = new Date();
-        dateNow.setMinutes(dateNow.getMinutes() + 10);
-        this.cookieService.set('rememberme', response['records'][0].cookie, dateNow);
-      }
-    );
+    this.dataService.loginFromCookie();
   }
 }
 

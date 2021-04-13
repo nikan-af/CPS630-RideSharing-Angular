@@ -36,13 +36,7 @@ export class CarMaintainComponent implements OnInit {
   constructor(private router: Router, private dataService: DataService, private toastr: ToastrService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    if (!this.dataService.tempUser.Email) {
-      this.router.navigate(['/']);
-      const dialogRef = this.dialog.open(LoginAlertComponent, {
-        width: '400px',
-        height: '150px'
-      });
-    }
+    this.dataService.isLoggedOut();
     this.updateRecords();
   }
 

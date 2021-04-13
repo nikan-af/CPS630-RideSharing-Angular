@@ -117,13 +117,7 @@ export class RideServicesComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        if (!this.dataService.tempUser.Email) {
-            this.router.navigate(['/']);
-            const dialogRef = this.dialog.open(LoginAlertComponent, {
-                width: '400px',
-                height: '150px'
-            });
-        }
+        this.dataService.isLoggedOut();
         // Gets the cars from the back-end by making a get request.
         this.dataService.getCars().subscribe(
             success => {

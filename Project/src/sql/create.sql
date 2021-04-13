@@ -10,6 +10,7 @@ CREATE TABLE `cps630`.`User` (
   `isAdmin` BOOLEAN DEFAULT 0 NOT NULL,
   `Salt` VARCHAR(255) NOT NULL,
   `Token` TEXT DEFAULT NULL,
+  `Blocked` INT NOT NULL DEFAULT '0',
   PRIMARY KEY (`UserId`)
 );
 
@@ -128,4 +129,13 @@ CREATE TABLE `cps630`.`Driver` (
   `DriverPrice` VARCHAR(10) NOT NULL,
   `ImageURL` TEXT NOT NULL,
   PRIMARY KEY (`DriverId`)
+);
+
+CREATE TABLE `cps630`.`LoginAttempt` (
+  `LoginAttemptId` INT NOT NULL AUTO_INCREMENT,
+  `Email` VARCHAR(255) NOT NULL,
+  `IPAddress` VARCHAR(255) NOT NULL,
+  `InvalidCreds` INT NOT NULL,
+  `Timestamp` TIMESTAMP NOT NULL,
+  PRIMARY KEY (`LoginAttemptId`)
 );

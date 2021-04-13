@@ -91,14 +91,7 @@ export class DeliveryServices implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        if (!this.dataService.tempUser.Email) {
-            this.router.navigate(['/']);
-            const dialogRef = this.dialog.open(LoginAlertComponent, {
-                width: '400px',
-                height: '150px'
-            });
-        }
-
+        this.dataService.isLoggedOut();
         this.dataService.getCoffees().subscribe(
             success => {
                 console.log(success['records']);

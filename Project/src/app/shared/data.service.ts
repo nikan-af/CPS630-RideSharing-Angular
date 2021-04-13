@@ -5,6 +5,9 @@ import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject, of } from 'rxjs';
 import { User, Order, Trip, Car, Payment, Product, Review } from './interfaces';
 import { ReviewsComponent } from '../reviews/reviews.component';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginAlertComponent } from '../login-alert/login-alert.component';
 
 @Injectable()
 export class DataService {
@@ -28,12 +31,15 @@ export class DataService {
         Address: '',
         CityCode: '',
         Balance: 0,
-        isAdmin: 0
+        isAdmin: 0,
+        Blocked: 0
     };
- 
+
+    loggedOut = false;
+
     baseUrl: string = "http://localhost:8080/api";
     @Output() getLoggedInName: EventEmitter<any> = new EventEmitter();
-    constructor(private httpClient: HttpClient, private cookieService: CookieService) { 
+    constructor(private httpClient: HttpClient, private cookieService: CookieService, private router: Router, private dialog: MatDialog) {
         // These are the behavour subjects used in different components to notify other components when the user logs in and data is retrieved from the backend.
         this.cartItemsBehaviourSubject = new BehaviorSubject<any>(this.orders);
         this.isLoggedInBehvaiourSubject = new BehaviorSubject<any>(this.loggedIn);
@@ -57,13 +63,88 @@ export class DataService {
             }
         );
 
+    }
 
+    public loginFromCookie() {
+        console.log(this.tempUser.Email);
+        if (this.tempUser.Email === '') {
+            console.log('here');
+            this.isUserAlreadyLoggedIn().subscribe(
+                response => {
+                    console.log(response);
+                    if (response && response['records']) {
+                        this.userBehaviorSubject.next(
+                            {
+                                UserId: response['records'][0].UserId,
+                                Email: response['records'][0].Email,
+                                Name: response['records'][0].Name,
+                                Password: '',
+                                Tel: response['records'][0].Tel,
+                                Address: response['records'][0].Address,
+                                CityCode: response['records'][0].CityCode,
+                                Balance: response['records'][0].Balance,
+                                isAdmin: response['records'][0].isAdmin,
+                                Blocked: response['records'][0].Blocked
+                            }
+                        );
+
+                        this.tempUser = {
+                            UserId: response['records'][0].UserId,
+                            Email: response['records'][0].Email,
+                            Name: response['records'][0].Name,
+                            Password: '',
+                            Tel: response['records'][0].Tel,
+                            Address: response['records'][0].Address,
+                            CityCode: response['records'][0].CityCode,
+                            Balance: response['records'][0].Balance,
+                            isAdmin: response['records'][0].isAdmin,
+                            Blocked: response['records'][0].Blocked
+                        };
+
+                        this.isLoggedInBehvaiourSubject.next(true);
+                        console.log(response);
+
+                        const dateNow = new Date();
+                        dateNow.setMinutes(dateNow.getMinutes() + 10);
+                        this.cookieService.set('rememberme', response['records'][0].cookie, dateNow, '/');
+                        this.loggedOut = false;
+                    } else {
+                        if (!this.tempUser.Email) {
+                            this.loggedOut = true;
+                            this.router.navigate(['/']);
+                            this.dialog.closeAll();
+                            const dialogRef = this.dialog.open(LoginAlertComponent, {
+                                width: '400px',
+                                height: '150px'
+                            });
+                        }
+                    }
+                });
+        }
+
+
+    }
+
+    isUserLoggedIn() {
+        if (this.tempUser.Email !== '') {
+            return true;
+        }
+
+        console.log('here');
+
+        this.router.navigate(['/']);
+        const dialogRef = this.dialog.open(LoginAlertComponent, {
+            width: '400px',
+            height: '150px'
+        });
     }
 
     public isUserAlreadyLoggedIn() {
         console.log(this.cookieService.get('rememberme'));
-        if (this.cookieService.get('rememberme')) {
-            return this.rememberUser(this.cookieService.get('rememberme'));
+        let rememberMe = this.cookieService.get('rememberme');
+        if (rememberMe) {
+            this.cookieService.deleteAll('rememberme');
+            return this.rememberUser(rememberMe);
         } else {
             return of(false);
         }
@@ -75,11 +156,11 @@ export class DataService {
      * @param password 
      */
     public userlogin(email, password, keepMeLoggedIn) {
+        this.loggedOut = false;
         return this.httpClient.post(this.baseUrl + '/user/login.php', { 'email': email, 'password': password, 'keep_logged_in': keepMeLoggedIn });
     }
 
     public rememberUser(cookie) {
-        console.log(cookie);
         return this.httpClient.post(this.baseUrl + '/user/rememberUser.php', { cookie });
     }
 
@@ -88,12 +169,12 @@ export class DataService {
     }
 
     public deleteUser(UserId) {
-        return this.httpClient.post(this.baseUrl + '/user/delete.php', {UserId});
+        return this.httpClient.post(this.baseUrl + '/user/delete.php', { UserId });
     }
 
     public updateUser(data) {
-        console.log({...data});
-        return this.httpClient.post(this.baseUrl + '/user/update.php', {...data});
+        console.log({ ...data });
+        return this.httpClient.post(this.baseUrl + '/user/update.php', { ...data });
     }
 
     public getUserByUserId(UserId) {
@@ -105,8 +186,8 @@ export class DataService {
      * @param param0 
      */
     registerUser(user) {
-        console.log({'Name': user.Name, 'Email': user.Email, 'Password': user.Password, 'Tel': user.Tel, 'Address': user.Address, 'CityCode': user.CityCode, 'isAdmin': user.isAdmin ? user.isAdmin : '0', 'Balance': user.Balance ? user.Balance : 0})
-        return this.httpClient.post(this.baseUrl + '/user/register.php', {'Name': user.Name, 'Email': user.Email, 'Password': user.Password, 'Tel': user.Tel, 'Address': user.Address, 'CityCode': user.CityCode, 'isAdmin': user.isAdmin ? user.isAdmin : '0', 'Balance': user.Balance ? user.Balance : 0});
+        console.log({ 'Name': user.Name, 'Email': user.Email, 'Password': user.Password, 'Tel': user.Tel, 'Address': user.Address, 'CityCode': user.CityCode, 'isAdmin': user.isAdmin ? user.isAdmin : '0', 'Balance': user.Balance ? user.Balance : 0 })
+        return this.httpClient.post(this.baseUrl + '/user/register.php', { 'Name': user.Name, 'Email': user.Email, 'Password': user.Password, 'Tel': user.Tel, 'Address': user.Address, 'CityCode': user.CityCode, 'isAdmin': user.isAdmin ? user.isAdmin : '0', 'Balance': user.Balance ? user.Balance : 0 });
     }
 
     getCoffees() {
@@ -131,12 +212,26 @@ export class DataService {
                 Address: '',
                 CityCode: '',
                 Balance: 0,
-                isAdmin: 0
+                isAdmin: 0,
+                Blocked: 0
             }
         );
         this.isLoggedInBehvaiourSubject.next(false);
         this.cookieService.set('rememberme', '');
-    }   
+        this.router.navigate(['/']);
+        this.loggedOut = true;
+    }
+
+    isLoggedOut() {
+        console.log(this.loggedOut);
+        if (this.loggedOut) {
+            this.router.navigate(['/']);
+            const dialogRef = this.dialog.open(LoginAlertComponent, {
+                width: '400px',
+                height: '150px'
+            });
+        }
+    }
 
     /**
      * Returns the cars that we have for ride services.
@@ -158,7 +253,7 @@ export class DataService {
     }
 
     updateCartListFromLocal() {
-        this.cartItems  = this.getCartItems();
+        this.cartItems = this.getCartItems();
     }
 
     /**
@@ -181,7 +276,7 @@ export class DataService {
             localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
             return true;
         }
-        
+
         return false;
     }
 
@@ -220,7 +315,7 @@ export class DataService {
      */
     sendInquiryForm(formData) {
         console.log(formData);
-        return this.httpClient.post(this.baseUrl + '/inquiry/create.php', {FName: formData.first_name, LName: formData.last_name, Email: formData.email, TypeOfInquiry: formData.type_of_inquiry, Message: formData.message});
+        return this.httpClient.post(this.baseUrl + '/inquiry/create.php', { FName: formData.first_name, LName: formData.last_name, Email: formData.email, TypeOfInquiry: formData.type_of_inquiry, Message: formData.message });
     }
 
     getInquiries() {
@@ -237,7 +332,7 @@ export class DataService {
      * @param userId 
      */
     getPaymentInfo(userId) {
-        return this.httpClient.post(this.baseUrl + '/getPaymentInfo.php', { "userId":userId });
+        return this.httpClient.post(this.baseUrl + '/getPaymentInfo.php', { "userId": userId });
     }
 
     // /**
@@ -249,26 +344,28 @@ export class DataService {
     // }
 
     createCar(car) {
-        return this.httpClient.post(this.baseUrl + '/car/create.php', {CarId: car.CarId, CarCode: car.CarCode, CarModel: car.CarModel, CarColour: car.CarColour, AvailabilityCode: car.AvailabilityCode, ImageURL: car.ImageURL, CarPrice: car.CarPrice})
+        return this.httpClient.post(this.baseUrl + '/car/create.php', { CarId: car.CarId, CarCode: car.CarCode, CarModel: car.CarModel, CarColour: car.CarColour, AvailabilityCode: car.AvailabilityCode, ImageURL: car.ImageURL, CarPrice: car.CarPrice })
     }
 
     deleteCar(CarId) {
-        return this.httpClient.post(this.baseUrl + '/car/delete.php', {CarId: CarId});
+        return this.httpClient.post(this.baseUrl + '/car/delete.php', { CarId: CarId });
     }
 
     createOrderPayment(data) {
         console.log(data);
         let orderTotal = 0;
 
-        let payment: Payment = {PaymentId: 0, CardHolder: data.payment.credit_card_holder, CardHolderFirstName: data.payment.credit_card_first_name
+        let payment: Payment = {
+            PaymentId: 0, CardHolder: data.payment.credit_card_holder, CardHolderFirstName: data.payment.credit_card_first_name
             , CardHolderLastName: data.payment.credit_card_last_name, CardNumber: data.payment.credit_card_number, ExpiryYear: data.payment.expiry_year,
             ExpiryMonth: data.payment.expiry_month, CardAddressLine1: data.payment.credit_card_address_line_1, CardAddressLine2: data.payment.credit_card_address_line_2,
-            City: data.payment.city, Country: data.payment.country, PostalCode: data.payment.postal_code, StateOrProvince: data.payment.province};
+            City: data.payment.city, Country: data.payment.country, PostalCode: data.payment.postal_code, StateOrProvince: data.payment.province
+        };
 
         let trips: Trip[] = [];
 
         let products: Product[] = [];
-        
+
         data.order.forEach((order, index) => {
             orderTotal += parseFloat(order.OrderTotal);
             orderTotal += order.DeliveryFee ? parseFloat(order.DeliveryFee) : 0;
@@ -286,7 +383,7 @@ export class DataService {
                 EndLocationLat: order.EndLocationLat,
                 EndLocationLng: order.EndLocationLng,
             }
-            
+
 
             if (order.OrderType === 'delivery') {
                 products.push(...order.Products);
@@ -302,7 +399,7 @@ export class DataService {
             Total: orderTotal
         };
 
-        console.log({Payment: payment, Trips: trips, Order: order, Products: products});
+        console.log({ Payment: payment, Trips: trips, Order: order, Products: products });
         return this.httpClient.post(this.baseUrl + '/order/createOrderPayment.php', { Payment: payment, Trips: trips, Order: order, Products: products });
     }
 
@@ -323,7 +420,7 @@ export class DataService {
     }
 
     deleteReview(ReviewId) {
-        return this.httpClient.post(this.baseUrl + '/review/delete.php', {ReviewId});
+        return this.httpClient.post(this.baseUrl + '/review/delete.php', { ReviewId });
     }
 
     getDrivers() {
@@ -348,26 +445,26 @@ export class DataService {
 
     addProduct(product, storeName) {
         if (storeName === 'Flower') {
-            return this.httpClient.post(this.baseUrl + '/flower/create.php', {...product});
+            return this.httpClient.post(this.baseUrl + '/flower/create.php', { ...product });
         } else if (storeName === 'Coffee') {
-            return this.httpClient.post(this.baseUrl + '/coffee/create.php', {...product});
+            return this.httpClient.post(this.baseUrl + '/coffee/create.php', { ...product });
         }
     }
 
     updateProduct(product, storeName) {
         console.log(product, storeName);
         if (storeName === 'Flower') {
-            return this.httpClient.post(this.baseUrl + '/flower/update.php', {...product});
+            return this.httpClient.post(this.baseUrl + '/flower/update.php', { ...product });
         } else if (storeName === 'Coffee') {
-            return this.httpClient.post(this.baseUrl + '/coffee/update.php', {...product});
+            return this.httpClient.post(this.baseUrl + '/coffee/update.php', { ...product });
         }
     }
 
     deleteProduct(product, storeName) {
         if (storeName === 'Flower') {
-            return this.httpClient.post(this.baseUrl + '/flower/delete.php', {...product});
+            return this.httpClient.post(this.baseUrl + '/flower/delete.php', { ...product });
         } else if (storeName === 'Coffee') {
-            return this.httpClient.post(this.baseUrl + '/coffee/delete.php', {...product});
+            return this.httpClient.post(this.baseUrl + '/coffee/delete.php', { ...product });
         }
     }
 
@@ -383,7 +480,7 @@ export class DataService {
         return this.httpClient.post(this.baseUrl + '/order/readOne.php', { OrderId });
     }
 
-    createOrder(OrderObj: {OrderId: number, UserId: number, OrderTotal: string, Timestamp: string }) {
+    createOrder(OrderObj: { OrderId: number, UserId: number, OrderTotal: string, Timestamp: string }) {
         return this.httpClient.post(this.baseUrl + '/order/create.php', { ...OrderObj });
     }
 

@@ -31,13 +31,8 @@ export class ReviewsMaintainComponent implements OnInit {
   constructor(private dataService: DataService, private toastr: ToastrService, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    if (!this.dataService.tempUser.Email) {
-      this.router.navigate(['/']);
-      const dialogRef = this.dialog.open(LoginAlertComponent, {
-        width: '400px',
-        height: '150px'
-      });
-    }
+    this.dataService.isLoggedOut();
+
     this.dataService.getReviews().subscribe(
       success => {
         this.reviews = success['records'];

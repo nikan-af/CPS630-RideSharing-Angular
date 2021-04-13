@@ -17,6 +17,8 @@ export class LoginComponent implements OnInit {
 
 
   keepMeLoggedIn = false;
+  suspiciousActivity = false;
+  remainingAttempts = 5;
 
   @Input() content: ElementRef;
 
@@ -39,7 +41,8 @@ export class LoginComponent implements OnInit {
     Address: '',
     CityCode: '',
     Balance: 0,
-    isAdmin: 0
+    isAdmin: 0,
+    Blocked: 0
   };
 
   signUpSelected = false;
@@ -103,7 +106,8 @@ export class LoginComponent implements OnInit {
               Address: response['records'][0].Address,
               CityCode: response['records'][0].CityCode,
               Balance: response['records'][0].Balance,
-              isAdmin: response['records'][0].isAdmin
+              isAdmin: response['records'][0].isAdmin,
+              Blocked: response['records'][0].Blocked
             }
           );
 
@@ -133,6 +137,13 @@ export class LoginComponent implements OnInit {
           this.toastr.success("Hello " + response['records'][0].Name + ", you are logged in!");
         },
         fail => {
+          if (fail.error.message === 'Locked') {
+            console.log('here');
+            this.suspiciousActivity = true;
+          } else if (fail.error.remainingAttempts) {
+            this.remainingAttempts = fail.error.remainingAttempts;
+            console.log(fail.error.remainingAttempts);
+          }
           console.log(fail);
         }
       );

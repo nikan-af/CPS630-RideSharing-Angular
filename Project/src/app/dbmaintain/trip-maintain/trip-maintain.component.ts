@@ -7,6 +7,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { RecordUpdateDialogComponent } from '../record-update-dialog/record-update-dialog.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-trip-maintain',
@@ -37,17 +38,10 @@ export class TripMaintainComponent implements OnInit {
   @ViewChild('paginator') paginator: MatPaginator;
   displayedColumns: string[] = ['TripId', 'OrderId', 'Distance', 'Duration', 'StartAddress', 'EndAddress', 'StartLocationLat', 'StartLocationLng', 'EndLocationLat', 'EndLocationLng', 'CarId', 'DriverId', 'delete', 'update'];
 
-  constructor(private dataService: DataService, private router: Router, private dialog: MatDialog, private toastr: ToastrService) { }
+  constructor(private dataService: DataService, private router: Router, private dialog: MatDialog, private toastr: ToastrService, private cookieSevice: CookieService) { }
 
   ngOnInit(): void {
-    if (!this.dataService.tempUser.Email) {
-      this.router.navigate(['/']);
-      const dialogRef = this.dialog.open(LoginAlertComponent, {
-        width: '400px',
-        height: '150px'
-      });
-    }
-
+    this.dataService.isLoggedOut();    
     this.updateRecords();
   }
 

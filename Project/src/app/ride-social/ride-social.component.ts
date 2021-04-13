@@ -33,14 +33,7 @@ export class RideSocialComponent implements OnInit {
   constructor(private dialog: MatDialog, private router: Router, private dataService: DataService) { }
 
   ngOnInit(): void {
-    if (!this.dataService.tempUser.Email) {
-      this.router.navigate(['/']);
-      const dialogRef = this.dialog.open(LoginAlertComponent, {
-        width: '400px',
-        height: '150px'
-      });
-    }
-
+    this.dataService.isLoggedOut();
     this.dataService.getDrivers().subscribe(
       data => {
         this.drivers = data['records'];

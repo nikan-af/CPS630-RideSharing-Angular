@@ -10,6 +10,7 @@ export interface User {
     CityCode: string;
     Balance: number;
     isAdmin: number;
+    Blocked: number;
 }
 
 export interface Driver {

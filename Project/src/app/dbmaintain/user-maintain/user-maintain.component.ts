@@ -27,15 +27,17 @@ export class UserMaintainComponent implements OnInit {
     isAdmin: 0,
     Address: '',
     CityCode: '',
-    Tel: ''
+    Tel: '',
+    Blocked: 0
   };
 
   @ViewChild('paginator') paginator: MatPaginator;
-  displayedColumns: string[] = ['UserId', 'Name', 'Email', 'Address', 'CityCode', 'Tel', 'Balance', 'isAdmin', 'Salt', 'Token', 'delete', 'update'];
+  displayedColumns: string[] = ['UserId', 'Name', 'Email', 'Address', 'CityCode', 'Tel', 'Balance', 'isAdmin', 'Salt', 'Token', 'Blocked', 'delete', 'update'];
 
   constructor(private router: Router, private dataService: DataService, private toastr: ToastrService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.dataService.isLoggedOut();
     this.updateRecords();
   }
 
@@ -85,9 +87,10 @@ export class UserMaintainComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result === 'success') {
+      if (result.message === 'success') {
         this.toastrSuccess('update');
-      } else if (result === 'fail') {
+        this.updateRecords();
+      } else if (result.message === 'fail') {
         this.toastrFail('update');
       }
     });
