@@ -32,11 +32,7 @@ if ($cookie) {
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 extract($row);
 
-                // print_r($Email);
-                // print_r(hash_hmac('sha256', $email . ':' . $token, $Salt) . '<br>');
-                // print_r($mac);
-
-                if (hash_hmac('sha256', $email . ':' . $token, $Salt) !== $mac) {
+                if (hash_hmac('sha256', $Email . ':' . $Token, $Salt) !== $mac) {
                     return false;
                 }
 

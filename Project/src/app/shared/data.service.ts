@@ -112,7 +112,6 @@ export class DataService {
                         if (!this.tempUser.Email) {
                             this.loggedOut = true;
                             this.router.navigate(['/']);
-                            this.dialog.closeAll();
                             const dialogRef = this.dialog.open(LoginAlertComponent, {
                                 width: '400px',
                                 height: '150px'
@@ -166,6 +165,15 @@ export class DataService {
 
     public getUsers() {
         return this.httpClient.get(this.baseUrl + '/user/readAll.php');
+    }
+
+    public getLoginAttempts() {
+        return this.httpClient.get(this.baseUrl + '/login-attempt/readAll.php');
+    }
+
+    public deleteLoginAttempt(LoginAttemptId) {
+        console.log(LoginAttemptId);
+        return this.httpClient.post(this.baseUrl + '/login-attempt/delete.php', { LoginAttemptId });
     }
 
     public deleteUser(UserId) {

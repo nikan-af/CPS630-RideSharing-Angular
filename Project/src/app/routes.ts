@@ -20,6 +20,7 @@ import { PaymentMaintainComponent } from './dbmaintain/payment-maintain/payment-
 import { TripMaintainComponent } from './dbmaintain/trip-maintain/trip-maintain.component';
 import { InquiryMaintainComponent } from './dbmaintain/inquiry-maintain/inquiry-maintain.component';
 import { DriverMaintainComponent } from './dbmaintain/driver-maintain/driver-maintain.component';
+import { LoginAttemptMaintainComponent } from './dbmaintain/login-attempt-maintain/login-attempt-maintain.component';
 
 /* All the url routes in our website and the corresponding components  */
 
@@ -33,6 +34,7 @@ export const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'orders', component: OrdersComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'dbMaintain/loginattempt-maintain', component: LoginAttemptMaintainComponent },
   { path: 'dbMaintain/driver-maintain', component: DriverMaintainComponent },
   { path: 'dbMaintain/inquiry-maintain', component: InquiryMaintainComponent },
   { path: 'dbMaintain/trip-maintain', component: TripMaintainComponent },

@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   keepMeLoggedIn = false;
   suspiciousActivity = false;
   remainingAttempts = 5;
+  emailExists = false;
 
   @Input() content: ElementRef;
 
@@ -85,6 +86,9 @@ export class LoginComponent implements OnInit {
           this.dataService.isLoggedInBehvaiourSubject.next(false);
         },
         fail => {
+          if (fail.error.message === 'Email already exists') {
+            this.emailExists = true;
+          }
           console.log(fail);
         }
       );
@@ -138,13 +142,10 @@ export class LoginComponent implements OnInit {
         },
         fail => {
           if (fail.error.message === 'Locked') {
-            console.log('here');
             this.suspiciousActivity = true;
           } else if (fail.error.remainingAttempts) {
             this.remainingAttempts = fail.error.remainingAttempts;
-            console.log(fail.error.remainingAttempts);
           }
-          console.log(fail);
         }
       );
     }

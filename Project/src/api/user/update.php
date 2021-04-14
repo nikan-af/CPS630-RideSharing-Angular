@@ -23,6 +23,7 @@
         $user->CityCode = $request->CityCode;
         $user->Balance = $request->Balance;
         $user->isAdmin = $request->isAdmin;
+        $user->Blocked = $request->Blocked;
 
         if ($response = $user->update()) {
             http_response_code(200);

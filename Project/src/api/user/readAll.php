@@ -33,7 +33,8 @@ if($num>0){
             "Balance" => $Balance,
             "isAdmin" => $isAdmin,
             "Salt" => $Salt,
-            "Token" => $Token
+            "Token" => $Token,
+            "Blocked" => $Blocked
         );
   
         array_push($user_arr["records"], $user_item);

@@ -89,6 +89,8 @@
 
         <input class="button" value="Next" *ngIf="!displayAdditionalInfo"  (click)="onNext()"/>
         <input class="button" name="submit" value="Register" *ngIf="displayAdditionalInfo" type="submit" />
+
+        <p class="error" *ngIf="emailExists">Email address already exists.</p>
       </form>
     </div>
 

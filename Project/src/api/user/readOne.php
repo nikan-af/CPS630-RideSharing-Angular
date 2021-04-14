@@ -29,6 +29,12 @@ if (isset($postdata) && !empty($postdata)) {
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
 
+            if ($Blocked == '0') {
+                $Blocked = false;
+            } else {
+                $Blocked = true;
+            }
+
             $user_item = array(
                 "UserId" => $UserId,
                 "Name" => $Name,
@@ -37,7 +43,8 @@ if (isset($postdata) && !empty($postdata)) {
                 "Address" => $Address,
                 "CityCode" => $CityCode,
                 "Balance" => $Balance,
-                "isAdmin" => $isAdmin
+                "isAdmin" => $isAdmin,
+                "Blocked" => $Blocked
             );
 
             array_push($user_arr["records"], $user_item);

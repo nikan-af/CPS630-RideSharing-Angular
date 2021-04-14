@@ -14,6 +14,7 @@ class User {
     public $Balance;
     public $Salt;
     public $Token;
+    public $Blocked;
 
     public function __construct($db) {
         $this->conn = $db;
@@ -54,7 +55,7 @@ class User {
     }
 
     public function update() {
-        $query = "Update $this->tblName SET Name='$this->Name', Tel='$this->Tel', Email='$this->Email', Address='$this->Address', CityCode='$this->CityCode', Balance=$this->Balance, isAdmin='$this->isAdmin' WHERE UserId=$this->UserId";
+        $query = "Update $this->tblName SET Name='$this->Name', Tel='$this->Tel', Email='$this->Email', Address='$this->Address', CityCode='$this->CityCode', Balance=$this->Balance, isAdmin='$this->isAdmin', Blocked='$this->Blocked' WHERE UserId=$this->UserId";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
@@ -97,6 +98,24 @@ class User {
 
     public function getSaltToken() {
         $query = "Select Salt, Token from cps630.$this->tblName WHERE Email='$this->Email'";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    public function lockUser() {
+        $query = "Update cps630.$this->tblName SET Blocked='1' WHERE Email='$this->Email'";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    public function unlockUser() {
+        $query = "Update cps630.$this->tblName SET Blocked='0' WHERE Email='$this->Email'";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();

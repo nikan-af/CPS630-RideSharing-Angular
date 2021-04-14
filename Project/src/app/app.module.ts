@@ -64,6 +64,7 @@ import { InquiryMaintainComponent } from './dbmaintain/inquiry-maintain/inquiry-
 import { MessageReplyComponent } from './dbmaintain/inquiry-maintain/message-reply/message-reply.component';
 import { DriverMaintainComponent } from './dbmaintain/driver-maintain/driver-maintain.component';
 import { DriverDialogComponent } from './dbmaintain/driver-maintain/driver-dialog/driver-dialog.component';
+import { LoginAttemptMaintainComponent } from './dbmaintain/login-attempt-maintain/login-attempt-maintain.component';
 
 @NgModule({
   declarations: [
@@ -104,7 +105,8 @@ import { DriverDialogComponent } from './dbmaintain/driver-maintain/driver-dialo
     InquiryMaintainComponent,
     MessageReplyComponent,
     DriverMaintainComponent,
-    DriverDialogComponent
+    DriverDialogComponent,
+    LoginAttemptMaintainComponent
   ],
   imports: [
     BrowserModule,

@@ -25,14 +25,23 @@
         $user->Balance = $request->Balance;
         $user->isAdmin = $request->isAdmin;
         $user->Salt = $salt;
-        
 
+        if ($stmt = $user->readUserByEmail()) {
+            if ($stmt->rowCount() > 0) {
+                http_response_code(400);
+                echo json_encode(array("message" => "Email already exists"));
+                exit(0);
+            }
+        }
+        
         if ($response = $user->register()) {
             http_response_code(200);
             echo json_encode(array("message" => "User was created."));
+            exit(1);
         } else {
             http_response_code(400);
             echo json_encode(array("message" => "User was not created."));
+            exit(0);
         }
     }
 
