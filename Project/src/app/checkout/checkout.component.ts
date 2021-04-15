@@ -254,6 +254,8 @@ export class CheckoutComponent implements OnInit {
         formValues['userId'] = this.user.UserId;
         formValues['products'] = this.cartItems;
 
+        formValues['credit_card_number'] = this.maskCreditCardNumber(formValues['credit_card_number']);
+
         /*
           Once the request succeeds reset the form and show success message.
         */
@@ -277,6 +279,12 @@ export class CheckoutComponent implements OnInit {
       //   this.resetCheckoutForm();
       // }
     }
+  }
+
+  maskCreditCardNumber(creditCardNumber) {
+    let maskedValue = creditCardNumber.replace(/\d(?=\d{4})/g, "*");
+    console.log(maskedValue);
+    return maskedValue;
   }
 
   // Gets called when the user selects one of the place suggestions provided and we use the information to fill out other form fields.
